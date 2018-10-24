@@ -7,6 +7,9 @@ namespace View
 {
     static class Program
     {
+        /// <summary>
+        /// 
+        /// </summary>
         static void Main()
         {
             Application.EnableVisualStyles();
