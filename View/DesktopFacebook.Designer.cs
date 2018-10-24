@@ -35,7 +35,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.m_PostTextBox = new System.Windows.Forms.TextBox();
             this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBox_ProfilePicture)).BeginInit();
             this.SuspendLayout();
@@ -55,8 +55,9 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(94, 36);
             this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
+            this.button1.Text = "Log Out";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -103,12 +104,16 @@
             this.button6.Text = "button1";
             this.button6.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // m_PostTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(195, 397);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(477, 26);
-            this.textBox1.TabIndex = 2;
+            this.m_PostTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.m_PostTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.m_PostTextBox.Location = new System.Drawing.Point(195, 397);
+            this.m_PostTextBox.Name = "m_PostTextBox";
+            this.m_PostTextBox.Size = new System.Drawing.Size(477, 26);
+            this.m_PostTextBox.TabIndex = 2;
+            this.m_PostTextBox.Text = "Anything on your mind?";
+            this.m_PostTextBox.Click += new System.EventHandler(this.TextBox_click);
             // 
             // button7
             // 
@@ -116,7 +121,7 @@
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(94, 36);
             this.button7.TabIndex = 1;
-            this.button7.Text = "button1";
+            this.button7.Text = "Post";
             this.button7.UseVisualStyleBackColor = true;
             // 
             // DesktopFacebook
@@ -124,7 +129,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(959, 568);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.m_PostTextBox);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button7);
@@ -133,6 +138,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.m_PictureBox_ProfilePicture);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "DesktopFacebook";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Form1";
@@ -152,7 +158,7 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox m_PostTextBox;
         private System.Windows.Forms.Button button7;
     }
 }

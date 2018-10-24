@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using FacebookWrapper;
 using Model;
 
 
@@ -27,6 +28,17 @@ namespace View
         {
             m_AppControl.LogIn();
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FacebookService.Logout(null);
+        }
+
+        private void TextBox_click(object sender, EventArgs e)
+        {
+            m_PostTextBox.Text = string.Empty;
+            m_PostTextBox.BackColor = Color.White;
         }
     }
 }
