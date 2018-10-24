@@ -5,16 +5,14 @@ using System.Windows.Forms;
 
 namespace View
 {
-    static class Program
+    public static class Program
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        static void Main()
+        [STAThread]
+        public static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new DesktopFacebook());
         }
     }
 }
