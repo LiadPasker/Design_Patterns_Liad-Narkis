@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.m_PictureBox_ProfilePicture = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.m_Button_LogOut = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -44,20 +44,20 @@
             // 
             this.m_PictureBox_ProfilePicture.Location = new System.Drawing.Point(195, 109);
             this.m_PictureBox_ProfilePicture.Name = "m_PictureBox_ProfilePicture";
-            this.m_PictureBox_ProfilePicture.Size = new System.Drawing.Size(236, 264);
+            this.m_PictureBox_ProfilePicture.Size = new System.Drawing.Size(252, 264);
             this.m_PictureBox_ProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.m_PictureBox_ProfilePicture.TabIndex = 0;
             this.m_PictureBox_ProfilePicture.TabStop = false;
             // 
-            // button1
+            // m_Button_LogOut
             // 
-            this.button1.Location = new System.Drawing.Point(524, 128);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 36);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Log Out";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.m_Button_LogOut.Location = new System.Drawing.Point(499, 109);
+            this.m_Button_LogOut.Name = "m_Button_LogOut";
+            this.m_Button_LogOut.Size = new System.Drawing.Size(88, 88);
+            this.m_Button_LogOut.TabIndex = 1;
+            this.m_Button_LogOut.Text = "Log Out";
+            this.m_Button_LogOut.UseVisualStyleBackColor = true;
+            this.m_Button_LogOut.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -136,7 +136,7 @@
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.m_Button_LogOut);
             this.Controls.Add(this.m_PictureBox_ProfilePicture);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "DesktopFacebook";
@@ -152,7 +152,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox m_PictureBox_ProfilePicture;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button m_Button_LogOut;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;

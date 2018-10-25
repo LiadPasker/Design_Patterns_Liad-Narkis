@@ -9,7 +9,7 @@ namespace Model
 {
     public class FacebookAuthentication
     {
-        private User LoggedInUser { get; set; }
+        public User LoggedInUser { get; set; }
 
         public string Login()
         {

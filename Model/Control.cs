@@ -9,23 +9,23 @@ namespace Model
     public class Control
     {
         private DesktopFacebookSettings m_DFSetting;
-        private FacebookAuthentication m_FacebookAuth;
+        public FacebookAuthentication FacebookAuth { get; private set; }
 
         public Control()
         {
             m_DFSetting = new DesktopFacebookSettings();
-            m_FacebookAuth = new FacebookAuthentication();
+            FacebookAuth = new FacebookAuthentication();
         }
 
         public void LogIn()
         {
             if(CheckIfLoggedIn())
             {
-                m_FacebookAuth.AutoLogin(m_DFSetting.LastAccessToken);
+                FacebookAuth.AutoLogin(m_DFSetting.LastAccessToken);
             }
             else
             {
-                m_DFSetting.LastAccessToken=m_FacebookAuth.Login();
+                m_DFSetting.LastAccessToken=FacebookAuth.Login();
                 if(m_DFSetting.KeepSignedIn)
                 {
                     m_DFSetting.SaveAppSettings();
