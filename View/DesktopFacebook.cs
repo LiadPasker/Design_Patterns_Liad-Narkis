@@ -17,13 +17,13 @@ namespace View
     public partial class DesktopFacebook : Form
     {
         private Model.Control m_AppControl;
+        private AlbumPage m_AlbumPage;
 
         public DesktopFacebook()
         {
             InitializeComponent();
             m_AppControl = new Model.Control();
         }
-
 
         private void DesktopFacebook_Shown(object sender, EventArgs e)
         {
@@ -34,19 +34,20 @@ namespace View
 
         private void initializeComponents()
         {
-            initializeFormBackground();
+            initializeTabsBackground();
             initializeButtonPictures();
             initializeUserProfilePicture();
         }
 
-        private void initializeFormBackground()
+        private void initializeTabsBackground()
         {
-           // BackgroundImage = new Bitmap("View.in_app_bg.png");
+            m_MainWindowTab.BackgroundImage = getCustomsImageFromSource("View.in_app_bg.jpg", 1000, 500);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button_LogOut_Click(object sender, EventArgs e)//needs to be changed
         {
             FacebookService.Logout(null);
+            this.Close();
         }
 
         private void TextBox_click(object sender, EventArgs e)
@@ -57,8 +58,6 @@ namespace View
 
         private void initializeUserProfilePicture()
         {
-      //      m_PictureBox_ProfilePicture.Image = new Bitmap(createBitmapFromURL(
-        //        getUserProfilePictureURL(),m_PictureBox_ProfilePicture.ClientSize.Height,m_PictureBox_ProfilePicture.ClientSize.Width));
             m_PictureBox_ProfilePicture.LoadAsync(getUserProfilePictureURL()); //option 2
         }
 
@@ -69,11 +68,59 @@ namespace View
 
         private void initializeButtonPictures() // not finished
         {
+            m_Button_LogOut.BackgroundImage = getCustomsImageFromSource("View.logout.png");
+            m_ButtonPostStatus.BackgroundImage = getCustomsImageFromSource("View.postStatus.png", 40, 40);
+        }
+
+        //needs to be in Model!!!
+        private Bitmap getCustomsImageFromSource(string i_Source, int i_Height = 60, int i_Width = 60)
+        {
             Assembly myAssembly = Assembly.GetExecutingAssembly();
-            Stream myStream = myAssembly.GetManifestResourceStream("View.logout.png");
-            Size newImageSize = new Size(60, 60);
-            Bitmap buttonPicture = new Bitmap(myStream);
-            m_Button_LogOut.BackgroundImage = new Bitmap(buttonPicture,newImageSize);
+            Stream myStream = myAssembly.GetManifestResourceStream(i_Source);
+            Size newImageSize = new Size(i_Height, i_Width);
+            Bitmap picture = new Bitmap(myStream);
+            return new Bitmap(picture, newImageSize);
+        }
+
+        //validations!!! (empty textBox,....)
+        private void m_ButtonPostStatus_Click(object sender, EventArgs e)// tags? checkins?
+        {
+            string postVerification = m_AppControl.PostStatus(m_PostTextBox.Text);
+            if (postVerification != null)
+            {
+                MessageBox.Show("Post Failed");
+            }
+        }
+
+        private void m_Button_MyAlbums_Click(object sender, EventArgs e)
+        {
+            m_TabsControl.SelectTab(m_TabPageMyAlbums);
+            m_AppControl.InitializeMyAlbums();
+            initializeComboBox(m_AppControl.GetAlbumsNames());
+        }
+
+        private void initializeComboBox(List<string> i_AlbumNames)
+        {
+            foreach (string albumName in i_AlbumNames)
+            {
+                m_ComboBoxAlbums.Items.Add(albumName);
+            }
+        }
+
+        private void m_ComboBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            m_AlbumPage = new AlbumPage(4);
+            List<string> albumToShow = m_AppControl.getAlbumByName(m_ComboBoxAlbums.SelectedItem.ToString());
+
+            //temporary!!!
+            List<string> currentPage = new List<string>(4);
+            for(int i=0;i<4;i++)
+            {
+                currentPage.Add(albumToShow[i]);
+            }
+
+            m_AlbumPage.InitializePage(currentPage);
         }
     }
 }

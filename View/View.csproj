@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlbumManager.cs" />
+    <Compile Include="AlbumPage.cs" />
     <Compile Include="DesktopFacebook.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +97,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="in_app_bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="postStatus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
