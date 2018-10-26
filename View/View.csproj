@@ -50,7 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlbumManager.cs" />
+    <Compile Include="AlbumDisplay.cs" />
     <Compile Include="AlbumPage.cs" />
     <Compile Include="DesktopFacebook.cs">
       <SubType>Form</SubType>

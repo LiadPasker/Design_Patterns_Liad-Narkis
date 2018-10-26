@@ -9,18 +9,23 @@ namespace View
 {
     public class AlbumPage
     {
-        public List<PictureBox> AlbumPictures { get; set; }
-        private Panel m_Panel;
+        private int m_NumberOfPicturesToShow;
+        private TabPage m_ViewController;
+        private readonly Size r_PicturesSizeToshow;
 
-        public AlbumPage(int i_NumberOfPictures)
+        public List<PictureBox> AlbumPictures { get; set; }
+
+        public AlbumPage(int i_NumberOfPictures, TabPage i_TabConrol, int i_PictureHeight=200, int i_PictureWidth=200)
         {
-            initializePanel();
-            initializePictures(i_NumberOfPictures);
+            r_PicturesSizeToshow = new Size(i_PictureHeight, i_PictureWidth);
+            m_NumberOfPicturesToShow = i_NumberOfPictures;
+            m_ViewController = i_TabConrol;
+            initializePictures();
         }
 
-        private void initializePictures(int i_NumberOfPictures)
+        private void initializePictures()
         {
-            AlbumPictures = new List<PictureBox>(i_NumberOfPictures);
+            AlbumPictures = new List<PictureBox>(m_NumberOfPicturesToShow);
             placePictureBoxes();
 
         }
@@ -28,31 +33,34 @@ namespace View
         private void placePictureBoxes()
         {
             AlbumPictures.Add(new PictureBox());
-            AlbumPictures[0].Location = m_Panel.Location;
+            AlbumPictures[0].Size = new Size(150, 150);
+            AlbumPictures[0].Location = new Point(0, 100);
+            m_ViewController.Controls.Add(AlbumPictures[0]);
 
-            for(int i=1;i<AlbumPictures.Capacity;i++)
+
+            for (int i=1;i<AlbumPictures.Capacity;i++)
             {
                 AlbumPictures.Add(new PictureBox());
-                AlbumPictures[i].Left = AlbumPictures[i - 1].Right + 10;
+                m_ViewController.Controls.Add(AlbumPictures[i]);
+                AlbumPictures[i].Location = new Point(AlbumPictures[i - 1].Right + 5, AlbumPictures[i - 1].Location.Y);
+                AlbumPictures[i].Size = new Size(AlbumPictures[i-1].Size.Height, AlbumPictures[i - 1].Size.Width);
             }
         }
 
-        private void initializePanel()
-        {
-            m_Panel = new Panel();
-            m_Panel.Location = new Point(0,0);
-            m_Panel.Size = new Size(942, 550);
-            m_Panel.BackColor = Color.Black;
-            m_Panel.Visible = true;
-            m_Panel.Show();
-        }
-
         //each page get the exact amount of pictures to show
-        public void InitializePage(List<string> i_PicturesToShow)
+        public void Show(List<string> i_PicturesToShow, int i_NumberOfPicturePerPage)
         {
-            for(int i=0;i<i_PicturesToShow.Count;i++)
+            for(int i=0;i<i_NumberOfPicturePerPage;i++)
             {
-                AlbumPictures[i].LoadAsync(i_PicturesToShow[i]);
+                if(i>i_PicturesToShow.Count)
+                {
+                    AlbumPictures[i].Image = null;
+
+                }
+                else
+                {
+                    AlbumPictures[i].Image = Model.UserAlbumsManager.createBitmapFromURL(i_PicturesToShow[i], r_PicturesSizeToshow);
+                }
             }
         }
     }

@@ -17,8 +17,8 @@ namespace View
     public partial class DesktopFacebook : Form
     {
         private Model.Control m_AppControl;
-        private AlbumPage m_AlbumPage;
-
+        //private AlbumPage m_AlbumPage;
+        private AlbumDisplay m_AlbumDisplay;
         public DesktopFacebook()
         {
             InitializeComponent();
@@ -95,6 +95,7 @@ namespace View
         private void m_Button_MyAlbums_Click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageMyAlbums);
+            m_AlbumDisplay = new AlbumDisplay(m_TabPageMyAlbums);
             m_AppControl.InitializeMyAlbums();
             initializeComboBox(m_AppControl.GetAlbumsNames());
         }
@@ -105,22 +106,25 @@ namespace View
             {
                 m_ComboBoxAlbums.Items.Add(albumName);
             }
+
+            m_ComboBoxAlbums.SelectedIndex = 0;
         }
 
         private void m_ComboBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            m_AlbumPage = new AlbumPage(4);
             List<string> albumToShow = m_AppControl.getAlbumByName(m_ComboBoxAlbums.SelectedItem.ToString());
+            m_AlbumDisplay.SetAlbumToShow(albumToShow);
+            m_AlbumDisplay.Show();
+        }
 
-            //temporary!!!
-            List<string> currentPage = new List<string>(4);
-            for(int i=0;i<4;i++)
-            {
-                currentPage.Add(albumToShow[i]);
-            }
+        private void m_ButtonNextPage_Click(object sender, EventArgs e)
+        {
+            m_AlbumDisplay.MoveToNextPage();
+        }
 
-            m_AlbumPage.InitializePage(currentPage);
+        private void m_ButtonPreviousPage_Click(object sender, EventArgs e)
+        {
+            m_AlbumDisplay.MoveToPreviousPage();
         }
     }
 }

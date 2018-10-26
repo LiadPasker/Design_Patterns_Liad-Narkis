@@ -42,6 +42,8 @@
             this.m_Button_LogOut = new System.Windows.Forms.Button();
             this.m_PictureBox_ProfilePicture = new System.Windows.Forms.PictureBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.m_ButtonNextPage = new System.Windows.Forms.Button();
+            this.m_ButtonPreviousPage = new System.Windows.Forms.Button();
             this.m_TabPageMyAlbums.SuspendLayout();
             this.m_TabsControl.SuspendLayout();
             this.m_MainWindowTab.SuspendLayout();
@@ -51,6 +53,8 @@
             // m_TabPageMyAlbums
             // 
             this.m_TabPageMyAlbums.CausesValidation = false;
+            this.m_TabPageMyAlbums.Controls.Add(this.m_ButtonPreviousPage);
+            this.m_TabPageMyAlbums.Controls.Add(this.m_ButtonNextPage);
             this.m_TabPageMyAlbums.Controls.Add(this.m_ComboBoxAlbums);
             this.m_TabPageMyAlbums.Location = new System.Drawing.Point(4, 29);
             this.m_TabPageMyAlbums.Name = "m_TabPageMyAlbums";
@@ -183,6 +187,26 @@
             this.m_PictureBox_ProfilePicture.TabIndex = 12;
             this.m_PictureBox_ProfilePicture.TabStop = false;
             // 
+            // m_ButtonNextPage
+            // 
+            this.m_ButtonNextPage.Location = new System.Drawing.Point(491, 407);
+            this.m_ButtonNextPage.Name = "m_ButtonNextPage";
+            this.m_ButtonNextPage.Size = new System.Drawing.Size(119, 34);
+            this.m_ButtonNextPage.TabIndex = 3;
+            this.m_ButtonNextPage.Text = "Next Page";
+            this.m_ButtonNextPage.UseVisualStyleBackColor = true;
+            this.m_ButtonNextPage.Click += new System.EventHandler(this.m_ButtonNextPage_Click);
+            // 
+            // m_ButtonPreviousPage
+            // 
+            this.m_ButtonPreviousPage.Location = new System.Drawing.Point(347, 407);
+            this.m_ButtonPreviousPage.Name = "m_ButtonPreviousPage";
+            this.m_ButtonPreviousPage.Size = new System.Drawing.Size(121, 34);
+            this.m_ButtonPreviousPage.TabIndex = 3;
+            this.m_ButtonPreviousPage.Text = "Previous Page";
+            this.m_ButtonPreviousPage.UseVisualStyleBackColor = true;
+            this.m_ButtonPreviousPage.Click += new System.EventHandler(this.m_ButtonPreviousPage_Click);
+            // 
             // DesktopFacebook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -219,6 +243,8 @@
         private System.Windows.Forms.TabPage m_TabPageMyAlbums;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ComboBox m_ComboBoxAlbums;
+        private System.Windows.Forms.Button m_ButtonPreviousPage;
+        private System.Windows.Forms.Button m_ButtonNextPage;
     }
 }
 

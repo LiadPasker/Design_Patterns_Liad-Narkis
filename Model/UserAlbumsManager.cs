@@ -11,6 +11,7 @@ namespace Model
     {
         private List<Album> m_UserAlbums = null;
 
+
         public void importUserAlbumsList(FacebookObjectCollection<Album> i_Albums)
         {
             m_UserAlbums = new List<Album>();
@@ -42,6 +43,17 @@ namespace Model
             }
 
             return albumNames;
+        }
+
+        public static Bitmap createBitmapFromURL(string i_URL, Size i_PictureCustomSize)
+        {
+            System.Net.WebRequest request = System.Net.WebRequest.Create(i_URL);
+            System.Net.WebResponse response = request.GetResponse();
+            System.IO.Stream responseStream = response.GetResponseStream();
+            Size newImageSize = i_PictureCustomSize;
+            Bitmap bitmap = new Bitmap(responseStream);
+
+            return new Bitmap(bitmap, newImageSize);
         }
     }
 }
