@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Model
@@ -54,6 +56,15 @@ namespace Model
             Bitmap bitmap = new Bitmap(responseStream);
 
             return new Bitmap(bitmap, newImageSize);
+        }
+
+        public static Bitmap GetCustomsImageFromSource(string i_Source, int i_Height = 60, int i_Width = 60)
+        {
+            Assembly myAssembly = Assembly.GetExecutingAssembly();
+            Stream myStream = myAssembly.GetManifestResourceStream(i_Source);
+            Size newImageSize = new Size(i_Height, i_Width);
+            Bitmap picture = new Bitmap(myStream);
+            return new Bitmap(picture, newImageSize);
         }
     }
 }

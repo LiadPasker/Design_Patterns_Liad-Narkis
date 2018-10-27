@@ -53,5 +53,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserAlbumsManager.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="pictureSources\postStatus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="pictureSources\logout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="pictureSources\in_app_bg.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

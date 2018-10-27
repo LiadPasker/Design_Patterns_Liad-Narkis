@@ -29,6 +29,14 @@
         private void InitializeComponent()
         {
             this.m_TabPageMyAlbums = new System.Windows.Forms.TabPage();
+            this.m_ComboBoxZoom = new System.Windows.Forms.ComboBox();
+            this.m_labelPicturesPerPage = new System.Windows.Forms.Label();
+            this.m_labelNumOfPictures = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label = new System.Windows.Forms.Label();
+            this.m_ButtonPreviousPage = new System.Windows.Forms.Button();
+            this.m_ButtonNextPage = new System.Windows.Forms.Button();
             this.m_ComboBoxAlbums = new System.Windows.Forms.ComboBox();
             this.m_TabsControl = new System.Windows.Forms.TabControl();
             this.m_MainWindowTab = new System.Windows.Forms.TabPage();
@@ -42,8 +50,6 @@
             this.m_Button_LogOut = new System.Windows.Forms.Button();
             this.m_PictureBox_ProfilePicture = new System.Windows.Forms.PictureBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.m_ButtonNextPage = new System.Windows.Forms.Button();
-            this.m_ButtonPreviousPage = new System.Windows.Forms.Button();
             this.m_TabPageMyAlbums.SuspendLayout();
             this.m_TabsControl.SuspendLayout();
             this.m_MainWindowTab.SuspendLayout();
@@ -53,16 +59,106 @@
             // m_TabPageMyAlbums
             // 
             this.m_TabPageMyAlbums.CausesValidation = false;
+            this.m_TabPageMyAlbums.Controls.Add(this.m_ComboBoxZoom);
+            this.m_TabPageMyAlbums.Controls.Add(this.m_labelPicturesPerPage);
+            this.m_TabPageMyAlbums.Controls.Add(this.m_labelNumOfPictures);
+            this.m_TabPageMyAlbums.Controls.Add(this.label10);
+            this.m_TabPageMyAlbums.Controls.Add(this.label1);
+            this.m_TabPageMyAlbums.Controls.Add(this.label);
             this.m_TabPageMyAlbums.Controls.Add(this.m_ButtonPreviousPage);
             this.m_TabPageMyAlbums.Controls.Add(this.m_ButtonNextPage);
             this.m_TabPageMyAlbums.Controls.Add(this.m_ComboBoxAlbums);
             this.m_TabPageMyAlbums.Location = new System.Drawing.Point(4, 29);
             this.m_TabPageMyAlbums.Name = "m_TabPageMyAlbums";
             this.m_TabPageMyAlbums.Padding = new System.Windows.Forms.Padding(3);
-            this.m_TabPageMyAlbums.Size = new System.Drawing.Size(945, 605);
+            this.m_TabPageMyAlbums.Size = new System.Drawing.Size(945, 632);
             this.m_TabPageMyAlbums.TabIndex = 1;
             this.m_TabPageMyAlbums.Text = "tabPage2";
             this.m_TabPageMyAlbums.UseVisualStyleBackColor = true;
+            // 
+            // m_ComboBoxZoom
+            // 
+            this.m_ComboBoxZoom.FormattingEnabled = true;
+            this.m_ComboBoxZoom.Items.AddRange(new object[] {
+            "100%",
+            "75%",
+            "50%",
+            "25%"});
+            this.m_ComboBoxZoom.Location = new System.Drawing.Point(357, 27);
+            this.m_ComboBoxZoom.Name = "m_ComboBoxZoom";
+            this.m_ComboBoxZoom.Size = new System.Drawing.Size(85, 28);
+            this.m_ComboBoxZoom.TabIndex = 6;
+            this.m_ComboBoxZoom.SelectedIndexChanged += new System.EventHandler(this.m_ComboBoxZoom_SelectedIndexChanged);
+            // 
+            // m_labelPicturesPerPage
+            // 
+            this.m_labelPicturesPerPage.AutoSize = true;
+            this.m_labelPicturesPerPage.Location = new System.Drawing.Point(731, 41);
+            this.m_labelPicturesPerPage.Name = "m_labelPicturesPerPage";
+            this.m_labelPicturesPerPage.Size = new System.Drawing.Size(51, 20);
+            this.m_labelPicturesPerPage.TabIndex = 5;
+            this.m_labelPicturesPerPage.Text = "label2";
+            // 
+            // m_labelNumOfPictures
+            // 
+            this.m_labelNumOfPictures.AutoSize = true;
+            this.m_labelNumOfPictures.Location = new System.Drawing.Point(731, 21);
+            this.m_labelNumOfPictures.Name = "m_labelNumOfPictures";
+            this.m_labelNumOfPictures.Size = new System.Drawing.Size(51, 20);
+            this.m_labelNumOfPictures.TabIndex = 5;
+            this.m_labelNumOfPictures.Text = "label2";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label10.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.label10.Location = new System.Drawing.Point(450, 41);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(242, 20);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Number of pictures per page:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.label1.Location = new System.Drawing.Point(727, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 20);
+            this.label1.TabIndex = 4;
+            // 
+            // label
+            // 
+            this.label.AutoSize = true;
+            this.label.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.label.Location = new System.Drawing.Point(450, 21);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(269, 20);
+            this.label.TabIndex = 4;
+            this.label.Text = "Number of pictures in the album:";
+            // 
+            // m_ButtonPreviousPage
+            // 
+            this.m_ButtonPreviousPage.Location = new System.Drawing.Point(409, 561);
+            this.m_ButtonPreviousPage.Name = "m_ButtonPreviousPage";
+            this.m_ButtonPreviousPage.Size = new System.Drawing.Size(60, 60);
+            this.m_ButtonPreviousPage.TabIndex = 3;
+            this.m_ButtonPreviousPage.Text = "back";
+            this.m_ButtonPreviousPage.UseVisualStyleBackColor = true;
+            this.m_ButtonPreviousPage.Click += new System.EventHandler(this.m_ButtonPreviousPage_Click);
+            // 
+            // m_ButtonNextPage
+            // 
+            this.m_ButtonNextPage.Location = new System.Drawing.Point(475, 561);
+            this.m_ButtonNextPage.Name = "m_ButtonNextPage";
+            this.m_ButtonNextPage.Size = new System.Drawing.Size(60, 60);
+            this.m_ButtonNextPage.TabIndex = 3;
+            this.m_ButtonNextPage.Text = "Next";
+            this.m_ButtonNextPage.UseVisualStyleBackColor = true;
+            this.m_ButtonNextPage.Click += new System.EventHandler(this.m_ButtonNextPage_Click);
             // 
             // m_ComboBoxAlbums
             // 
@@ -80,7 +176,7 @@
             this.m_TabsControl.Location = new System.Drawing.Point(3, 3);
             this.m_TabsControl.Name = "m_TabsControl";
             this.m_TabsControl.SelectedIndex = 0;
-            this.m_TabsControl.Size = new System.Drawing.Size(953, 638);
+            this.m_TabsControl.Size = new System.Drawing.Size(953, 665);
             this.m_TabsControl.TabIndex = 2;
             // 
             // m_MainWindowTab
@@ -98,7 +194,7 @@
             this.m_MainWindowTab.Location = new System.Drawing.Point(4, 29);
             this.m_MainWindowTab.Name = "m_MainWindowTab";
             this.m_MainWindowTab.Padding = new System.Windows.Forms.Padding(3);
-            this.m_MainWindowTab.Size = new System.Drawing.Size(945, 605);
+            this.m_MainWindowTab.Size = new System.Drawing.Size(945, 632);
             this.m_MainWindowTab.TabIndex = 0;
             this.m_MainWindowTab.Text = "tabPage1";
             this.m_MainWindowTab.UseVisualStyleBackColor = true;
@@ -187,31 +283,11 @@
             this.m_PictureBox_ProfilePicture.TabIndex = 12;
             this.m_PictureBox_ProfilePicture.TabStop = false;
             // 
-            // m_ButtonNextPage
-            // 
-            this.m_ButtonNextPage.Location = new System.Drawing.Point(491, 407);
-            this.m_ButtonNextPage.Name = "m_ButtonNextPage";
-            this.m_ButtonNextPage.Size = new System.Drawing.Size(119, 34);
-            this.m_ButtonNextPage.TabIndex = 3;
-            this.m_ButtonNextPage.Text = "Next Page";
-            this.m_ButtonNextPage.UseVisualStyleBackColor = true;
-            this.m_ButtonNextPage.Click += new System.EventHandler(this.m_ButtonNextPage_Click);
-            // 
-            // m_ButtonPreviousPage
-            // 
-            this.m_ButtonPreviousPage.Location = new System.Drawing.Point(347, 407);
-            this.m_ButtonPreviousPage.Name = "m_ButtonPreviousPage";
-            this.m_ButtonPreviousPage.Size = new System.Drawing.Size(121, 34);
-            this.m_ButtonPreviousPage.TabIndex = 3;
-            this.m_ButtonPreviousPage.Text = "Previous Page";
-            this.m_ButtonPreviousPage.UseVisualStyleBackColor = true;
-            this.m_ButtonPreviousPage.Click += new System.EventHandler(this.m_ButtonPreviousPage_Click);
-            // 
             // DesktopFacebook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(959, 643);
+            this.ClientSize = new System.Drawing.Size(959, 670);
             this.Controls.Add(this.m_TabsControl);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "DesktopFacebook";
@@ -219,6 +295,7 @@
             this.Text = "Form1";
             this.Shown += new System.EventHandler(this.DesktopFacebook_Shown);
             this.m_TabPageMyAlbums.ResumeLayout(false);
+            this.m_TabPageMyAlbums.PerformLayout();
             this.m_TabsControl.ResumeLayout(false);
             this.m_MainWindowTab.ResumeLayout(false);
             this.m_MainWindowTab.PerformLayout();
@@ -245,6 +322,12 @@
         private System.Windows.Forms.ComboBox m_ComboBoxAlbums;
         private System.Windows.Forms.Button m_ButtonPreviousPage;
         private System.Windows.Forms.Button m_ButtonNextPage;
+        private System.Windows.Forms.Label label;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label m_labelPicturesPerPage;
+        private System.Windows.Forms.Label m_labelNumOfPictures;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox m_ComboBoxZoom;
     }
 }
 

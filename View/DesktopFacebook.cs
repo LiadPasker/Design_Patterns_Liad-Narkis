@@ -17,7 +17,6 @@ namespace View
     public partial class DesktopFacebook : Form
     {
         private Model.Control m_AppControl;
-        //private AlbumPage m_AlbumPage;
         private AlbumDisplay m_AlbumDisplay;
         public DesktopFacebook()
         {
@@ -41,7 +40,8 @@ namespace View
 
         private void initializeTabsBackground()
         {
-            m_MainWindowTab.BackgroundImage = getCustomsImageFromSource("View.in_app_bg.jpg", 1000, 500);
+            m_MainWindowTab.BackgroundImage = Model.UserAlbumsManager.GetCustomsImageFromSource("Model.pictureSources.in_app_bg.jpg", 1000, 500);
+            m_TabPageMyAlbums.BackColor = Color.LightSkyBlue;
         }
 
         private void Button_LogOut_Click(object sender, EventArgs e)//needs to be changed
@@ -68,18 +68,8 @@ namespace View
 
         private void initializeButtonPictures() // not finished
         {
-            m_Button_LogOut.BackgroundImage = getCustomsImageFromSource("View.logout.png");
-            m_ButtonPostStatus.BackgroundImage = getCustomsImageFromSource("View.postStatus.png", 40, 40);
-        }
-
-        //needs to be in Model!!!
-        private Bitmap getCustomsImageFromSource(string i_Source, int i_Height = 60, int i_Width = 60)
-        {
-            Assembly myAssembly = Assembly.GetExecutingAssembly();
-            Stream myStream = myAssembly.GetManifestResourceStream(i_Source);
-            Size newImageSize = new Size(i_Height, i_Width);
-            Bitmap picture = new Bitmap(myStream);
-            return new Bitmap(picture, newImageSize);
+            m_Button_LogOut.BackgroundImage = Model.UserAlbumsManager.GetCustomsImageFromSource("Model.pictureSources.logout.png");
+            m_ButtonPostStatus.BackgroundImage = Model.UserAlbumsManager.GetCustomsImageFromSource("Model.pictureSources.postStatus.png", 40, 40);
         }
 
         //validations!!! (empty textBox,....)
@@ -97,16 +87,15 @@ namespace View
             m_TabsControl.SelectTab(m_TabPageMyAlbums);
             m_AlbumDisplay = new AlbumDisplay(m_TabPageMyAlbums);
             m_AppControl.InitializeMyAlbums();
-            initializeComboBox(m_AppControl.GetAlbumsNames());
+            initializeMyAlbumsComboBoxes(m_AppControl.GetAlbumsNames());
         }
 
-        private void initializeComboBox(List<string> i_AlbumNames)
+        private void initializeMyAlbumsComboBoxes(List<string> i_AlbumNames)
         {
             foreach (string albumName in i_AlbumNames)
             {
                 m_ComboBoxAlbums.Items.Add(albumName);
             }
-
             m_ComboBoxAlbums.SelectedIndex = 0;
         }
 
@@ -114,7 +103,21 @@ namespace View
         {
             List<string> albumToShow = m_AppControl.getAlbumByName(m_ComboBoxAlbums.SelectedItem.ToString());
             m_AlbumDisplay.SetAlbumToShow(albumToShow);
-            m_AlbumDisplay.Show();
+            displayAlbumLabels(m_AlbumDisplay.NumberOfPacturePerPage.ToString(), albumToShow.Count.ToString());
+            if (m_ComboBoxZoom.SelectedIndex != 0) // in case of a new album chice, 
+            {
+                m_ComboBoxZoom.SelectedIndex = 0;
+            }
+            else
+            {
+                m_AlbumDisplay.Show();
+            }
+        }
+
+        private void displayAlbumLabels(string i_NumOfPicturesPerPage, string i_NumOfPictureInAlbum)
+        {
+            m_labelPicturesPerPage.Text =i_NumOfPicturesPerPage ;
+            m_labelNumOfPictures.Text = i_NumOfPictureInAlbum;
         }
 
         private void m_ButtonNextPage_Click(object sender, EventArgs e)
@@ -125,6 +128,13 @@ namespace View
         private void m_ButtonPreviousPage_Click(object sender, EventArgs e)
         {
             m_AlbumDisplay.MoveToPreviousPage();
+        }
+
+        private void m_ComboBoxZoom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string zoom= m_ComboBoxZoom.SelectedItem.ToString().Remove(m_ComboBoxZoom.Text.Length-1,1);
+            m_AlbumDisplay.ChangeDisplayZoom(zoom, m_TabPageMyAlbums);
+
         }
     }
 }
