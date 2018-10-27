@@ -23,15 +23,19 @@ namespace Model
             }
         }
 
-        public List<string> GetAlbum(string i_AlbumName)
+        public Album GetAlbum(string i_AlbumName)
+        {
+            return m_UserAlbums.Find(x => x.Name == i_AlbumName);
+        }
+
+            public List<string> GetAlbumURLs(Album i_CurrentAlbum)
         {
             List<string> userChoice = new List<string>();
-            Album userAlbum= m_UserAlbums.Find(x => x.Name == i_AlbumName);
-            foreach(Photo photo in userAlbum.Photos)
+            foreach(Photo photo in i_CurrentAlbum.Photos)
             {
                 userChoice.Add(photo.PictureNormalURL);
             }
-
+            
             return userChoice;
         }
 

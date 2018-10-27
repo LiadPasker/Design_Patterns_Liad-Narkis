@@ -22,7 +22,7 @@ namespace Model
             m_UserAlbumManager = new UserAlbumsManager();
         }
 
-        public void LogIn()
+        public void Login()
         {
             if(CheckIfLoggedIn())
             {
@@ -78,9 +78,14 @@ namespace Model
             m_UserAlbumManager.importUserAlbumsList(FacebookAuth.LoggedInUser.Albums);
         }
 
-        public List<string> getAlbumByName(string i_AlbumName)
+        public Album GetAlbum(string i_AlbumName)
         {
-            return m_UserAlbumManager.GetAlbum(i_AlbumName);
+           return m_UserAlbumManager.GetAlbum(i_AlbumName);
+        }
+
+        public List<string> getAlbumURLs(Album i_Album)
+        {
+            return m_UserAlbumManager.GetAlbumURLs(i_Album);
         }
     }
 }

@@ -92,14 +92,5 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="logout.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="in_app_bg.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="postStatus.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

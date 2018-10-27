@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using FacebookWrapper;
+using FacebookWrapper.ObjectModel;
 using Model;
 
 
@@ -26,7 +27,14 @@ namespace View
 
         private void DesktopFacebook_Shown(object sender, EventArgs e)
         {
-            m_AppControl.LogIn();
+            try
+            {
+                m_AppControl.Login();
+            }
+            catch(Exception exception)
+            {
+                showFacebookServerErrorMessege();
+            }
             initializeComponents();
 
         }
@@ -70,6 +78,8 @@ namespace View
         {
             m_Button_LogOut.BackgroundImage = Model.UserAlbumsManager.GetCustomsImageFromSource("Model.pictureSources.logout.png");
             m_ButtonPostStatus.BackgroundImage = Model.UserAlbumsManager.GetCustomsImageFromSource("Model.pictureSources.postStatus.png", 40, 40);
+            m_ButtonNextPage.BackgroundImage = Model.UserAlbumsManager.GetCustomsImageFromSource("Model.pictureSources.next.png", 40, 40);
+            m_ButtonPreviousPage.BackgroundImage = Model.UserAlbumsManager.GetCustomsImageFromSource("Model.pictureSources.back.png", 40, 40);
         }
 
         //validations!!! (empty textBox,....)
@@ -86,25 +96,43 @@ namespace View
         {
             m_TabsControl.SelectTab(m_TabPageMyAlbums);
             m_AlbumDisplay = new AlbumDisplay(m_TabPageMyAlbums);
-            m_AppControl.InitializeMyAlbums();
+            try
+            {
+                m_AppControl.InitializeMyAlbums();
+            }
+            catch (Exception exception)
+            {
+                showFacebookServerErrorMessege();
+            }
             initializeMyAlbumsComboBoxes(m_AppControl.GetAlbumsNames());
         }
 
+        private void showFacebookServerErrorMessege()
+        {
+            MessageBox.Show("Facebook Server Error");
+        }
+
         private void initializeMyAlbumsComboBoxes(List<string> i_AlbumNames)
+        {
+            initializeAlbumsComboBox(i_AlbumNames);
+            m_ComboBoxAlbums.SelectedIndex = 0;
+        }
+
+        private void initializeAlbumsComboBox(List<string> i_AlbumNames)
         {
             foreach (string albumName in i_AlbumNames)
             {
                 m_ComboBoxAlbums.Items.Add(albumName);
             }
-            m_ComboBoxAlbums.SelectedIndex = 0;
         }
 
         private void m_ComboBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<string> albumToShow = m_AppControl.getAlbumByName(m_ComboBoxAlbums.SelectedItem.ToString());
-            m_AlbumDisplay.SetAlbumToShow(albumToShow);
+            Album albumToShow = m_AppControl.GetAlbum(m_ComboBoxAlbums.SelectedItem.ToString());
+            List<string> AlbumURLsToShow = m_AppControl.getAlbumURLs(albumToShow);
+            m_AlbumDisplay.SetAlbumToShow(albumToShow, AlbumURLsToShow);
             displayAlbumLabels(m_AlbumDisplay.NumberOfPacturePerPage.ToString(), albumToShow.Count.ToString());
-            if (m_ComboBoxZoom.SelectedIndex != 0) // in case of a new album chice, 
+            if (m_ComboBoxZoom.SelectedIndex != 0) // in case of a new album choice, 
             {
                 m_ComboBoxZoom.SelectedIndex = 0;
             }

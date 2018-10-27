@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FacebookWrapper.ObjectModel;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -9,11 +10,12 @@ namespace View
 {
     class AlbumDisplay
     {
-        public List<string> m_CurrentAlbum { get; set; }
+        private Album m_CurrentAlbum;
+        public List<string> m_CurrentAlbumURLs { get; set; }
         private AlbumPage m_AlbumPage;
-        private readonly int r_NumberOfPicturePerPage=8;
-        private double m_NumberOfPages;
-        private int m_CurrentPage = 1;
+        private readonly int r_NumberOfPicturePerPage = 8;
+        public double m_NumberOfPages { get; private set; }
+        public int m_CurrentPage { get; set; } = 1;
         private int m_AlbumListIndicator = 1;
 
         public AlbumDisplay(TabPage i_CurrentTab)
@@ -36,33 +38,34 @@ namespace View
             Show();
         }
 
-        public void SetAlbumToShow(List<string> i_AlbumToShow)
+        public void SetAlbumToShow(Album i_AlbumToShow, List<string> i_AlbumURLsToShow)
         {
             m_CurrentAlbum = i_AlbumToShow;
-            m_NumberOfPages = System.Math.Ceiling((double)i_AlbumToShow.Count / r_NumberOfPicturePerPage);
+            m_CurrentAlbumURLs = i_AlbumURLsToShow;
+            m_NumberOfPages = System.Math.Ceiling((double)i_AlbumURLsToShow.Count / r_NumberOfPicturePerPage);
         }
 
         private void PageHandler(int i_MoveToPage = 1)
         {
-            List<string> PageURLs = new List<string>(r_NumberOfPicturePerPage);
+            List<Photo> PagePhotos = new List<Photo>(r_NumberOfPicturePerPage);
             m_AlbumListIndicator = i_MoveToPage * r_NumberOfPicturePerPage - r_NumberOfPicturePerPage;
 
-            if (m_AlbumListIndicator + r_NumberOfPicturePerPage - m_CurrentAlbum.Count > 0 && m_AlbumListIndicator + r_NumberOfPicturePerPage - m_CurrentAlbum.Count < 4)
+            if (m_AlbumListIndicator + r_NumberOfPicturePerPage - m_CurrentAlbumURLs.Count > 0 && m_AlbumListIndicator + r_NumberOfPicturePerPage - m_CurrentAlbumURLs.Count < 4)
             {
-                PageURLs = m_CurrentAlbum.GetRange(m_AlbumListIndicator, m_CurrentAlbum.Count - m_AlbumListIndicator);
+                PagePhotos = getPhotosFromAlbum(m_AlbumListIndicator, m_CurrentAlbumURLs.Count - m_AlbumListIndicator);
             }
-            else if (m_AlbumListIndicator>=0 && m_AlbumListIndicator + r_NumberOfPicturePerPage - m_CurrentAlbum.Count <= 0) 
+            else if (m_AlbumListIndicator >= 0 && m_AlbumListIndicator + r_NumberOfPicturePerPage - m_CurrentAlbumURLs.Count <= 0)
             {
-                PageURLs = m_CurrentAlbum.GetRange(m_AlbumListIndicator, r_NumberOfPicturePerPage);
+                PagePhotos = getPhotosFromAlbum(m_AlbumListIndicator, r_NumberOfPicturePerPage);
             }
             else
             {
-                PageURLs = null;
+                PagePhotos = null;
             }
 
             try
             {
-                m_AlbumPage.Show(PageURLs, r_NumberOfPicturePerPage);
+                m_AlbumPage.Show(PagePhotos, r_NumberOfPicturePerPage);
             }
             catch (Exception e)
             {
@@ -70,6 +73,16 @@ namespace View
             }
         }
 
+        private List<Photo> getPhotosFromAlbum(int i_Index, int i_Count)
+        {
+            List<Photo> photoToShow = new List<Photo>(i_Count);
+            for (int i = i_Index; i < i_Index + i_Count; i++)
+            {
+                photoToShow.Add(m_CurrentAlbum.Photos[i]);
+            }
+
+            return photoToShow;
+        }
         public void Show(int i_MoveToPage = 1)
         {
             PageHandler(i_MoveToPage);

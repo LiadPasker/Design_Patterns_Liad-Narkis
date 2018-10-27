@@ -49,7 +49,6 @@
             this.m_Button_MyAlbums = new System.Windows.Forms.Button();
             this.m_Button_LogOut = new System.Windows.Forms.Button();
             this.m_PictureBox_ProfilePicture = new System.Windows.Forms.PictureBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.m_TabPageMyAlbums.SuspendLayout();
             this.m_TabsControl.SuspendLayout();
             this.m_MainWindowTab.SuspendLayout();
@@ -142,21 +141,19 @@
             // 
             // m_ButtonPreviousPage
             // 
-            this.m_ButtonPreviousPage.Location = new System.Drawing.Point(409, 561);
+            this.m_ButtonPreviousPage.Location = new System.Drawing.Point(395, 561);
             this.m_ButtonPreviousPage.Name = "m_ButtonPreviousPage";
             this.m_ButtonPreviousPage.Size = new System.Drawing.Size(60, 60);
             this.m_ButtonPreviousPage.TabIndex = 3;
-            this.m_ButtonPreviousPage.Text = "back";
             this.m_ButtonPreviousPage.UseVisualStyleBackColor = true;
             this.m_ButtonPreviousPage.Click += new System.EventHandler(this.m_ButtonPreviousPage_Click);
             // 
             // m_ButtonNextPage
             // 
-            this.m_ButtonNextPage.Location = new System.Drawing.Point(475, 561);
+            this.m_ButtonNextPage.Location = new System.Drawing.Point(480, 561);
             this.m_ButtonNextPage.Name = "m_ButtonNextPage";
             this.m_ButtonNextPage.Size = new System.Drawing.Size(60, 60);
             this.m_ButtonNextPage.TabIndex = 3;
-            this.m_ButtonNextPage.Text = "Next";
             this.m_ButtonNextPage.UseVisualStyleBackColor = true;
             this.m_ButtonNextPage.Click += new System.EventHandler(this.m_ButtonNextPage_Click);
             // 
@@ -318,7 +315,6 @@
         private System.Windows.Forms.Button m_Button_LogOut;
         private System.Windows.Forms.PictureBox m_PictureBox_ProfilePicture;
         private System.Windows.Forms.TabPage m_TabPageMyAlbums;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ComboBox m_ComboBoxAlbums;
         private System.Windows.Forms.Button m_ButtonPreviousPage;
         private System.Windows.Forms.Button m_ButtonNextPage;
