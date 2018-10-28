@@ -48,7 +48,7 @@ namespace View
 
         private void initializeTabsBackground()
         {
-            m_MainWindowTab.BackgroundImage = Model.UserAlbumsManager.GetCustomsImageFromSource("Model.pictureSources.in_app_bg.jpg", 1000, 500);
+            m_MainWindowTab.BackColor = Color.CornflowerBlue;
             m_TabPageMyAlbums.BackColor = Color.LightSkyBlue;
         }
 
@@ -58,7 +58,7 @@ namespace View
             this.Close();
         }
 
-        private void TextBox_click(object sender, EventArgs e)
+        private void TextBoxStatus_click(object sender, EventArgs e)
         {
             m_PostTextBox.Text = string.Empty;
             m_PostTextBox.BackColor = Color.White;
@@ -66,20 +66,35 @@ namespace View
 
         private void initializeUserProfilePicture()
         {
-            m_PictureBox_ProfilePicture.LoadAsync(getUserProfilePictureURL()); //option 2
+            String pictureURL = getUserProfilePictureURL();
+            if (pictureURL != null)
+            {
+                m_PictureBox_ProfilePicture.LoadAsync(getUserProfilePictureURL()); //option 2
+            }
+         //   Graphics g=Graphics.FromHwnd(m_PictureBox_ProfilePicture.Handle);
+         //   g.DrawRectangle(new Pen(new SolidBrush(Color.FromArgb(200, Color.Black))),5,5, m_PictureBox_ProfilePicture.Width-5,m_PictureBox_ProfilePicture.Height-5);
         }
 
         private string getUserProfilePictureURL()
         {
-            return m_AppControl.FacebookAuth.LoggedInUser.PictureLargeURL;
+            string profilePictureURL = null;
+            try
+            {
+                 profilePictureURL= m_AppControl.FacebookAuth.LoggedInUser.PictureLargeURL;
+            }
+            catch(Exception e)
+            {
+                showFacebookServerErrorMessege();
+            }
+            return profilePictureURL;
         }
 
         private void initializeButtonPictures() // not finished
         {
-            m_Button_LogOut.BackgroundImage = Model.UserAlbumsManager.GetCustomsImageFromSource("Model.pictureSources.logout.png");
-            m_ButtonPostStatus.BackgroundImage = Model.UserAlbumsManager.GetCustomsImageFromSource("Model.pictureSources.postStatus.png", 40, 40);
-            m_ButtonNextPage.BackgroundImage = Model.UserAlbumsManager.GetCustomsImageFromSource("Model.pictureSources.next.png", 40, 40);
-            m_ButtonPreviousPage.BackgroundImage = Model.UserAlbumsManager.GetCustomsImageFromSource("Model.pictureSources.back.png", 40, 40);
+            m_Button_LogOut.BackgroundImage = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.logout.png");
+            m_ButtonPostStatus.BackgroundImage = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.postStatus.png", 40, 40);
+            m_ButtonNextPage.BackgroundImage = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.next.png", 40, 40);
+            m_ButtonPreviousPage.BackgroundImage = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.back.png", 40, 40);
         }
 
         //validations!!! (empty textBox,....)

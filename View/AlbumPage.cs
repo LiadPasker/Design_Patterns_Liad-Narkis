@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+//URL list??
 namespace View
 {
     public class AlbumPage

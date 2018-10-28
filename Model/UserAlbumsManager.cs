@@ -58,11 +58,10 @@ namespace Model
             System.IO.Stream responseStream = response.GetResponseStream();
             Size newImageSize = i_PictureCustomSize;
             Bitmap bitmap = new Bitmap(responseStream);
-
             return new Bitmap(bitmap, newImageSize);
         }
 
-        public static Bitmap GetCustomsImageFromSource(string i_Source, int i_Height = 60, int i_Width = 60)
+        public static Bitmap GetCustomedImageFromEmbeddedResource(string i_Source, int i_Height = 60, int i_Width = 60)
         {
             Assembly myAssembly = Assembly.GetExecutingAssembly();
             Stream myStream = myAssembly.GetManifestResourceStream(i_Source);

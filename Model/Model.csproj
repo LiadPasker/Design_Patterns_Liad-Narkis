@@ -60,9 +60,6 @@
     <EmbeddedResource Include="pictureSources\logout.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="pictureSources\in_app_bg.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="pictureSources\back.png" />
     <EmbeddedResource Include="pictureSources\next.png" />
   </ItemGroup>

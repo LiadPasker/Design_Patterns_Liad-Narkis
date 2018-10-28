@@ -205,7 +205,7 @@
             this.m_PostTextBox.Size = new System.Drawing.Size(477, 26);
             this.m_PostTextBox.TabIndex = 20;
             this.m_PostTextBox.Text = "Anything on your mind?";
-            this.m_PostTextBox.Click += new System.EventHandler(this.TextBox_click);
+            this.m_PostTextBox.Click += new System.EventHandler(this.TextBoxStatus_click);
             // 
             // button4
             // 
