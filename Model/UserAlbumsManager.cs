@@ -45,7 +45,7 @@ namespace Model
 
             return albumNames;
         }
-        public static Bitmap createBitmapFromURL(string i_URL, Size i_PictureCustomSize)
+        public static Bitmap CreateCustomedImageFromURL(string i_URL, Size i_PictureCustomSize)
         {
             System.Net.WebRequest request = System.Net.WebRequest.Create(i_URL);
             System.Net.WebResponse response = request.GetResponse();

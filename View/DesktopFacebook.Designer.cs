@@ -40,9 +40,11 @@
             this.m_ComboBoxAlbums = new System.Windows.Forms.ComboBox();
             this.m_TabsControl = new System.Windows.Forms.TabControl();
             this.m_MainWindowTab = new System.Windows.Forms.TabPage();
+            this.m_ButtonBirthdayTracker = new System.Windows.Forms.Button();
+            this.m_ButtonMyProfile = new System.Windows.Forms.Button();
             this.m_ButtonFriendInfo = new System.Windows.Forms.Button();
             this.m_LogoPictureBox = new System.Windows.Forms.PictureBox();
-            this.m_PostTextBox = new System.Windows.Forms.TextBox();
+            this.m_TextBoxPostToMyWall = new System.Windows.Forms.TextBox();
             this.m_ButtonPostStatus = new System.Windows.Forms.Button();
             this.m_ButtonFeed = new System.Windows.Forms.Button();
             this.m_Button_MyAlbums = new System.Windows.Forms.Button();
@@ -59,6 +61,9 @@
             this.m_ButtonSearchFriend = new System.Windows.Forms.Button();
             this.m_TextBoxSearchFriend = new System.Windows.Forms.TextBox();
             this.m_PictureBoxFriendProfilePic = new System.Windows.Forms.PictureBox();
+            this.m_TabPageMyProfile = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.m_TabPageBirthdayTracker = new System.Windows.Forms.TabPage();
             this.m_Button_LogOut = new System.Windows.Forms.Button();
             this.m_PictureBoxGoToMainTab = new System.Windows.Forms.PictureBox();
             this.m_TabPageMyAlbums.SuspendLayout();
@@ -69,6 +74,8 @@
             this.m_TabPageFeed.SuspendLayout();
             this.m_TabPageFriendsInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxFriendProfilePic)).BeginInit();
+            this.m_TabPageMyProfile.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxGoToMainTab)).BeginInit();
             this.SuspendLayout();
             // 
@@ -189,6 +196,8 @@
             this.m_TabsControl.Controls.Add(this.m_TabPageMyAlbums);
             this.m_TabsControl.Controls.Add(this.m_TabPageFeed);
             this.m_TabsControl.Controls.Add(this.m_TabPageFriendsInfo);
+            this.m_TabsControl.Controls.Add(this.m_TabPageMyProfile);
+            this.m_TabsControl.Controls.Add(this.m_TabPageBirthdayTracker);
             this.m_TabsControl.Location = new System.Drawing.Point(3, 3);
             this.m_TabsControl.Name = "m_TabsControl";
             this.m_TabsControl.SelectedIndex = 0;
@@ -197,9 +206,11 @@
             // 
             // m_MainWindowTab
             // 
+            this.m_MainWindowTab.Controls.Add(this.m_ButtonBirthdayTracker);
+            this.m_MainWindowTab.Controls.Add(this.m_ButtonMyProfile);
             this.m_MainWindowTab.Controls.Add(this.m_ButtonFriendInfo);
             this.m_MainWindowTab.Controls.Add(this.m_LogoPictureBox);
-            this.m_MainWindowTab.Controls.Add(this.m_PostTextBox);
+            this.m_MainWindowTab.Controls.Add(this.m_TextBoxPostToMyWall);
             this.m_MainWindowTab.Controls.Add(this.m_ButtonPostStatus);
             this.m_MainWindowTab.Controls.Add(this.m_ButtonFeed);
             this.m_MainWindowTab.Controls.Add(this.m_Button_MyAlbums);
@@ -213,11 +224,29 @@
             this.m_MainWindowTab.Text = "tabPage1";
             this.m_MainWindowTab.UseVisualStyleBackColor = true;
             // 
+            // m_ButtonBirthdayTracker
+            // 
+            this.m_ButtonBirthdayTracker.Location = new System.Drawing.Point(516, 393);
+            this.m_ButtonBirthdayTracker.Name = "m_ButtonBirthdayTracker";
+            this.m_ButtonBirthdayTracker.Size = new System.Drawing.Size(226, 36);
+            this.m_ButtonBirthdayTracker.TabIndex = 24;
+            this.m_ButtonBirthdayTracker.Text = "BirthdayTracker";
+            this.m_ButtonBirthdayTracker.UseVisualStyleBackColor = true;
+            // 
+            // m_ButtonMyProfile
+            // 
+            this.m_ButtonMyProfile.Location = new System.Drawing.Point(516, 165);
+            this.m_ButtonMyProfile.Name = "m_ButtonMyProfile";
+            this.m_ButtonMyProfile.Size = new System.Drawing.Size(226, 36);
+            this.m_ButtonMyProfile.TabIndex = 23;
+            this.m_ButtonMyProfile.Text = "My Profile";
+            this.m_ButtonMyProfile.UseVisualStyleBackColor = true;
+            // 
             // m_ButtonFriendInfo
             // 
-            this.m_ButtonFriendInfo.Location = new System.Drawing.Point(479, 258);
+            this.m_ButtonFriendInfo.Location = new System.Drawing.Point(516, 284);
             this.m_ButtonFriendInfo.Name = "m_ButtonFriendInfo";
-            this.m_ButtonFriendInfo.Size = new System.Drawing.Size(106, 36);
+            this.m_ButtonFriendInfo.Size = new System.Drawing.Size(226, 36);
             this.m_ButtonFriendInfo.TabIndex = 22;
             this.m_ButtonFriendInfo.Text = "friend Info";
             this.m_ButtonFriendInfo.UseVisualStyleBackColor = true;
@@ -231,21 +260,23 @@
             this.m_LogoPictureBox.TabIndex = 21;
             this.m_LogoPictureBox.TabStop = false;
             // 
-            // m_PostTextBox
+            // m_TextBoxPostToMyWall
             // 
-            this.m_PostTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.m_PostTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.m_PostTextBox.Location = new System.Drawing.Point(221, 447);
-            this.m_PostTextBox.Multiline = true;
-            this.m_PostTextBox.Name = "m_PostTextBox";
-            this.m_PostTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.m_PostTextBox.Size = new System.Drawing.Size(477, 89);
-            this.m_PostTextBox.TabIndex = 20;
-            this.m_PostTextBox.Text = "Anything on your mind?";
-            this.m_PostTextBox.Click += new System.EventHandler(this.TextBoxStatus_click);
+            this.m_TextBoxPostToMyWall.BackColor = System.Drawing.Color.LightCyan;
+            this.m_TextBoxPostToMyWall.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.m_TextBoxPostToMyWall.Location = new System.Drawing.Point(221, 447);
+            this.m_TextBoxPostToMyWall.Multiline = true;
+            this.m_TextBoxPostToMyWall.Name = "m_TextBoxPostToMyWall";
+            this.m_TextBoxPostToMyWall.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.m_TextBoxPostToMyWall.Size = new System.Drawing.Size(477, 89);
+            this.m_TextBoxPostToMyWall.TabIndex = 20;
+            this.m_TextBoxPostToMyWall.Tag = "Anything on your mind?";
+            this.m_TextBoxPostToMyWall.Text = "Anything on your mind?";
+            this.m_TextBoxPostToMyWall.Click += new System.EventHandler(this.TextBoxStatus_click);
             // 
             // m_ButtonPostStatus
             // 
+            this.m_ButtonPostStatus.Enabled = false;
             this.m_ButtonPostStatus.Location = new System.Drawing.Point(704, 462);
             this.m_ButtonPostStatus.Name = "m_ButtonPostStatus";
             this.m_ButtonPostStatus.Size = new System.Drawing.Size(60, 60);
@@ -255,9 +286,9 @@
             // 
             // m_ButtonFeed
             // 
-            this.m_ButtonFeed.Location = new System.Drawing.Point(479, 393);
+            this.m_ButtonFeed.Location = new System.Drawing.Point(516, 340);
             this.m_ButtonFeed.Name = "m_ButtonFeed";
-            this.m_ButtonFeed.Size = new System.Drawing.Size(106, 36);
+            this.m_ButtonFeed.Size = new System.Drawing.Size(226, 36);
             this.m_ButtonFeed.TabIndex = 17;
             this.m_ButtonFeed.Text = "Feed";
             this.m_ButtonFeed.UseVisualStyleBackColor = true;
@@ -265,9 +296,9 @@
             // 
             // m_Button_MyAlbums
             // 
-            this.m_Button_MyAlbums.Location = new System.Drawing.Point(479, 326);
+            this.m_Button_MyAlbums.Location = new System.Drawing.Point(516, 224);
             this.m_Button_MyAlbums.Name = "m_Button_MyAlbums";
-            this.m_Button_MyAlbums.Size = new System.Drawing.Size(106, 36);
+            this.m_Button_MyAlbums.Size = new System.Drawing.Size(226, 36);
             this.m_Button_MyAlbums.TabIndex = 18;
             this.m_Button_MyAlbums.Text = "My Albums";
             this.m_Button_MyAlbums.UseVisualStyleBackColor = true;
@@ -275,7 +306,7 @@
             // 
             // m_PictureBox_ProfilePicture
             // 
-            this.m_PictureBox_ProfilePicture.Location = new System.Drawing.Point(221, 165);
+            this.m_PictureBox_ProfilePicture.Location = new System.Drawing.Point(222, 165);
             this.m_PictureBox_ProfilePicture.Name = "m_PictureBox_ProfilePicture";
             this.m_PictureBox_ProfilePicture.Size = new System.Drawing.Size(252, 264);
             this.m_PictureBox_ProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -351,40 +382,49 @@
             // 
             // m_ButtonPostOnFriendsWall
             // 
+            this.m_ButtonPostOnFriendsWall.Enabled = false;
             this.m_ButtonPostOnFriendsWall.Location = new System.Drawing.Point(185, 488);
             this.m_ButtonPostOnFriendsWall.Name = "m_ButtonPostOnFriendsWall";
             this.m_ButtonPostOnFriendsWall.Size = new System.Drawing.Size(86, 32);
             this.m_ButtonPostOnFriendsWall.TabIndex = 5;
             this.m_ButtonPostOnFriendsWall.Text = "Post";
             this.m_ButtonPostOnFriendsWall.UseVisualStyleBackColor = true;
+            this.m_ButtonPostOnFriendsWall.Click += new System.EventHandler(this.m_ButtonPostOnFriendsWall_Click);
             // 
             // m_TextBoxPostOnFriendsWall
             // 
+            this.m_TextBoxPostOnFriendsWall.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.m_TextBoxPostOnFriendsWall.Enabled = false;
             this.m_TextBoxPostOnFriendsWall.Location = new System.Drawing.Point(112, 380);
             this.m_TextBoxPostOnFriendsWall.Multiline = true;
             this.m_TextBoxPostOnFriendsWall.Name = "m_TextBoxPostOnFriendsWall";
             this.m_TextBoxPostOnFriendsWall.Size = new System.Drawing.Size(232, 102);
             this.m_TextBoxPostOnFriendsWall.TabIndex = 4;
+            this.m_TextBoxPostOnFriendsWall.Tag = "It\'s rude not to say anything...";
             this.m_TextBoxPostOnFriendsWall.Text = "It\'s rude not to say anything...";
+            this.m_TextBoxPostOnFriendsWall.Click += new System.EventHandler(this.m_TextBoxPostOnFriendsWall_Click);
             // 
             // m_TextBoxFriendInfo
             // 
+            this.m_TextBoxFriendInfo.Enabled = false;
             this.m_TextBoxFriendInfo.Location = new System.Drawing.Point(362, 98);
             this.m_TextBoxFriendInfo.Multiline = true;
             this.m_TextBoxFriendInfo.Name = "m_TextBoxFriendInfo";
             this.m_TextBoxFriendInfo.ReadOnly = true;
             this.m_TextBoxFriendInfo.Size = new System.Drawing.Size(486, 422);
             this.m_TextBoxFriendInfo.TabIndex = 3;
-            this.m_TextBoxFriendInfo.Text = "[Friend\'s into to show]";
+            this.m_TextBoxFriendInfo.Text = "[Friend\'s info to show]";
             // 
             // m_ButtonSearchFriend
             // 
+            this.m_ButtonSearchFriend.Enabled = false;
             this.m_ButtonSearchFriend.Location = new System.Drawing.Point(439, 48);
             this.m_ButtonSearchFriend.Name = "m_ButtonSearchFriend";
             this.m_ButtonSearchFriend.Size = new System.Drawing.Size(86, 32);
             this.m_ButtonSearchFriend.TabIndex = 2;
             this.m_ButtonSearchFriend.Text = "Search";
             this.m_ButtonSearchFriend.UseVisualStyleBackColor = true;
+            this.m_ButtonSearchFriend.Click += new System.EventHandler(this.m_ButtonSearchFriend_Click);
             // 
             // m_TextBoxSearchFriend
             // 
@@ -392,7 +432,9 @@
             this.m_TextBoxSearchFriend.Name = "m_TextBoxSearchFriend";
             this.m_TextBoxSearchFriend.Size = new System.Drawing.Size(320, 26);
             this.m_TextBoxSearchFriend.TabIndex = 1;
+            this.m_TextBoxSearchFriend.Tag = "What is your friend\'s name?";
             this.m_TextBoxSearchFriend.Text = "What is your friend\'s name?";
+            this.m_TextBoxSearchFriend.Click += new System.EventHandler(this.m_TextBoxSearchFriend_Click);
             // 
             // m_PictureBoxFriendProfilePic
             // 
@@ -401,6 +443,33 @@
             this.m_PictureBoxFriendProfilePic.Size = new System.Drawing.Size(232, 265);
             this.m_PictureBoxFriendProfilePic.TabIndex = 0;
             this.m_PictureBoxFriendProfilePic.TabStop = false;
+            // 
+            // m_TabPageMyProfile
+            // 
+            this.m_TabPageMyProfile.Controls.Add(this.pictureBox1);
+            this.m_TabPageMyProfile.Location = new System.Drawing.Point(4, 29);
+            this.m_TabPageMyProfile.Name = "m_TabPageMyProfile";
+            this.m_TabPageMyProfile.Size = new System.Drawing.Size(945, 592);
+            this.m_TabPageMyProfile.TabIndex = 4;
+            this.m_TabPageMyProfile.Text = "tabPage5";
+            this.m_TabPageMyProfile.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(163, 85);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(230, 301);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // m_TabPageBirthdayTracker
+            // 
+            this.m_TabPageBirthdayTracker.Location = new System.Drawing.Point(4, 29);
+            this.m_TabPageBirthdayTracker.Name = "m_TabPageBirthdayTracker";
+            this.m_TabPageBirthdayTracker.Size = new System.Drawing.Size(945, 592);
+            this.m_TabPageBirthdayTracker.TabIndex = 5;
+            this.m_TabPageBirthdayTracker.Text = "tabPage6";
+            this.m_TabPageBirthdayTracker.UseVisualStyleBackColor = true;
             // 
             // m_Button_LogOut
             // 
@@ -446,6 +515,8 @@
             this.m_TabPageFriendsInfo.ResumeLayout(false);
             this.m_TabPageFriendsInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxFriendProfilePic)).EndInit();
+            this.m_TabPageMyProfile.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxGoToMainTab)).EndInit();
             this.ResumeLayout(false);
 
@@ -455,7 +526,7 @@
 
         private System.Windows.Forms.TabControl m_TabsControl;
         private System.Windows.Forms.TabPage m_MainWindowTab;
-        private System.Windows.Forms.TextBox m_PostTextBox;
+        private System.Windows.Forms.TextBox m_TextBoxPostToMyWall;
         private System.Windows.Forms.Button m_ButtonPostStatus;
         private System.Windows.Forms.Button m_ButtonFeed;
         private System.Windows.Forms.Button m_Button_MyAlbums;
@@ -486,6 +557,11 @@
         private System.Windows.Forms.TextBox m_TextBoxSearchFriend;
         private System.Windows.Forms.PictureBox m_PictureBoxFriendProfilePic;
         private System.Windows.Forms.PictureBox m_PictureBoxGoToMainTab;
+        private System.Windows.Forms.Button m_ButtonBirthdayTracker;
+        private System.Windows.Forms.Button m_ButtonMyProfile;
+        private System.Windows.Forms.TabPage m_TabPageMyProfile;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TabPage m_TabPageBirthdayTracker;
     }
 }
 

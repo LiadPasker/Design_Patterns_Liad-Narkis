@@ -14,6 +14,7 @@ namespace Model
         private DesktopFacebookSettings m_DFSetting;
         public FacebookAuthentication FacebookAuth { get; private set; }
         private UserAlbumsManager m_UserAlbumManager;
+        private UserFriendManager m_UserFriendManager;
 
         public Control()
         {
@@ -40,30 +41,36 @@ namespace Model
         {
             return m_DFSetting.LoadAppSettings() != null && m_DFSetting.LoadAppSettings().LastAccessToken != string.Empty;
         }
-        public string PostStatus(string i_TextToPost, List<TagInfo> i_UserTags = null, Checkin i_CheckIn = null)//not finished: tags, checkin
+        public void PostStatus(Utils.USER_PROFILE i_User, string i_TextToPost, List<TagInfo> i_UserTags = null, Checkin i_CheckIn = null)//not finished: tags, checkin
         {
-            string postSuccess = null;
-            List<string> tagsIDs = new List<string>();
-
-            //if (i_UserTags != null)
-            //{
-            //    foreach (TagInfo taggedFriend in i_UserTags)
-            //    {
-            //        tagsIDs.Add(taggedFriend.User.Id);
-            //    }
-            //}
-
+            validateInputString(i_TextToPost);
             try
             {
-                FacebookAuth.LoggedInUser.PostStatus(i_TextToPost);
-            }
-            catch (Exception i_exception)
-            {
-                postSuccess = i_exception.Message;
-            }
+                switch(i_User)
+                {
+                    case Utils.USER_PROFILE.MY_PROFILE:
+                        FacebookAuth.LoggedInUser.PostStatus(i_TextToPost);
 
-            return postSuccess;
+                        break;
+                    case Utils.USER_PROFILE.FRIEND_PROFILE:
+                        m_UserFriendManager.PostOnFriendWall(i_TextToPost);
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Facebook Server Error");
+            }
         }
+
+        private void validateInputString(string i_TextToPost)
+        {
+            if (i_TextToPost == string.Empty)
+            {
+                throw new Exception("Invalid Input");
+            }
+        }
+
         public List<string> GetAlbumsNames()
         {
             return m_UserAlbumManager.getNames();
@@ -97,6 +104,31 @@ namespace Model
         public bool isValidPostEnteredValue(string i_TextToCheck)
         {
             return Regex.IsMatch(i_TextToCheck, @"^([1-9]|[1-2][0-9]|3[0-6])$");
+        }
+        public string DerivePostTextFormat(Post i_Post)
+        {
+            string divider = "_________________________________________________";
+            return string.Format(
+@"FROM: {0}
+POSTED AT:{1}
+
+{2}{3}{4}{3}{3}", i_Post?.From?.Name, i_Post?.CreatedTime?.ToString(), i_Post?.Message, System.Environment.NewLine, divider);
+        }
+
+        public void verifyFriendSearchAndImportInfo(string i_FriendNameToSearch)
+        {
+            User desiredFriend = FacebookAuth.LoggedInUser.Friends.Find(x => x.Name == i_FriendNameToSearch);
+            if(desiredFriend==null)
+            {
+                throw new Exception("We couldn't find your Friend\nPlease try again");
+            }
+
+            m_UserFriendManager = new UserFriendManager(desiredFriend);
+
+        }
+        public string getCurrentShowedFriendProfilePictureURL()
+        {
+            return m_UserFriendManager.GetProfilePictureURL();
         }
     }
 }

@@ -58,7 +58,6 @@
     <Compile Include="DesktopFacebook.Designer.cs">
       <DependentUpon>DesktopFacebook.cs</DependentUpon>
     </Compile>
-    <Compile Include="PostsViewer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DesktopFacebook.resx">

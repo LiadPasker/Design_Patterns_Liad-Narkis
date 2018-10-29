@@ -21,7 +21,7 @@ namespace View
         private AlbumDisplay m_AlbumDisplay = null; // manages albums and images display in 'MyAlbums' tab
         private int m_RecentPostTimeInMonths=6;
         private FacebookObjectCollection<Post> m_RecentPosts = null;
-
+        private string m_UserProfilePictureURL = null;
 
         /////////////////////// General Settings & 'MainWindow' Tab ////////////////////
         public DesktopFacebook()
@@ -80,14 +80,15 @@ namespace View
         }
         private void initializeUserProfilePicture()
         {
-            String pictureURL = getUserProfilePictureURL();
-            if (pictureURL != null)
+            m_UserProfilePictureURL = getUserProfilePictureURL();
+            if (m_UserProfilePictureURL != null)
             {
-                m_PictureBox_ProfilePicture.LoadAsync(getUserProfilePictureURL());
+                m_PictureBox_ProfilePicture.LoadAsync(m_UserProfilePictureURL);
             }
             //Graphics g=Graphics.FromHwnd(m_PictureBox_ProfilePicture.Handle);
             //g.DrawRectangle(new Pen(new SolidBrush(Color.FromArgb(200, Color.Black))),5,5, m_PictureBox_ProfilePicture.Width-5,m_PictureBox_ProfilePicture.Height-5);
         }
+
         private string getUserProfilePictureURL()
         {
             string profilePictureURL = null;
@@ -104,21 +105,38 @@ namespace View
         private void m_PictureBoxGoToMainTab_Click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_MainWindowTab);
+            initializeButtonTextBoxRelationship(m_TextBoxPostToMyWall, m_ButtonPostStatus);
             //m_ComboBoxZoom.SelectedIndex++; 
         }
-        //validations!!! (empty textBox,....)
         private void m_ButtonPostStatus_Click(object sender, EventArgs e)// tags? checkins?
         {
-            string postVerification = m_AppControl.PostStatus(m_PostTextBox.Text);
-            if (postVerification != null)
+            try
             {
-                MessageBox.Show("Post Failed");
+                m_AppControl.PostStatus(Utils.USER_PROFILE.MY_PROFILE,m_TextBoxPostToMyWall.Text);
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show(exception.Message);
             }
         }
         private void TextBoxStatus_click(object sender, EventArgs e)
         {
-            m_PostTextBox.Text = string.Empty;
-            m_PostTextBox.BackColor = Color.White;
+            changeButtonByTextBoxClick(m_TextBoxPostToMyWall, m_ButtonPostStatus);
+        }
+        private void changeButtonByTextBoxClick(TextBox i_TextBox, Button i_Button)
+        {
+            if (i_Button.Enabled == false)
+            {
+                i_TextBox.Text = string.Empty;
+            }
+            i_TextBox.BackColor = Color.White;
+            i_Button.Enabled = true;
+        }
+        private void initializeButtonTextBoxRelationship(TextBox i_TextBox, Button i_Button)
+        {
+            i_TextBox.Text = i_TextBox.Tag.ToString();
+            i_TextBox.BackColor = Color.LightCyan;
+            i_Button.Enabled = false;
         }
 
 
@@ -199,15 +217,6 @@ namespace View
             m_TextBoxPostMonthOld.Text = m_RecentPostTimeInMonths.ToString();
 
         }
-        private string derivePostTextFormat(Post i_Post)
-        {
-            string divider = "_________________________________________________";
-            return string.Format(
-@"FROM: {0}
-POSTED AT:{1}
-
-{2}{3}{4}{3}{3}",i_Post?.From?.Name, i_Post?.CreatedTime?.ToString(), i_Post?.Message, System.Environment.NewLine,divider);
-        }
         private void m_TextBoxPostMonthOld_TextChanged(object sender, EventArgs e)
         {
             if (m_AppControl.isValidPostEnteredValue(m_TextBoxPostMonthOld.Text))
@@ -233,10 +242,9 @@ POSTED AT:{1}
         public void ShowFeed()
         {
             m_FeedTextBox.Text = string.Empty;
-            //m_FeedTextBox.Refresh();
             foreach(Post post in m_RecentPosts)
             {
-                m_FeedTextBox.Text += derivePostTextFormat(post);
+                m_FeedTextBox.Text += m_AppControl.DerivePostTextFormat(post);
             }
         }
 
@@ -245,8 +253,57 @@ POSTED AT:{1}
         private void m_ButtonFriendInfo_click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageFriendsInfo);
-            m_PictureBoxFriendProfilePic.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.user.png",165,165);
+            if (m_PictureBoxFriendProfilePic.Image == null)
+            {
+                m_PictureBoxFriendProfilePic.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.user.png", 165, 165);
+            }
+            initializeButtonTextBoxRelationship(m_TextBoxPostOnFriendsWall, m_ButtonPostOnFriendsWall);
         }
 
+        private void m_TextBoxSearchFriend_Click(object sender, EventArgs e)
+        {
+            changeButtonByTextBoxClick(m_TextBoxSearchFriend, m_ButtonSearchFriend);
+        }
+
+        private void m_ButtonSearchFriend_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                m_AppControl.verifyFriendSearchAndImportInfo(m_TextBoxSearchFriend.Text); //throws exeption if searched failed or facebook server failed
+                initializeFriendInfoTab();
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
+
+        private void initializeFriendInfoTab()
+        {
+            m_TextBoxFriendInfo.Enabled = true;
+            m_TextBoxPostOnFriendsWall.Enabled = true;
+            m_PictureBoxFriendProfilePic.LoadAsync(m_AppControl.getCurrentShowedFriendProfilePictureURL());
+            //m_TextBoxFriendInfo.Text = m_AppControl.getcurrentShowedFriendInfo();
+        }
+
+        private void m_ButtonPostOnFriendsWall_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                m_AppControl.PostStatus(Utils.USER_PROFILE.FRIEND_PROFILE, m_TextBoxPostOnFriendsWall.Text);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
+
+        private void m_TextBoxPostOnFriendsWall_Click(object sender, EventArgs e)
+        {
+
+            changeButtonByTextBoxClick(m_TextBoxPostOnFriendsWall, m_ButtonPostOnFriendsWall);
+
+
+        }
     }
 }

@@ -130,7 +130,7 @@ namespace View
                 else
                 {
                     AlbumPictures[i].Name = m_CurrentPagePhotos[i].PictureNormalURL;
-                    AlbumPictures[i].Image = Model.UserAlbumsManager.createBitmapFromURL(m_CurrentPagePhotos[i].PictureNormalURL, m_PicturesSizeToshow);
+                    AlbumPictures[i].Image = Model.UserAlbumsManager.CreateCustomedImageFromURL(m_CurrentPagePhotos[i].PictureNormalURL, m_PicturesSizeToshow);
                 }
                 AlbumPictures[i].Visible = true;
             }
