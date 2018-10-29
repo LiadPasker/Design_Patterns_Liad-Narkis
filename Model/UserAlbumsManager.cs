@@ -13,7 +13,6 @@ namespace Model
     {
         private List<Album> m_UserAlbums = null;
 
-
         public void importUserAlbumsList(FacebookObjectCollection<Album> i_Albums)
         {
             m_UserAlbums = new List<Album>();
@@ -22,13 +21,11 @@ namespace Model
                 m_UserAlbums.Add(album);
             }
         }
-
         public Album GetAlbum(string i_AlbumName)
         {
             return m_UserAlbums.Find(x => x.Name == i_AlbumName);
         }
-
-            public List<string> GetAlbumURLs(Album i_CurrentAlbum)
+        public List<string> GetAlbumURLs(Album i_CurrentAlbum)
         {
             List<string> userChoice = new List<string>();
             foreach(Photo photo in i_CurrentAlbum.Photos)
@@ -38,8 +35,6 @@ namespace Model
             
             return userChoice;
         }
-
-
         internal List<string> getNames()
         {
             List<string> albumNames = new List<string>();
@@ -50,7 +45,6 @@ namespace Model
 
             return albumNames;
         }
-
         public static Bitmap createBitmapFromURL(string i_URL, Size i_PictureCustomSize)
         {
             System.Net.WebRequest request = System.Net.WebRequest.Create(i_URL);
@@ -60,7 +54,6 @@ namespace Model
             Bitmap bitmap = new Bitmap(responseStream);
             return new Bitmap(bitmap, newImageSize);
         }
-
         public static Bitmap GetCustomedImageFromEmbeddedResource(string i_Source, int i_Height = 60, int i_Width = 60)
         {
             Assembly myAssembly = Assembly.GetExecutingAssembly();

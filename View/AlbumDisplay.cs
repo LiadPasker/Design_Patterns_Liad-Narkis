@@ -83,6 +83,7 @@ namespace View
 
             return photoToShow;
         }
+
         public void Show(int i_MoveToPage = 1)
         {
             PageHandler(i_MoveToPage);

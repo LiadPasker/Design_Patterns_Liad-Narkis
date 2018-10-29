@@ -54,14 +54,23 @@
     <Compile Include="UserAlbumsManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="pictureSources\postStatus.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="pictureSources\logout.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="pictureSources\back.png" />
     <EmbeddedResource Include="pictureSources\next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="pictureSources\postStatus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="pictureSources\desktop_facebook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="pictureSources\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="pictureSources\home.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

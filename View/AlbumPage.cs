@@ -9,11 +9,15 @@ using System.Windows.Forms;
 //URL list??
 namespace View
 {
+    /////////////// Collection of PictureBoxes componnent ///////////////////
+
     public class AlbumPage
     {
         private readonly int r_LikesAndCommentsCoverAlpha = 150;
+        private readonly int r_FirstPictureLocation_X=5;
+        private readonly int r_FirstPictureLocation_Y = 50;
+        private readonly TabPage r_AlbumPageTab;
         private int m_NumberOfPicturesToShow;
-        private TabPage m_ViewControls;
         public Size m_PicturesSizeToshow { get; set; }
         public List<PictureBox> AlbumPictures { get; set; }
         private List<Photo> m_CurrentPagePhotos = null;
@@ -23,9 +27,8 @@ namespace View
         {
             m_PicturesSizeToshow = new Size(i_PictureHeight, i_PictureWidth);
             m_NumberOfPicturesToShow = i_NumberOfPictures;
-            m_ViewControls = i_TabConrol;
+            r_AlbumPageTab = i_TabConrol;
         }
-
         public void InitializePictures()
         {
             if (AlbumPictures != null)
@@ -33,30 +36,21 @@ namespace View
                 DisappearAlbumPage();
             }
             AlbumPictures = new List<PictureBox>(m_NumberOfPicturesToShow);
-            InitializePictureBoxes();
+            InitializeComponents();
         }
-
-        public void DisappearAlbumPage()
-        {
-            foreach(PictureBox picture in AlbumPictures)
-            {
-                picture.Visible = false;
-            }
-        }
-
-        private void InitializePictureBoxes()
+        private void InitializeComponents()
         {
             AlbumPictures.Add(new PictureBox());
             AlbumPictures[0].Size = m_PicturesSizeToshow;
-            AlbumPictures[0].Location = new Point(5, 50);
+            AlbumPictures[0].Location = new Point(r_FirstPictureLocation_X, r_FirstPictureLocation_Y);
             AlbumPictures[0].MouseEnter += PictureBox_MouseEnter;
             AlbumPictures[0].MouseLeave += PictureBox_MouseLeave;
-            m_ViewControls.Controls.Add(AlbumPictures[0]);
+            r_AlbumPageTab.Controls.Add(AlbumPictures[0]);
 
             for (int i = 1; i < AlbumPictures.Capacity; i++)
             {
                 AlbumPictures.Add(new PictureBox());
-                m_ViewControls.Controls.Add(AlbumPictures[i]);
+                r_AlbumPageTab.Controls.Add(AlbumPictures[i]);
                 if (i < AlbumPictures.Capacity / 2)
                 {
                     AlbumPictures[i].Location = new Point(AlbumPictures[i - 1].Right + 5, AlbumPictures[i - 1].Location.Y);
@@ -73,8 +67,13 @@ namespace View
 
             }
         }
-
-
+        public void DisappearAlbumPage()
+        {
+            foreach(PictureBox picture in AlbumPictures)
+            {
+                picture.Visible = false;
+            }
+        }
         private void PictureBox_MouseEnter(object sender, EventArgs e)
         {
             PictureBox picture = (sender as PictureBox);
@@ -95,7 +94,6 @@ namespace View
                 }
             }
         }
-
         private string getLikesAndCommentsTextFromPhoto(Photo i_Photo)
         {
             string text = null;
@@ -110,12 +108,10 @@ namespace View
 
             return text;
         }
-
         private void PictureBox_MouseLeave(object sender, EventArgs e)
         {
             (sender as PictureBox).Invalidate();
         }
-
         public void Show(List<Photo> i_PicturesToShow, int i_NumberOfPicturePerPage)
         {
             if(i_PicturesToShow==null)
@@ -139,6 +135,12 @@ namespace View
                 AlbumPictures[i].Visible = true;
             }
         }
+
+
+
+
+
+
 
     }
 }
