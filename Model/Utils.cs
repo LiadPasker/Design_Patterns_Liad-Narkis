@@ -7,7 +7,7 @@ namespace Model
 {
     public static class Utils
     {
-        public enum USER_PROFILE
+        public enum eUSER_PROFILE
         {
             MY_PROFILE,
             FRIEND_PROFILE

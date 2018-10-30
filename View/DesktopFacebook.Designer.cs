@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.m_TabPageMyAlbums = new System.Windows.Forms.TabPage();
             this.m_ComboBoxZoom = new System.Windows.Forms.ComboBox();
             this.m_labelPicturesPerPage = new System.Windows.Forms.Label();
@@ -55,6 +56,27 @@
             this.m_TextBoxPostMonthOld = new System.Windows.Forms.TextBox();
             this.m_FeedTextBox = new System.Windows.Forms.TextBox();
             this.m_TabPageFriendsInfo = new System.Windows.Forms.TabPage();
+            this.m_TextBoxFriendFeedAge = new System.Windows.Forms.TextBox();
+            this.m_DataGridViewRecentFeed = new System.Windows.Forms.DataGridView();
+            this.messageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.updateTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.placeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fromDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.createdTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.m_BindingSourceFriendFeed = new System.Windows.Forms.BindingSource(this.components);
+            this.m_DataGridViewUpcomingEvents = new System.Windows.Forms.DataGridView();
+            this.ownerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.startTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.endTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.locationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.linkToFacebookDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.m_BindingSourceUpcomingEvents = new System.Windows.Forms.BindingSource(this.components);
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.m_ButtonPostOnFriendsWall = new System.Windows.Forms.Button();
             this.m_TextBoxPostOnFriendsWall = new System.Windows.Forms.TextBox();
             this.m_TextBoxFriendInfo = new System.Windows.Forms.TextBox();
@@ -73,6 +95,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBox_ProfilePicture)).BeginInit();
             this.m_TabPageFeed.SuspendLayout();
             this.m_TabPageFriendsInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_DataGridViewRecentFeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendFeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_DataGridViewUpcomingEvents)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceUpcomingEvents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxFriendProfilePic)).BeginInit();
             this.m_TabPageMyProfile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -330,7 +356,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label3.Location = new System.Drawing.Point(9, 50);
+            this.label3.Location = new System.Drawing.Point(10, 53);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(224, 20);
             this.label3.TabIndex = 3;
@@ -339,15 +365,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 17);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label2.Location = new System.Drawing.Point(10, 20);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(161, 20);
+            this.label2.Size = new System.Drawing.Size(182, 20);
             this.label2.TabIndex = 2;
             this.label2.Text = "Post Age (in months):";
             // 
             // m_TextBoxPostMonthOld
             // 
-            this.m_TextBoxPostMonthOld.Location = new System.Drawing.Point(181, 15);
+            this.m_TextBoxPostMonthOld.Location = new System.Drawing.Point(202, 18);
             this.m_TextBoxPostMonthOld.Name = "m_TextBoxPostMonthOld";
             this.m_TextBoxPostMonthOld.Size = new System.Drawing.Size(48, 26);
             this.m_TextBoxPostMonthOld.TabIndex = 1;
@@ -356,17 +383,23 @@
             // m_FeedTextBox
             // 
             this.m_FeedTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.m_FeedTextBox.Location = new System.Drawing.Point(239, 12);
+            this.m_FeedTextBox.Location = new System.Drawing.Point(274, 12);
             this.m_FeedTextBox.Multiline = true;
             this.m_FeedTextBox.Name = "m_FeedTextBox";
             this.m_FeedTextBox.ReadOnly = true;
             this.m_FeedTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.m_FeedTextBox.Size = new System.Drawing.Size(695, 571);
+            this.m_FeedTextBox.Size = new System.Drawing.Size(660, 571);
             this.m_FeedTextBox.TabIndex = 0;
             this.m_FeedTextBox.Text = "\r\n";
             // 
             // m_TabPageFriendsInfo
             // 
+            this.m_TabPageFriendsInfo.Controls.Add(this.m_TextBoxFriendFeedAge);
+            this.m_TabPageFriendsInfo.Controls.Add(this.m_DataGridViewRecentFeed);
+            this.m_TabPageFriendsInfo.Controls.Add(this.m_DataGridViewUpcomingEvents);
+            this.m_TabPageFriendsInfo.Controls.Add(this.label5);
+            this.m_TabPageFriendsInfo.Controls.Add(this.label6);
+            this.m_TabPageFriendsInfo.Controls.Add(this.label4);
             this.m_TabPageFriendsInfo.Controls.Add(this.m_ButtonPostOnFriendsWall);
             this.m_TabPageFriendsInfo.Controls.Add(this.m_TextBoxPostOnFriendsWall);
             this.m_TabPageFriendsInfo.Controls.Add(this.m_TextBoxFriendInfo);
@@ -380,12 +413,193 @@
             this.m_TabPageFriendsInfo.Text = "tabPage4";
             this.m_TabPageFriendsInfo.UseVisualStyleBackColor = true;
             // 
+            // m_TextBoxFriendFeedAge
+            // 
+            this.m_TextBoxFriendFeedAge.Enabled = false;
+            this.m_TextBoxFriendFeedAge.Location = new System.Drawing.Point(795, 88);
+            this.m_TextBoxFriendFeedAge.Name = "m_TextBoxFriendFeedAge";
+            this.m_TextBoxFriendFeedAge.Size = new System.Drawing.Size(38, 26);
+            this.m_TextBoxFriendFeedAge.TabIndex = 9;
+            this.m_TextBoxFriendFeedAge.TextChanged += new System.EventHandler(this.m_TextBoxFriendFeedAge_TextChanged);
+            // 
+            // m_DataGridViewRecentFeed
+            // 
+            this.m_DataGridViewRecentFeed.AllowUserToAddRows = false;
+            this.m_DataGridViewRecentFeed.AllowUserToDeleteRows = false;
+            this.m_DataGridViewRecentFeed.AutoGenerateColumns = false;
+            this.m_DataGridViewRecentFeed.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.m_DataGridViewRecentFeed.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.messageDataGridViewTextBoxColumn,
+            this.nameDataGridViewTextBoxColumn1,
+            this.updateTimeDataGridViewTextBoxColumn,
+            this.placeDataGridViewTextBoxColumn,
+            this.fromDataGridViewTextBoxColumn,
+            this.createdTimeDataGridViewTextBoxColumn});
+            this.m_DataGridViewRecentFeed.DataSource = this.m_BindingSourceFriendFeed;
+            this.m_DataGridViewRecentFeed.Location = new System.Drawing.Point(538, 117);
+            this.m_DataGridViewRecentFeed.Name = "m_DataGridViewRecentFeed";
+            this.m_DataGridViewRecentFeed.ReadOnly = true;
+            this.m_DataGridViewRecentFeed.RowTemplate.Height = 28;
+            this.m_DataGridViewRecentFeed.Size = new System.Drawing.Size(368, 216);
+            this.m_DataGridViewRecentFeed.TabIndex = 8;
+            // 
+            // messageDataGridViewTextBoxColumn
+            // 
+            this.messageDataGridViewTextBoxColumn.DataPropertyName = "Message";
+            this.messageDataGridViewTextBoxColumn.HeaderText = "Message";
+            this.messageDataGridViewTextBoxColumn.Name = "messageDataGridViewTextBoxColumn";
+            this.messageDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nameDataGridViewTextBoxColumn1
+            // 
+            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn1.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
+            this.nameDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // updateTimeDataGridViewTextBoxColumn
+            // 
+            this.updateTimeDataGridViewTextBoxColumn.DataPropertyName = "UpdateTime";
+            this.updateTimeDataGridViewTextBoxColumn.HeaderText = "UpdateTime";
+            this.updateTimeDataGridViewTextBoxColumn.Name = "updateTimeDataGridViewTextBoxColumn";
+            this.updateTimeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // placeDataGridViewTextBoxColumn
+            // 
+            this.placeDataGridViewTextBoxColumn.DataPropertyName = "Place";
+            this.placeDataGridViewTextBoxColumn.HeaderText = "Place";
+            this.placeDataGridViewTextBoxColumn.Name = "placeDataGridViewTextBoxColumn";
+            this.placeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fromDataGridViewTextBoxColumn
+            // 
+            this.fromDataGridViewTextBoxColumn.DataPropertyName = "From";
+            this.fromDataGridViewTextBoxColumn.HeaderText = "From";
+            this.fromDataGridViewTextBoxColumn.Name = "fromDataGridViewTextBoxColumn";
+            this.fromDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // createdTimeDataGridViewTextBoxColumn
+            // 
+            this.createdTimeDataGridViewTextBoxColumn.DataPropertyName = "CreatedTime";
+            this.createdTimeDataGridViewTextBoxColumn.HeaderText = "CreatedTime";
+            this.createdTimeDataGridViewTextBoxColumn.Name = "createdTimeDataGridViewTextBoxColumn";
+            this.createdTimeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // m_BindingSourceFriendFeed
+            // 
+            this.m_BindingSourceFriendFeed.DataSource = typeof(FacebookWrapper.ObjectModel.Post);
+            // 
+            // m_DataGridViewUpcomingEvents
+            // 
+            this.m_DataGridViewUpcomingEvents.AllowUserToAddRows = false;
+            this.m_DataGridViewUpcomingEvents.AllowUserToDeleteRows = false;
+            this.m_DataGridViewUpcomingEvents.AutoGenerateColumns = false;
+            this.m_DataGridViewUpcomingEvents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.m_DataGridViewUpcomingEvents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ownerDataGridViewTextBoxColumn,
+            this.nameDataGridViewTextBoxColumn,
+            this.descriptionDataGridViewTextBoxColumn,
+            this.startTimeDataGridViewTextBoxColumn,
+            this.endTimeDataGridViewTextBoxColumn,
+            this.locationDataGridViewTextBoxColumn,
+            this.linkToFacebookDataGridViewTextBoxColumn});
+            this.m_DataGridViewUpcomingEvents.DataSource = this.m_BindingSourceUpcomingEvents;
+            this.m_DataGridViewUpcomingEvents.Location = new System.Drawing.Point(294, 375);
+            this.m_DataGridViewUpcomingEvents.Name = "m_DataGridViewUpcomingEvents";
+            this.m_DataGridViewUpcomingEvents.ReadOnly = true;
+            this.m_DataGridViewUpcomingEvents.RowTemplate.Height = 28;
+            this.m_DataGridViewUpcomingEvents.Size = new System.Drawing.Size(612, 172);
+            this.m_DataGridViewUpcomingEvents.TabIndex = 7;
+            // 
+            // ownerDataGridViewTextBoxColumn
+            // 
+            this.ownerDataGridViewTextBoxColumn.DataPropertyName = "Owner";
+            this.ownerDataGridViewTextBoxColumn.HeaderText = "Owner";
+            this.ownerDataGridViewTextBoxColumn.Name = "ownerDataGridViewTextBoxColumn";
+            this.ownerDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // descriptionDataGridViewTextBoxColumn
+            // 
+            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
+            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
+            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // startTimeDataGridViewTextBoxColumn
+            // 
+            this.startTimeDataGridViewTextBoxColumn.DataPropertyName = "StartTime";
+            this.startTimeDataGridViewTextBoxColumn.HeaderText = "StartTime";
+            this.startTimeDataGridViewTextBoxColumn.Name = "startTimeDataGridViewTextBoxColumn";
+            this.startTimeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // endTimeDataGridViewTextBoxColumn
+            // 
+            this.endTimeDataGridViewTextBoxColumn.DataPropertyName = "EndTime";
+            this.endTimeDataGridViewTextBoxColumn.HeaderText = "EndTime";
+            this.endTimeDataGridViewTextBoxColumn.Name = "endTimeDataGridViewTextBoxColumn";
+            this.endTimeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // locationDataGridViewTextBoxColumn
+            // 
+            this.locationDataGridViewTextBoxColumn.DataPropertyName = "Location";
+            this.locationDataGridViewTextBoxColumn.HeaderText = "Location";
+            this.locationDataGridViewTextBoxColumn.Name = "locationDataGridViewTextBoxColumn";
+            this.locationDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // linkToFacebookDataGridViewTextBoxColumn
+            // 
+            this.linkToFacebookDataGridViewTextBoxColumn.DataPropertyName = "LinkToFacebook";
+            this.linkToFacebookDataGridViewTextBoxColumn.HeaderText = "LinkToFacebook";
+            this.linkToFacebookDataGridViewTextBoxColumn.Name = "linkToFacebookDataGridViewTextBoxColumn";
+            this.linkToFacebookDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // m_BindingSourceUpcomingEvents
+            // 
+            this.m_BindingSourceUpcomingEvents.DataSource = typeof(FacebookWrapper.ObjectModel.Event);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label5.Location = new System.Drawing.Point(289, 347);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(187, 25);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Upcoming Events:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label6.Location = new System.Drawing.Point(533, 89);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(256, 25);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "Recent Feed (in months):";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label4.Location = new System.Drawing.Point(289, 89);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(185, 25);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Basic Information:";
+            // 
             // m_ButtonPostOnFriendsWall
             // 
             this.m_ButtonPostOnFriendsWall.Enabled = false;
-            this.m_ButtonPostOnFriendsWall.Location = new System.Drawing.Point(185, 488);
+            this.m_ButtonPostOnFriendsWall.Location = new System.Drawing.Point(44, 515);
             this.m_ButtonPostOnFriendsWall.Name = "m_ButtonPostOnFriendsWall";
-            this.m_ButtonPostOnFriendsWall.Size = new System.Drawing.Size(86, 32);
+            this.m_ButtonPostOnFriendsWall.Size = new System.Drawing.Size(232, 32);
             this.m_ButtonPostOnFriendsWall.TabIndex = 5;
             this.m_ButtonPostOnFriendsWall.Text = "Post";
             this.m_ButtonPostOnFriendsWall.UseVisualStyleBackColor = true;
@@ -395,10 +609,10 @@
             // 
             this.m_TextBoxPostOnFriendsWall.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.m_TextBoxPostOnFriendsWall.Enabled = false;
-            this.m_TextBoxPostOnFriendsWall.Location = new System.Drawing.Point(112, 380);
+            this.m_TextBoxPostOnFriendsWall.Location = new System.Drawing.Point(44, 375);
             this.m_TextBoxPostOnFriendsWall.Multiline = true;
             this.m_TextBoxPostOnFriendsWall.Name = "m_TextBoxPostOnFriendsWall";
-            this.m_TextBoxPostOnFriendsWall.Size = new System.Drawing.Size(232, 102);
+            this.m_TextBoxPostOnFriendsWall.Size = new System.Drawing.Size(232, 134);
             this.m_TextBoxPostOnFriendsWall.TabIndex = 4;
             this.m_TextBoxPostOnFriendsWall.Tag = "It\'s rude not to say anything...";
             this.m_TextBoxPostOnFriendsWall.Text = "It\'s rude not to say anything...";
@@ -407,18 +621,19 @@
             // m_TextBoxFriendInfo
             // 
             this.m_TextBoxFriendInfo.Enabled = false;
-            this.m_TextBoxFriendInfo.Location = new System.Drawing.Point(362, 98);
+            this.m_TextBoxFriendInfo.Location = new System.Drawing.Point(294, 117);
             this.m_TextBoxFriendInfo.Multiline = true;
             this.m_TextBoxFriendInfo.Name = "m_TextBoxFriendInfo";
             this.m_TextBoxFriendInfo.ReadOnly = true;
-            this.m_TextBoxFriendInfo.Size = new System.Drawing.Size(486, 422);
+            this.m_TextBoxFriendInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.m_TextBoxFriendInfo.Size = new System.Drawing.Size(224, 216);
             this.m_TextBoxFriendInfo.TabIndex = 3;
             this.m_TextBoxFriendInfo.Text = "[Friend\'s info to show]";
             // 
             // m_ButtonSearchFriend
             // 
             this.m_ButtonSearchFriend.Enabled = false;
-            this.m_ButtonSearchFriend.Location = new System.Drawing.Point(439, 48);
+            this.m_ButtonSearchFriend.Location = new System.Drawing.Point(371, 32);
             this.m_ButtonSearchFriend.Name = "m_ButtonSearchFriend";
             this.m_ButtonSearchFriend.Size = new System.Drawing.Size(86, 32);
             this.m_ButtonSearchFriend.TabIndex = 2;
@@ -428,17 +643,18 @@
             // 
             // m_TextBoxSearchFriend
             // 
-            this.m_TextBoxSearchFriend.Location = new System.Drawing.Point(112, 51);
+            this.m_TextBoxSearchFriend.Location = new System.Drawing.Point(44, 35);
             this.m_TextBoxSearchFriend.Name = "m_TextBoxSearchFriend";
             this.m_TextBoxSearchFriend.Size = new System.Drawing.Size(320, 26);
             this.m_TextBoxSearchFriend.TabIndex = 1;
             this.m_TextBoxSearchFriend.Tag = "What is your friend\'s name?";
             this.m_TextBoxSearchFriend.Text = "What is your friend\'s name?";
             this.m_TextBoxSearchFriend.Click += new System.EventHandler(this.m_TextBoxSearchFriend_Click);
+            this.m_TextBoxSearchFriend.TextChanged += new System.EventHandler(this.m_TextBoxSearchFriend_TextChanged);
             // 
             // m_PictureBoxFriendProfilePic
             // 
-            this.m_PictureBoxFriendProfilePic.Location = new System.Drawing.Point(112, 98);
+            this.m_PictureBoxFriendProfilePic.Location = new System.Drawing.Point(44, 89);
             this.m_PictureBoxFriendProfilePic.Name = "m_PictureBoxFriendProfilePic";
             this.m_PictureBoxFriendProfilePic.Size = new System.Drawing.Size(232, 265);
             this.m_PictureBoxFriendProfilePic.TabIndex = 0;
@@ -514,6 +730,10 @@
             this.m_TabPageFeed.PerformLayout();
             this.m_TabPageFriendsInfo.ResumeLayout(false);
             this.m_TabPageFriendsInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_DataGridViewRecentFeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendFeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_DataGridViewUpcomingEvents)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceUpcomingEvents)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxFriendProfilePic)).EndInit();
             this.m_TabPageMyProfile.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -562,6 +782,27 @@
         private System.Windows.Forms.TabPage m_TabPageMyProfile;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TabPage m_TabPageBirthdayTracker;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridView m_DataGridViewUpcomingEvents;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.BindingSource m_BindingSourceUpcomingEvents;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ownerDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn startTimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn endTimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn locationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn linkToFacebookDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridView m_DataGridViewRecentFeed;
+        private System.Windows.Forms.BindingSource m_BindingSourceFriendFeed;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox m_TextBoxFriendFeedAge;
+        private System.Windows.Forms.DataGridViewTextBoxColumn messageDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn updateTimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn placeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fromDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn createdTimeDataGridViewTextBoxColumn;
     }
 }
 

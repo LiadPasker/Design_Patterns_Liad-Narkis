@@ -19,7 +19,7 @@ namespace View
     {
         private Model.Control m_AppControl;
         private AlbumDisplay m_AlbumDisplay = null; // manages albums and images display in 'MyAlbums' tab
-        private int m_RecentPostTimeInMonths=6;
+        private int m_PostsAgeInMonths=6;
         private FacebookObjectCollection<Post> m_RecentPosts = null;
         private string m_UserProfilePictureURL = null;
 
@@ -36,7 +36,7 @@ namespace View
             initializeUserProfilePicture();
 
         }
-        private void DesktopFacebook_Shown(object sender, EventArgs e)
+        private void DesktopFacebook_Shown(object sender, EventArgs e) //not finished
         {
             try
             {
@@ -85,8 +85,6 @@ namespace View
             {
                 m_PictureBox_ProfilePicture.LoadAsync(m_UserProfilePictureURL);
             }
-            //Graphics g=Graphics.FromHwnd(m_PictureBox_ProfilePicture.Handle);
-            //g.DrawRectangle(new Pen(new SolidBrush(Color.FromArgb(200, Color.Black))),5,5, m_PictureBox_ProfilePicture.Width-5,m_PictureBox_ProfilePicture.Height-5);
         }
 
         private string getUserProfilePictureURL()
@@ -112,7 +110,7 @@ namespace View
         {
             try
             {
-                m_AppControl.PostStatus(Utils.USER_PROFILE.MY_PROFILE,m_TextBoxPostToMyWall.Text);
+                m_AppControl.PostStatus(Utils.eUSER_PROFILE.MY_PROFILE,m_TextBoxPostToMyWall.Text);
             }
             catch(Exception exception)
             {
@@ -214,32 +212,42 @@ namespace View
         private void m_ButtonFeed_Click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageFeed);
-            m_TextBoxPostMonthOld.Text = m_RecentPostTimeInMonths.ToString();
+            m_TextBoxPostMonthOld_TextChanged(m_TextBoxPostMonthOld, null);
 
         }
         private void m_TextBoxPostMonthOld_TextChanged(object sender, EventArgs e)
         {
-            if (m_AppControl.isValidPostEnteredValue(m_TextBoxPostMonthOld.Text))
+            if (m_TextBoxPostMonthOld.Text == string.Empty)
             {
-                m_RecentPostTimeInMonths = int.Parse(m_TextBoxPostMonthOld.Text);
+                m_TextBoxPostMonthOld.Text = m_PostsAgeInMonths.ToString();
+            }
 
-                try
-                {
-                    m_RecentPosts = m_AppControl.getFeed(m_RecentPostTimeInMonths);
-                    ShowFeed();
-                }
-                catch (Exception exception)
-                {
-                    showFacebookServerErrorMessege("Feed Load Failed");
-                }
+            ValidatePostsAgeCheckBoxAndExecute(Utils.eUSER_PROFILE.MY_PROFILE, m_TextBoxPostMonthOld);
+            try
+            {
+                m_RecentPosts = m_AppControl.getFeed(Utils.eUSER_PROFILE.MY_PROFILE, m_PostsAgeInMonths);
+            }
+            catch (Exception exception)
+            {
+                showFacebookServerErrorMessege("Feed Load Failed");
+            }
+
+            ShowMyFeed();
+
+        }
+        private void ValidatePostsAgeCheckBoxAndExecute(Utils.eUSER_PROFILE i_ProfileType, TextBox i_TextBox)
+        {
+            if (m_AppControl.isValidPostEnteredValue(i_TextBox.Text))
+            {
+                m_PostsAgeInMonths = int.Parse(i_TextBox.Text);
             }
             else
             {
-                m_TextBoxPostMonthOld.Text = m_RecentPostTimeInMonths.ToString();
+                i_TextBox.Text = m_PostsAgeInMonths.ToString();
                 MessageBox.Show("Invalid Input");
             }
         }
-        public void ShowFeed()
+        public void ShowMyFeed()
         {
             m_FeedTextBox.Text = string.Empty;
             foreach(Post post in m_RecentPosts)
@@ -247,7 +255,7 @@ namespace View
                 m_FeedTextBox.Text += m_AppControl.DerivePostTextFormat(post);
             }
         }
-
+        
 
         ///////////////////////////// Friend Info Tab ////////////////////////////
         private void m_ButtonFriendInfo_click(object sender, EventArgs e)
@@ -259,12 +267,10 @@ namespace View
             }
             initializeButtonTextBoxRelationship(m_TextBoxPostOnFriendsWall, m_ButtonPostOnFriendsWall);
         }
-
         private void m_TextBoxSearchFriend_Click(object sender, EventArgs e)
         {
             changeButtonByTextBoxClick(m_TextBoxSearchFriend, m_ButtonSearchFriend);
         }
-
         private void m_ButtonSearchFriend_Click(object sender, EventArgs e)
         {
             try
@@ -277,27 +283,58 @@ namespace View
                 MessageBox.Show(exception.Message);
             }
         }
-
         private void initializeFriendInfoTab()
         {
             m_TextBoxFriendInfo.Enabled = true;
             m_TextBoxPostOnFriendsWall.Enabled = true;
+            m_TextBoxFriendFeedAge.Enabled = true;
             m_PictureBoxFriendProfilePic.LoadAsync(m_AppControl.getCurrentShowedFriendProfilePictureURL());
-            //m_TextBoxFriendInfo.Text = m_AppControl.getcurrentShowedFriendInfo();
+            m_TextBoxFriendInfo.Text = m_AppControl.GetcurrentShowedFriendInfo();
+            m_DataGridViewUpcomingEvents.Invoke(new Action(initializeFriendUpcomingEvents));
+            m_TextBoxFriendFeedAge_TextChanged(m_TextBoxFriendFeedAge, null);
         }
-
+        private void initializeFriendUpcomingEvents()
+        {
+            try
+            {
+                m_BindingSourceUpcomingEvents.DataSource=m_AppControl.GetUserFriendUpcomingEvents();
+            }
+            catch(Exception e)
+            {
+                showFacebookServerErrorMessege();
+            }
+        }
+        private void initializeFriendRecentFeed()
+        {
+            try
+            {
+                m_BindingSourceFriendFeed.DataSource = m_AppControl.getFeed(Utils.eUSER_PROFILE.FRIEND_PROFILE, m_PostsAgeInMonths);
+            }
+            catch (Exception e)
+            {
+                showFacebookServerErrorMessege();
+            }
+        }
+        private void m_TextBoxFriendFeedAge_TextChanged(object sender, EventArgs e)
+        {
+            if (m_TextBoxFriendFeedAge.Text == string.Empty)
+            {
+                m_TextBoxFriendFeedAge.Text = m_PostsAgeInMonths.ToString();
+            }
+            ValidatePostsAgeCheckBoxAndExecute(Utils.eUSER_PROFILE.FRIEND_PROFILE, m_TextBoxFriendFeedAge);
+            m_DataGridViewRecentFeed.Invoke(new Action(initializeFriendRecentFeed));
+        }
         private void m_ButtonPostOnFriendsWall_Click(object sender, EventArgs e)
         {
             try
             {
-                m_AppControl.PostStatus(Utils.USER_PROFILE.FRIEND_PROFILE, m_TextBoxPostOnFriendsWall.Text);
+                m_AppControl.PostStatus(Utils.eUSER_PROFILE.FRIEND_PROFILE, m_TextBoxPostOnFriendsWall.Text);
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
             }
         }
-
         private void m_TextBoxPostOnFriendsWall_Click(object sender, EventArgs e)
         {
 
@@ -305,5 +342,11 @@ namespace View
 
 
         }
+        private void m_TextBoxSearchFriend_TextChanged(object sender, EventArgs e)
+        {
+            m_TextBoxSearchFriend_Click(sender, e);
+        }
+
+
     }
 }

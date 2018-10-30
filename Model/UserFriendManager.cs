@@ -8,21 +8,30 @@ namespace Model
 {
     public class UserFriendManager
     {
-        private User m_UserFriend = null;
+        public User UserFriend { get; } = null;
+        private readonly int r_CheckInAgeInMonths = 100;
 
         public UserFriendManager(User i_UserFriend)
         {
-            m_UserFriend = i_UserFriend;
+            UserFriend = i_UserFriend;
         }
 
-        public string GetProfilePictureURL()
+        public FacebookObjectCollection<Event> getFriendUpcomingEvents()
         {
-            return m_UserFriend.PictureNormalURL;
+            FacebookObjectCollection<Event> recentEvents = new FacebookObjectCollection<Event>();
+
+            foreach (Event userEvent in UserFriend.Events)
+            {
+                if (userEvent.StartTime >= DateTime.Now.AddMonths(Math.Abs(r_CheckInAgeInMonths)))
+                {
+                    recentEvents.Add(userEvent);
+                }
+            }
+
+            return recentEvents;
         }
 
-        public void PostOnFriendWall(string i_TextToPost)
-        {
-            m_UserFriend.PostStatus(i_TextToPost);
-        }
+
+
     }
 }

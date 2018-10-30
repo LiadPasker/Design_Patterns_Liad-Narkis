@@ -73,6 +73,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.Checkin.datasource" />
+    <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.Event.datasource" />
+    <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.Place.datasource" />
+    <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.Post.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

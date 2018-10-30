@@ -41,19 +41,19 @@ namespace Model
         {
             return m_DFSetting.LoadAppSettings() != null && m_DFSetting.LoadAppSettings().LastAccessToken != string.Empty;
         }
-        public void PostStatus(Utils.USER_PROFILE i_User, string i_TextToPost, List<TagInfo> i_UserTags = null, Checkin i_CheckIn = null)//not finished: tags, checkin
+        public void PostStatus(Utils.eUSER_PROFILE i_User, string i_TextToPost, List<TagInfo> i_UserTags = null, Checkin i_CheckIn = null)//not finished: tags, checkin
         {
             validateInputString(i_TextToPost);
             try
             {
                 switch(i_User)
                 {
-                    case Utils.USER_PROFILE.MY_PROFILE:
+                    case Utils.eUSER_PROFILE.MY_PROFILE:
                         FacebookAuth.LoggedInUser.PostStatus(i_TextToPost);
 
                         break;
-                    case Utils.USER_PROFILE.FRIEND_PROFILE:
-                        m_UserFriendManager.PostOnFriendWall(i_TextToPost);
+                    case Utils.eUSER_PROFILE.FRIEND_PROFILE:
+                        m_UserFriendManager.UserFriend.PostStatus(i_TextToPost);
                         break;
                 }
             }
@@ -62,7 +62,6 @@ namespace Model
                 throw new Exception("Facebook Server Error");
             }
         }
-
         private void validateInputString(string i_TextToPost)
         {
             if (i_TextToPost == string.Empty)
@@ -70,7 +69,6 @@ namespace Model
                 throw new Exception("Invalid Input");
             }
         }
-
         public List<string> GetAlbumsNames()
         {
             return m_UserAlbumManager.getNames();
@@ -87,11 +85,11 @@ namespace Model
         {
             return m_UserAlbumManager.GetAlbumURLs(i_Album);
         }
-        public FacebookObjectCollection<Post> getFeed(int i_PostsMonthsOld)
+        public FacebookObjectCollection<Post> getFeed(Utils.eUSER_PROFILE i_UserType, int i_PostsMonthsOld)
         {
             FacebookObjectCollection<Post> recentWallPosts = new FacebookObjectCollection<Post>();
-
-            foreach (Post post in FacebookAuth.LoggedInUser.WallPosts)
+            FacebookObjectCollection<Post> allUserPosts = getAllUserPosts(i_UserType);
+            foreach (Post post in allUserPosts)
             {
                 if (post.CreatedTime >= DateTime.Now.AddMonths(-Math.Abs(i_PostsMonthsOld)))
                 {
@@ -100,6 +98,20 @@ namespace Model
             }
 
             return recentWallPosts;
+        }
+        private FacebookObjectCollection<Post> getAllUserPosts(Utils.eUSER_PROFILE i_UserType)
+        {
+            FacebookObjectCollection<Post> allUserPosts = null;
+            switch (i_UserType)
+            {
+                case Utils.eUSER_PROFILE.MY_PROFILE:
+                    allUserPosts = FacebookAuth.LoggedInUser.WallPosts;
+                    break;
+                case Utils.eUSER_PROFILE.FRIEND_PROFILE:
+                    allUserPosts = m_UserFriendManager.UserFriend.NewsFeed;
+                    break;
+            }
+            return allUserPosts;
         }
         public bool isValidPostEnteredValue(string i_TextToCheck)
         {
@@ -114,7 +126,6 @@ POSTED AT:{1}
 
 {2}{3}{4}{3}{3}", i_Post?.From?.Name, i_Post?.CreatedTime?.ToString(), i_Post?.Message, System.Environment.NewLine, divider);
         }
-
         public void verifyFriendSearchAndImportInfo(string i_FriendNameToSearch)
         {
             User desiredFriend = FacebookAuth.LoggedInUser.Friends.Find(x => x.Name == i_FriendNameToSearch);
@@ -128,7 +139,34 @@ POSTED AT:{1}
         }
         public string getCurrentShowedFriendProfilePictureURL()
         {
-            return m_UserFriendManager.GetProfilePictureURL();
+            return m_UserFriendManager.UserFriend.PictureLargeURL;
+        }
+        public string GetcurrentShowedFriendInfo()
+        {
+            return string.Format(
+@"Name: {0}
+Gender: {1}
+Birthday: {2}
+Email: {3}
+City: {4}
+Education: {5}
+Work: {6}
+Status: {7}
+About:
+{8}",
+m_UserFriendManager.UserFriend?.Name,
+m_UserFriendManager.UserFriend?.Gender,
+m_UserFriendManager.UserFriend?.Birthday,
+m_UserFriendManager.UserFriend?.Email,
+m_UserFriendManager.UserFriend?.Hometown?.Name,
+m_UserFriendManager.UserFriend?.Educations?[0].School?.Name,
+m_UserFriendManager.UserFriend?.WorkExperiences?[0].Name,
+m_UserFriendManager.UserFriend?.RelationshipStatus,
+m_UserFriendManager.UserFriend?.About);
+        }
+        public FacebookObjectCollection<Event> GetUserFriendUpcomingEvents()
+        {
+            return m_UserFriendManager.getFriendUpcomingEvents();
         }
     }
 }
