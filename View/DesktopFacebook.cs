@@ -293,7 +293,5 @@ namespace View
             m_MyProfileViewComponent.ShowedUserProfilePictureURL = m_ConnectedUserProfilePictureURL;
             m_MyProfileViewComponent.InitializeProfileViewer();
         }
-
-
 	}
 }

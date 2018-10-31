@@ -33,10 +33,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Facebook">
-      <HintPath>..\..\..\..\Desktop\C18 Ex03 JonathanErez 204883359 GalNahum 312535644\C18 Ex03 JonathanErez 204883359 GalNahum 312535644\Facebook.dll</HintPath>
+      <HintPath>..\Facebook.dll</HintPath>
     </Reference>
     <Reference Include="FbGraphApiWrapper">
-      <HintPath>..\..\..\..\Desktop\C18 Ex03 JonathanErez 204883359 GalNahum 312535644\C18 Ex03 JonathanErez 204883359 GalNahum 312535644\FbGraphApiWrapper.dll</HintPath>
+      <HintPath>..\FbGraphApiWrapper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -86,6 +86,7 @@
     <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.Event.datasource" />
     <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.Place.datasource" />
     <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.Post.datasource" />
+    <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
