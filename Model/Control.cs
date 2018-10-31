@@ -113,7 +113,7 @@ namespace Model
             }
             return allUserPosts;
         }
-        public bool isValidPostEnteredValue(string i_TextToCheck)
+        public static bool isValidPostEnteredValue(string i_TextToCheck)
         {
             return Regex.IsMatch(i_TextToCheck, @"^([1-9]|[1-2][0-9]|3[0-6])$");
         }
@@ -141,8 +141,18 @@ POSTED AT:{1}
         {
             return m_UserFriendManager.UserFriend.PictureLargeURL;
         }
-        public string GetcurrentShowedFriendInfo()
+        public string GetcurrentShowedUserInfo(Utils.eUSER_PROFILE i_UserType)
         {
+            User currUser = null;
+            switch (i_UserType)
+            {
+                case Utils.eUSER_PROFILE.MY_PROFILE:
+                    currUser = FacebookAuth.LoggedInUser;
+                    break;
+                case Utils.eUSER_PROFILE.FRIEND_PROFILE:
+                    currUser = m_UserFriendManager.UserFriend;
+                    break;
+            }
             return string.Format(
 @"Name: {0}
 Gender: {1}
@@ -154,19 +164,29 @@ Work: {6}
 Status: {7}
 About:
 {8}",
-m_UserFriendManager.UserFriend?.Name,
-m_UserFriendManager.UserFriend?.Gender,
-m_UserFriendManager.UserFriend?.Birthday,
-m_UserFriendManager.UserFriend?.Email,
-m_UserFriendManager.UserFriend?.Hometown?.Name,
-m_UserFriendManager.UserFriend?.Educations?[0].School?.Name,
-m_UserFriendManager.UserFriend?.WorkExperiences?[0].Name,
-m_UserFriendManager.UserFriend?.RelationshipStatus,
-m_UserFriendManager.UserFriend?.About);
+currUser?.Name,
+currUser?.Gender,
+currUser?.Birthday,
+currUser?.Email,
+currUser?.Hometown?.Name,
+currUser?.Educations?[0].School?.Name,
+currUser?.WorkExperiences?[0].Name,
+currUser?.RelationshipStatus,
+currUser?.About);
         }
-        public FacebookObjectCollection<Event> GetUserFriendUpcomingEvents()
+        public FacebookObjectCollection<Event> GetUserUpcomingEvents(Utils.eUSER_PROFILE i_UserType)
         {
-            return m_UserFriendManager.getFriendUpcomingEvents();
+            FacebookObjectCollection<Event> userEvents = null;
+            switch (i_UserType)
+            {
+                case Utils.eUSER_PROFILE.MY_PROFILE:
+                    userEvents = FacebookAuth.LoggedInUser.Events;
+                    break;
+                case Utils.eUSER_PROFILE.FRIEND_PROFILE:
+                    userEvents = m_UserFriendManager.getFriendUpcomingEvents();
+                    break;
+            }
+            return userEvents;
         }
     }
 }

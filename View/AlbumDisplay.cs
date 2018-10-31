@@ -22,7 +22,6 @@ namespace View
         {
             m_AlbumPage = new AlbumPage(r_NumberOfPicturePerPage,i_CurrentTab);
         }
-
         public int NumberOfPacturePerPage
         {
             get
@@ -30,21 +29,18 @@ namespace View
                 return r_NumberOfPicturePerPage;
             }
         }
-
         public void ChangeDisplayZoom(string i_Zoom, TabPage i_CurrentTab)
         {
             m_AlbumPage.m_PicturesSizeToshow = new Size(int.Parse(i_Zoom) + 50, int.Parse(i_Zoom) + 50);
             m_AlbumPage.InitializePictures();
             Show();
         }
-
         public void SetAlbumToShow(Album i_AlbumToShow, List<string> i_AlbumURLsToShow)
         {
             m_CurrentAlbum = i_AlbumToShow;
             m_CurrentAlbumURLs = i_AlbumURLsToShow;
             m_NumberOfPages = System.Math.Ceiling((double)i_AlbumURLsToShow.Count / r_NumberOfPicturePerPage);
         }
-
         private void PageHandler(int i_MoveToPage = 1)
         {
             List<Photo> PagePhotos = new List<Photo>(r_NumberOfPicturePerPage);
@@ -72,7 +68,6 @@ namespace View
                 MessageBox.Show(e.Message);
             }
         }
-
         private List<Photo> getPhotosFromAlbum(int i_Index, int i_Count)
         {
             List<Photo> photoToShow = new List<Photo>(i_Count);
@@ -83,23 +78,19 @@ namespace View
 
             return photoToShow;
         }
-
         public void Show(int i_MoveToPage = 1)
         {
             PageHandler(i_MoveToPage);
         }
-
         public void MoveToNextPage()
         {
             MoveToPage(m_CurrentPage + 1);
         }
-
         public void MoveToPreviousPage()
         {
             MoveToPage(m_CurrentPage - 1);
 
         }
-
         public void MoveToPage(int i_PageNumber)
         {
             m_CurrentPage = i_PageNumber;

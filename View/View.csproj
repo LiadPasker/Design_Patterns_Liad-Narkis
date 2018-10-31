@@ -58,10 +58,19 @@
     <Compile Include="DesktopFacebook.Designer.cs">
       <DependentUpon>DesktopFacebook.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProfileViewerComponent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProfileViewerComponent.Designer.cs">
+      <DependentUpon>ProfileViewerComponent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DesktopFacebook.resx">
       <DependentUpon>DesktopFacebook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProfileViewerComponent.resx">
+      <DependentUpon>ProfileViewerComponent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
