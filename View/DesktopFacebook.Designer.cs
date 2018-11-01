@@ -56,16 +56,17 @@
             this.m_TextBoxPostMonthOld = new System.Windows.Forms.TextBox();
             this.m_FeedTextBox = new System.Windows.Forms.TextBox();
             this.m_TabPageFriendsInfo = new System.Windows.Forms.TabPage();
+            this.m_FriendProfileViewComponent = new View.ProfileViewerComponent();
             this.m_ButtonSearchFriend = new System.Windows.Forms.Button();
             this.m_TextBoxSearchFriend = new System.Windows.Forms.TextBox();
             this.m_TabPageMyProfile = new System.Windows.Forms.TabPage();
+            this.m_MyProfileViewComponent = new View.ProfileViewerComponent();
             this.m_TabPageBirthdayTracker = new System.Windows.Forms.TabPage();
-            this.m_BindingSourceFriendFeed = new System.Windows.Forms.BindingSource(this.components);
-            this.m_BindingSourceUpcomingEvents = new System.Windows.Forms.BindingSource(this.components);
+            this.m_BirthdayViewerComponent = new View.BirthdayViewerComponent();
             this.m_Button_LogOut = new System.Windows.Forms.Button();
             this.m_PictureBoxGoToMainTab = new System.Windows.Forms.PictureBox();
-            this.m_FriendProfileViewComponent = new View.ProfileViewerComponent();
-            this.m_MyProfileViewComponent = new View.ProfileViewerComponent();
+            this.m_BindingSourceFriendFeed = new System.Windows.Forms.BindingSource(this.components);
+            this.m_BindingSourceUpcomingEvents = new System.Windows.Forms.BindingSource(this.components);
             this.m_TabPageMyAlbums.SuspendLayout();
             this.m_TabsControl.SuspendLayout();
             this.m_MainWindowTab.SuspendLayout();
@@ -74,9 +75,10 @@
             this.m_TabPageFeed.SuspendLayout();
             this.m_TabPageFriendsInfo.SuspendLayout();
             this.m_TabPageMyProfile.SuspendLayout();
+            this.m_TabPageBirthdayTracker.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxGoToMainTab)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendFeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceUpcomingEvents)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxGoToMainTab)).BeginInit();
             this.SuspendLayout();
             // 
             // m_TabPageMyAlbums
@@ -234,6 +236,7 @@
             this.m_ButtonBirthdayTracker.TabIndex = 24;
             this.m_ButtonBirthdayTracker.Text = "BirthdayTracker";
             this.m_ButtonBirthdayTracker.UseVisualStyleBackColor = false;
+            this.m_ButtonBirthdayTracker.Click += new System.EventHandler(this.m_ButtonBirthdayTracker_Click);
             // 
             // m_ButtonMyProfile
             // 
@@ -389,6 +392,14 @@
             this.m_TabPageFriendsInfo.Text = "tabPage4";
             this.m_TabPageFriendsInfo.UseVisualStyleBackColor = true;
             // 
+            // m_FriendProfileViewComponent
+            // 
+            this.m_FriendProfileViewComponent.Location = new System.Drawing.Point(44, 86);
+            this.m_FriendProfileViewComponent.Name = "m_FriendProfileViewComponent";
+            this.m_FriendProfileViewComponent.ShowedUserProfilePictureURL = null;
+            this.m_FriendProfileViewComponent.Size = new System.Drawing.Size(870, 463);
+            this.m_FriendProfileViewComponent.TabIndex = 3;
+            // 
             // m_ButtonSearchFriend
             // 
             this.m_ButtonSearchFriend.BackColor = System.Drawing.Color.DarkBlue;
@@ -423,8 +434,17 @@
             this.m_TabPageMyProfile.Text = "tabPage5";
             this.m_TabPageMyProfile.UseVisualStyleBackColor = true;
             // 
+            // m_MyProfileViewComponent
+            // 
+            this.m_MyProfileViewComponent.Location = new System.Drawing.Point(39, 62);
+            this.m_MyProfileViewComponent.Name = "m_MyProfileViewComponent";
+            this.m_MyProfileViewComponent.ShowedUserProfilePictureURL = null;
+            this.m_MyProfileViewComponent.Size = new System.Drawing.Size(870, 463);
+            this.m_MyProfileViewComponent.TabIndex = 0;
+            // 
             // m_TabPageBirthdayTracker
             // 
+            this.m_TabPageBirthdayTracker.Controls.Add(this.m_BirthdayViewerComponent);
             this.m_TabPageBirthdayTracker.Location = new System.Drawing.Point(4, 29);
             this.m_TabPageBirthdayTracker.Name = "m_TabPageBirthdayTracker";
             this.m_TabPageBirthdayTracker.Size = new System.Drawing.Size(945, 592);
@@ -432,13 +452,12 @@
             this.m_TabPageBirthdayTracker.Text = "tabPage6";
             this.m_TabPageBirthdayTracker.UseVisualStyleBackColor = true;
             // 
-            // m_BindingSourceFriendFeed
+            // m_BirthdayViewerComponent
             // 
-            this.m_BindingSourceFriendFeed.DataSource = typeof(FacebookWrapper.ObjectModel.Post);
-            // 
-            // m_BindingSourceUpcomingEvents
-            // 
-            this.m_BindingSourceUpcomingEvents.DataSource = typeof(FacebookWrapper.ObjectModel.Event);
+            this.m_BirthdayViewerComponent.Location = new System.Drawing.Point(185, 104);
+            this.m_BirthdayViewerComponent.Name = "m_BirthdayViewerComponent";
+            this.m_BirthdayViewerComponent.Size = new System.Drawing.Size(580, 367);
+            this.m_BirthdayViewerComponent.TabIndex = 0;
             // 
             // m_Button_LogOut
             // 
@@ -459,21 +478,13 @@
             this.m_PictureBoxGoToMainTab.TabStop = false;
             this.m_PictureBoxGoToMainTab.Click += new System.EventHandler(this.m_PictureBoxGoToMainTab_Click);
             // 
-            // m_FriendProfileViewComponent
+            // m_BindingSourceFriendFeed
             // 
-            this.m_FriendProfileViewComponent.Location = new System.Drawing.Point(44, 86);
-            this.m_FriendProfileViewComponent.Name = "m_FriendProfileViewComponent";
-            this.m_FriendProfileViewComponent.ShowedUserProfilePictureURL = null;
-            this.m_FriendProfileViewComponent.Size = new System.Drawing.Size(870, 463);
-            this.m_FriendProfileViewComponent.TabIndex = 3;
+            this.m_BindingSourceFriendFeed.DataSource = typeof(FacebookWrapper.ObjectModel.Post);
             // 
-            // m_MyProfileViewComponent
+            // m_BindingSourceUpcomingEvents
             // 
-            this.m_MyProfileViewComponent.Location = new System.Drawing.Point(39, 62);
-            this.m_MyProfileViewComponent.Name = "m_MyProfileViewComponent";
-            this.m_MyProfileViewComponent.ShowedUserProfilePictureURL = null;
-            this.m_MyProfileViewComponent.Size = new System.Drawing.Size(870, 463);
-            this.m_MyProfileViewComponent.TabIndex = 0;
+            this.m_BindingSourceUpcomingEvents.DataSource = typeof(FacebookWrapper.ObjectModel.Event);
             // 
             // DesktopFacebook
             // 
@@ -500,9 +511,10 @@
             this.m_TabPageFriendsInfo.ResumeLayout(false);
             this.m_TabPageFriendsInfo.PerformLayout();
             this.m_TabPageMyProfile.ResumeLayout(false);
+            this.m_TabPageBirthdayTracker.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxGoToMainTab)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendFeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceUpcomingEvents)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxGoToMainTab)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -546,6 +558,7 @@
         private System.Windows.Forms.BindingSource m_BindingSourceFriendFeed;
         private ProfileViewerComponent m_MyProfileViewComponent;
         private ProfileViewerComponent m_FriendProfileViewComponent;
+        private BirthdayViewerComponent m_BirthdayViewerComponent;
     }
 }
 
