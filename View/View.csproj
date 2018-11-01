@@ -50,26 +50,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlbumDisplay.cs" />
-    <Compile Include="AlbumPage.cs" />
+    <Compile Include="AssistiveComponents\AlbumViewerComponent.cs" />
+    <Compile Include="AssistiveComponents\AlbumPage.cs" />
+    <Compile Include="AssistiveComponents\BirthdayViewerComponent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AssistiveComponents\BirthdayViewerComponent.Designer.cs">
+      <DependentUpon>BirthdayViewerComponent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MovingUpAnimationPlayer.cs" />
     <Compile Include="DesktopFacebook.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DesktopFacebook.Designer.cs">
       <DependentUpon>DesktopFacebook.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProfileViewerComponent.cs">
+    <Compile Include="AssistiveComponents\ProfileViewerComponent.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ProfileViewerComponent.Designer.cs">
+    <Compile Include="AssistiveComponents\ProfileViewerComponent.Designer.cs">
       <DependentUpon>ProfileViewerComponent.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AssistiveComponents\BirthdayViewerComponent.resx">
+      <DependentUpon>BirthdayViewerComponent.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DesktopFacebook.resx">
       <DependentUpon>DesktopFacebook.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProfileViewerComponent.resx">
+    <EmbeddedResource Include="AssistiveComponents\ProfileViewerComponent.resx">
       <DependentUpon>ProfileViewerComponent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -18,12 +18,13 @@ namespace View
     public partial class DesktopFacebook : Form
     {
         private Model.Control m_AppControl;
-        private AlbumDisplay m_AlbumDisplay = null; // manages albums and images display in 'MyAlbums' tab
+        private AlbumViewerComponent m_AlbumDisplay = null; // manages albums and images display in 'MyAlbums' tab
         public static int PostsAgeInMonths { get; set; } = 6;
         private FacebookObjectCollection<Post> m_RecentPosts = null;
         private string m_ConnectedUserProfilePictureURL = null;
+        MovingUpAnimationPlayer m_Animation = null;
 
-        /////////////////////// General Settings & 'MainWindow' Tab ////////////////////
+        /////////////////////// General Settings & 'MainWindow' Tab //////////////////////
         public DesktopFacebook()
         {
             InitializeComponent();
@@ -86,7 +87,6 @@ namespace View
                 m_PictureBox_ProfilePicture.LoadAsync(m_ConnectedUserProfilePictureURL);
             }
         }
-
         private string getUserProfilePictureURL()
         {
             string profilePictureURL = null;
@@ -149,7 +149,7 @@ namespace View
         }
         private void initializeMyAlbumsTabView()
         {
-            m_AlbumDisplay = new AlbumDisplay(m_TabPageMyAlbums);
+            m_AlbumDisplay = new AlbumViewerComponent(m_TabPageMyAlbums);
             try
             {
                 m_AppControl.InitializeMyAlbums();
@@ -293,5 +293,26 @@ namespace View
             m_MyProfileViewComponent.ShowedUserProfilePictureURL = m_ConnectedUserProfilePictureURL;
             m_MyProfileViewComponent.InitializeProfileViewer();
         }
-	}
+
+
+        ///////////////////////////// Birthday Tracker Tab ////////////////////////////
+
+        private void m_ButtonBirthdayTracker_Click(object sender, EventArgs e)
+        {
+            m_TabsControl.SelectTab(m_TabPageBirthdayTracker);
+            if (m_Animation == null)
+            {
+                 m_Animation = new MovingUpAnimationPlayer();
+            }
+            m_BirthdayViewerComponent.Populate(m_AppControl);
+            PlayBalloonAnimation(m_TabPageBirthdayTracker, Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.balloons.png", 150, 150));
+
+        }
+        private void PlayBalloonAnimation(TabPage i_CurrentTab, Image i_Picture)
+        {
+            Point startLocation = new Point(0, i_CurrentTab.Height);
+            m_Animation.InitializeAnimatedImage(startLocation, i_CurrentTab.Controls, i_Picture);
+            m_Animation.Play();
+        }
+    }
 }
