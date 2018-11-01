@@ -15,7 +15,6 @@ namespace Model
         {
             UserFriend = i_UserFriend;
         }
-
         public FacebookObjectCollection<Event> getFriendUpcomingEvents()
         {
             FacebookObjectCollection<Event> recentEvents = new FacebookObjectCollection<Event>();
@@ -30,6 +29,7 @@ namespace Model
 
             return recentEvents;
         }
+
 
 
 
