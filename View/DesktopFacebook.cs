@@ -261,35 +261,32 @@ namespace View
         private void m_ButtonFriendInfo_click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageFriendsInfo);
-
+			m_bindingSourceFriends.DataSource = m_AppControl.FacebookAuth.LoggedInUser.Friends;
+			m_ComboBoxFriends.SelectedIndex = -1;
             m_FriendProfileViewComponent.populate(m_AppControl, Utils.eUSER_PROFILE.FRIEND_PROFILE);
         }
-        private void m_TextBoxSearchFriend_Click(object sender, EventArgs e)
-        {
-            ChangeButtonByTextBoxClick(m_TextBoxSearchFriend, m_ButtonSearchFriend);
-        }
-        private void m_TextBoxSearchFriend_TextChanged(object sender, EventArgs e)
-        {
-            m_TextBoxSearchFriend_Click(sender, e);
-        }
-        private void m_ButtonSearchFriend_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                m_AppControl.verifyFriendSearchAndImportInfo(m_TextBoxSearchFriend.Text); //throws exeption if searched failed or facebook server failed
-                //initializeFriendInfoTab();
-                m_FriendProfileViewComponent.ShowedUserProfilePictureURL = m_AppControl.getCurrentShowedFriendProfilePictureURL();
-                m_FriendProfileViewComponent.InitializeProfileViewer();
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
-        }
 
+		private void m_ComboBoxFriends_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				if (m_ComboBoxFriends.SelectedItem != null)
+				{
+					//Would switch this method to use get a user (or can just remove it all together)
+					m_AppControl.verifyFriendSearchAndImportInfo((m_ComboBoxFriends.SelectedItem as User)?.Name); //throws exeption if searched failed or facebook server failed
+					//initializeFriendInfoTab();
+					m_FriendProfileViewComponent.ShowedUserProfilePictureURL = m_AppControl.getCurrentShowedFriendProfilePictureURL();
+					m_FriendProfileViewComponent.InitializeProfileViewer();
+				}
+			}
+			catch (Exception exception)
+			{
+				MessageBox.Show(exception.Message);
+			}
+		}
 
-        ///////////////////////////// My Profile Tab ////////////////////////////
-        private void m_ButtonMyProfile_Click(object sender, EventArgs e)
+		///////////////////////////// My Profile Tab ////////////////////////////
+		private void m_ButtonMyProfile_Click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageMyProfile);
             m_MyProfileViewComponent.populate(m_AppControl, Utils.eUSER_PROFILE.MY_PROFILE);
