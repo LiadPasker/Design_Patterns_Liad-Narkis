@@ -257,7 +257,7 @@ namespace View
         }
         
 
-        ///////////////////////////// Friend Info Tab ////////////////////////////
+        ///////////////////////////// Friend Info Tab /////////////////////////////
         private void m_ButtonFriendInfo_click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageFriendsInfo);
