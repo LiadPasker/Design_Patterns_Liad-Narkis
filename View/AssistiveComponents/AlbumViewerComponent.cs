@@ -8,17 +8,17 @@ using System.Windows.Forms;
 
 namespace View
 {
-    class AlbumDisplay
+    public class AlbumViewerComponent
     {
+        private readonly int r_NumberOfPicturePerPage = 8;
         private Album m_CurrentAlbum;
         public List<string> m_CurrentAlbumURLs { get; set; }
         private AlbumPage m_AlbumPage;
-        private readonly int r_NumberOfPicturePerPage = 8;
         public double m_NumberOfPages { get; private set; }
         public int m_CurrentPage { get; set; } = 1;
         private int m_AlbumListIndicator = 1;
 
-        public AlbumDisplay(TabPage i_CurrentTab)
+        public AlbumViewerComponent(TabPage i_CurrentTab)
         {
             m_AlbumPage = new AlbumPage(r_NumberOfPicturePerPage,i_CurrentTab);
         }

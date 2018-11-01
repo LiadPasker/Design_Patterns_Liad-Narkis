@@ -22,6 +22,9 @@ namespace Model
             FacebookAuth = new FacebookAuthentication();
             m_UserAlbumManager = new UserAlbumsManager();
         }
+
+
+
         public void Login()
         {
             if (CheckIfLoggedIn())
@@ -167,6 +170,10 @@ m_UserFriendManager.UserFriend?.About);
         public FacebookObjectCollection<Event> GetUserFriendUpcomingEvents()
         {
             return m_UserFriendManager.getFriendUpcomingEvents();
+        }
+        public FacebookObjectCollection<User> getConnectedUserFriends()
+        {
+            return FacebookAuth.LoggedInUser.Friends;
         }
     }
 }
