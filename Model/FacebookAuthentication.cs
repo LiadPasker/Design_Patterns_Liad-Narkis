@@ -17,11 +17,11 @@ namespace Model
             LoggedInUser = result.LoggedInUser;
             return result.AccessToken;
         }
+
         public void AutoLogin(string i_LastAccessToken)
         {
             LoginResult loginResult = FacebookService.Connect(i_LastAccessToken);
             LoggedInUser = loginResult.LoggedInUser;
         }
-
     }
 }
