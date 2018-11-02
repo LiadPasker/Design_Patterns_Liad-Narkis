@@ -116,6 +116,9 @@ namespace View
         private void m_ButtonGenerateWish_Click(object sender, EventArgs e)
         {
             m_TextBoxPost.Text = m_AppControl.GenerateRandomBirthdayWish((string)m_DataGridViewBirthdays.SelectedCells[0].Value);
+
+            //Microsoft.Office.Interop.Excel.Application xlexcel;
+
         }
     }
 
