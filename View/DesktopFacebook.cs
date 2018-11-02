@@ -299,7 +299,6 @@ namespace View
 
 
         ///////////////////////////// Birthday Tracker Tab ////////////////////////////
-
         private void m_ButtonBirthdayTracker_Click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageBirthdayTracker);
@@ -307,8 +306,9 @@ namespace View
             {
                  m_Animation = new MovingUpAnimationPlayer();
             }
-            m_BirthdayViewerComponent.Populate(m_AppControl);
-            PlayBalloonAnimation(m_TabPageBirthdayTracker, Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.balloons.png", 150, 150));
+
+            m_BirthdayViewerComponent.Populate(m_AppControl, m_TabPageBirthdayTracker);
+            PlayBalloonAnimation(m_TabPageBirthdayTracker, Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.balloons.png", 100, 100));
 
         }
         private void PlayBalloonAnimation(TabPage i_CurrentTab, Image i_Picture)

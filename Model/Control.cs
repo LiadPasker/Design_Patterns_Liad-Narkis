@@ -11,10 +11,12 @@ namespace Model
 {
     public class Control
     {
+        private readonly int r_WishesNumber = 5;
         private DesktopFacebookSettings m_DFSetting;
         public FacebookAuthentication FacebookAuth { get; private set; }
         private UserAlbumsManager m_UserAlbumManager;
         private UserFriendManager m_UserFriendManager;
+        private List<string> m_WishList;
 
         public Control()
         {
@@ -22,9 +24,6 @@ namespace Model
             FacebookAuth = new FacebookAuthentication();
             m_UserAlbumManager = new UserAlbumsManager();
         }
-
-
-
         public void Login()
         {
             if (CheckIfLoggedIn())
@@ -191,9 +190,40 @@ currUser?.About);
             }
             return userEvents;
         }
-        public FacebookObjectCollection<User> getConnectedUserFriends()
+        public FacebookObjectCollection<User> getConnectedUserFriendsSortedByBirthdays()
         {
-            return FacebookAuth.LoggedInUser.Friends;
+            FacebookObjectCollection<User> friends = FacebookAuth.LoggedInUser.Friends;
+            friends.OrderBy(x => x.Birthday);
+            return friends;
+        }
+        public bool isBirthdaySoon(string i_Birthday, int i_HowFarInMonths)
+        {
+            bool isSoon = false;
+            DateTime birthday = DateTime.ParseExact(i_Birthday,"MM/dd/yyyy",null);
+            if (birthday.Month <= DateTime.Now.AddMonths(Math.Abs(i_HowFarInMonths)).Month)
+            {
+                isSoon = true;
+            }
+
+            return isSoon;
+        }
+        public string GenerateRandomBirthdayWish(string i_Name)
+        {
+            Random rand = new Random();
+            if (m_WishList == null)
+            {
+                m_WishList = new List<string>();
+                initializeWishList();
+            }
+            return m_WishList[rand.Next(r_WishesNumber)];
+        }
+        private void initializeWishList()
+        {
+            m_WishList.Add("Count your life by smiles, not tears. \nCount your age by friends, not years.\nHappy birthday!");
+            m_WishList.Add("Happy birthday! I hope all your birthday wishes and dreams come true.");
+            m_WishList.Add("A wish for you on your birthday, whatever you ask may you receive, whatever you seek may you find, whatever you wish may it be fulfilled on your birthday and always. \nHappy birthday!");
+            m_WishList.Add("May the joy that you have spread in the past come back to you on this day. \nWishing you a very happy birthday!");
+            m_WishList.Add("May you be gifted with life’s biggest joys and never-ending bliss. \nAfter all, you yourself are a gift to earth, so you deserve the best. \nHappy birthday");
         }
     }
 }

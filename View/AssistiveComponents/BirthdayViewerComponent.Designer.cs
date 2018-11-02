@@ -31,11 +31,12 @@
             this.components = new System.ComponentModel.Container();
             this.m_PictureBoxProfilePicture = new System.Windows.Forms.PictureBox();
             this.m_DataGridViewBirthdays = new System.Windows.Forms.DataGridView();
-            this.m_BindingSourceBirthday = new System.Windows.Forms.BindingSource(this.components);
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.birthdayDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.m_BindingSourceBirthday = new System.Windows.Forms.BindingSource(this.components);
             this.m_TextBoxPost = new System.Windows.Forms.TextBox();
             this.m_ButtonPost = new System.Windows.Forms.Button();
+            this.m_ButtonGenerateWish = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxProfilePicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_DataGridViewBirthdays)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceBirthday)).BeginInit();
@@ -60,15 +61,14 @@
             this.birthdayDataGridViewTextBoxColumn});
             this.m_DataGridViewBirthdays.DataSource = this.m_BindingSourceBirthday;
             this.m_DataGridViewBirthdays.Location = new System.Drawing.Point(227, 3);
+            this.m_DataGridViewBirthdays.MultiSelect = false;
             this.m_DataGridViewBirthdays.Name = "m_DataGridViewBirthdays";
             this.m_DataGridViewBirthdays.ReadOnly = true;
             this.m_DataGridViewBirthdays.RowTemplate.Height = 28;
+            this.m_DataGridViewBirthdays.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.m_DataGridViewBirthdays.Size = new System.Drawing.Size(350, 247);
             this.m_DataGridViewBirthdays.TabIndex = 1;
-            // 
-            // m_BindingSourceBirthday
-            // 
-            this.m_BindingSourceBirthday.DataSource = typeof(FacebookWrapper.ObjectModel.User);
+            this.m_DataGridViewBirthdays.SelectionChanged += new System.EventHandler(this.m_DataGridViewBirthdays_SelectionChanged);
             // 
             // nameDataGridViewTextBoxColumn
             // 
@@ -76,7 +76,6 @@
             this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
             this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
             this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.nameDataGridViewTextBoxColumn.Width = 150;
             // 
             // birthdayDataGridViewTextBoxColumn
             // 
@@ -84,35 +83,54 @@
             this.birthdayDataGridViewTextBoxColumn.HeaderText = "Birthday";
             this.birthdayDataGridViewTextBoxColumn.Name = "birthdayDataGridViewTextBoxColumn";
             this.birthdayDataGridViewTextBoxColumn.ReadOnly = true;
-            this.birthdayDataGridViewTextBoxColumn.Width = 150;
+            this.birthdayDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // m_BindingSourceBirthday
+            // 
+            this.m_BindingSourceBirthday.DataSource = typeof(FacebookWrapper.ObjectModel.User);
             // 
             // m_TextBoxPost
             // 
-            this.m_TextBoxPost.Location = new System.Drawing.Point(72, 255);
+            this.m_TextBoxPost.Location = new System.Drawing.Point(3, 255);
             this.m_TextBoxPost.Multiline = true;
             this.m_TextBoxPost.Name = "m_TextBoxPost";
-            this.m_TextBoxPost.Size = new System.Drawing.Size(379, 107);
+            this.m_TextBoxPost.Size = new System.Drawing.Size(423, 116);
             this.m_TextBoxPost.TabIndex = 2;
+            this.m_TextBoxPost.Tag = "[generate birthday wish]";
+            this.m_TextBoxPost.Click += new System.EventHandler(this.m_TextBoxPost_Click);
             // 
             // m_ButtonPost
             // 
-            this.m_ButtonPost.Location = new System.Drawing.Point(457, 284);
+            this.m_ButtonPost.Location = new System.Drawing.Point(432, 256);
             this.m_ButtonPost.Name = "m_ButtonPost";
-            this.m_ButtonPost.Size = new System.Drawing.Size(60, 54);
+            this.m_ButtonPost.Size = new System.Drawing.Size(145, 54);
             this.m_ButtonPost.TabIndex = 3;
             this.m_ButtonPost.Text = "Post";
             this.m_ButtonPost.UseVisualStyleBackColor = true;
+            this.m_ButtonPost.Click += new System.EventHandler(this.m_ButtonPost_Click);
+            // 
+            // m_ButtonGenerateWish
+            // 
+            this.m_ButtonGenerateWish.Enabled = false;
+            this.m_ButtonGenerateWish.Location = new System.Drawing.Point(432, 316);
+            this.m_ButtonGenerateWish.Name = "m_ButtonGenerateWish";
+            this.m_ButtonGenerateWish.Size = new System.Drawing.Size(145, 55);
+            this.m_ButtonGenerateWish.TabIndex = 5;
+            this.m_ButtonGenerateWish.Text = "Generate a wish";
+            this.m_ButtonGenerateWish.UseVisualStyleBackColor = true;
+            this.m_ButtonGenerateWish.Click += new System.EventHandler(this.m_ButtonGenerateWish_Click);
             // 
             // BirthdayViewerComponent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.m_ButtonGenerateWish);
             this.Controls.Add(this.m_ButtonPost);
             this.Controls.Add(this.m_TextBoxPost);
             this.Controls.Add(this.m_DataGridViewBirthdays);
             this.Controls.Add(this.m_PictureBoxProfilePicture);
             this.Name = "BirthdayViewerComponent";
-            this.Size = new System.Drawing.Size(580, 367);
+            this.Size = new System.Drawing.Size(580, 376);
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxProfilePicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_DataGridViewBirthdays)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceBirthday)).EndInit();
@@ -125,10 +143,11 @@
 
         private System.Windows.Forms.PictureBox m_PictureBoxProfilePicture;
         private System.Windows.Forms.DataGridView m_DataGridViewBirthdays;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn birthdayDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource m_BindingSourceBirthday;
         private System.Windows.Forms.TextBox m_TextBoxPost;
         private System.Windows.Forms.Button m_ButtonPost;
+        private System.Windows.Forms.Button m_ButtonGenerateWish;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn birthdayDataGridViewTextBoxColumn;
     }
 }

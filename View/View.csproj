@@ -58,7 +58,7 @@
     <Compile Include="AssistiveComponents\BirthdayViewerComponent.Designer.cs">
       <DependentUpon>BirthdayViewerComponent.cs</DependentUpon>
     </Compile>
-    <Compile Include="MovingUpAnimationPlayer.cs" />
+    <Compile Include="AssistiveComponents\MovingUpAnimationPlayer.cs" />
     <Compile Include="DesktopFacebook.cs">
       <SubType>Form</SubType>
     </Compile>
