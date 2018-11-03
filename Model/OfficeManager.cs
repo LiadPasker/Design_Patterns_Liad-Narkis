@@ -1,0 +1,109 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using Microsoft.Office.Interop;
+using Microsoft.Office.Interop.Excel;
+
+namespace Model
+{
+    public class OfficeManager
+    {
+        private readonly int r_FirstSheetRow = 1;
+        private readonly int r_LastSheetRow = 6;
+        private readonly int r_FirstSheetColumn = 1;
+        private readonly int r_LastSheetColumn = 8;
+        private readonly XlRgbColor r_HeadlineCellsColor = XlRgbColor.rgbSkyBlue;
+        private readonly int r_RowsHeight=50;
+        private readonly int r_ColumnWidth = 15;
+        public Application excelFile { get; private set; } = null;
+
+        public bool ExportToExcel(System.Data.DataTable i_Data, string i_ExcelFilePath = null)
+        {
+            bool isSuccessfulExportaion = false;
+
+            try
+            {
+                if (i_Data == null || i_Data.Columns.Count == 0)
+                {
+                    throw new Exception("Exporting Failed!");
+                }
+
+                excelFile = new Application();
+                excelFile.Workbooks.Add();
+                _Worksheet workSheet = excelFile.ActiveSheet;
+                workSheet.Columns.ColumnWidth = r_ColumnWidth;
+                workSheet.Name = i_Data.TableName;
+                changeHeadlineColor(workSheet);
+                setColumnsHeight(workSheet);
+                setSheetBorders(workSheet);
+                fillExcelWorksheetWithData(workSheet, i_Data);
+                isSuccessfulExportaion = DecideFileVisibilityByFilePathGiven(workSheet, i_ExcelFilePath);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+
+            return isSuccessfulExportaion;
+        }
+        private void fillExcelWorksheetWithData(_Worksheet i_WorkSheet, System.Data.DataTable i_Data)
+        {
+            for (int i = 0; i < i_Data.Columns.Count; i++)
+            {
+                i_WorkSheet.Cells[r_FirstSheetRow, i_Data.Columns.Count - i + 1] = i_Data.Columns[i].ColumnName;
+            }
+
+            for (int i = 0; i < i_Data.Rows.Count; i++)
+            {
+                for (int j = 0; j < i_Data.Columns.Count; j++)
+                {
+                    i_WorkSheet.Cells[i + 2, i_Data.Columns.Count - j + 1] = i_Data.Rows[i][j];
+                }
+            }
+        }
+        private void setSheetBorders(_Worksheet i_WorkSheet)
+        {//a1:h5
+            i_WorkSheet.get_Range(excelRangeGenerator(r_FirstSheetColumn, r_FirstSheetRow, r_LastSheetColumn,r_LastSheetRow)).Cells.Borders.LineStyle = XlLineStyle.xlContinuous;
+        }
+        private void setColumnsHeight(_Worksheet i_WorkSheet)
+        {//a2:h5
+            i_WorkSheet.get_Range(excelRangeGenerator(r_FirstSheetColumn,2 , r_LastSheetColumn, r_LastSheetRow)).RowHeight = r_RowsHeight;
+        }
+        private void changeHeadlineColor(_Worksheet i_Worksheet)
+        {
+            Range heading = i_Worksheet.Range[i_Worksheet.Cells[r_FirstSheetRow, r_FirstSheetColumn], i_Worksheet.Cells[r_FirstSheetRow, r_LastSheetColumn]];
+            heading.Interior.Color = r_HeadlineCellsColor;
+        }
+        private string excelRangeGenerator(int i_ColumnsFrom, int i_RowFrom, int i_ColumnTo, int i_RowTo)
+        {
+            return string.Format("{0}{1}:{2}{3}", (char)('A' + i_ColumnsFrom - 1), i_RowFrom, (char)('A' + i_ColumnTo - 1), i_RowTo);
+        }
+        private bool DecideFileVisibilityByFilePathGiven(Microsoft.Office.Interop.Excel._Worksheet i_CurrentWorkSheet,string i_FilePath)
+        {
+            bool isSaved = false;
+
+            if (string.IsNullOrEmpty(i_FilePath) == false)
+            {
+                try
+                {
+                    i_CurrentWorkSheet.SaveAs(i_FilePath);
+                    excelFile.Quit();
+                    isSaved = true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Excel file could not be saved! Check filepath\n");
+                }
+            }
+            else
+            { // no file path is given
+                excelFile.Visible = true;
+            }
+
+            return isSaved;
+        }
+    }
+}

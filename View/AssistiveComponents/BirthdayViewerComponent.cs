@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 
+
 namespace View
 {
     public partial class BirthdayViewerComponent : UserControl
@@ -20,7 +21,7 @@ namespace View
         private readonly int r_HowFarInMonths = 12; // initializes to 12 months for demonsration reasons only.
         private Model.Control m_AppControl;
         private TabPage m_TabPageControl;
-        private FacebookObjectCollection<User> m_FriendsToShow = null;
+        public FacebookObjectCollection<User> FriendsToShow { get; set; } = null;
         private int m_CurrentShowFriendIndex;
         private Timer m_BirthdayGraphicController;
 
@@ -30,6 +31,13 @@ namespace View
             m_BirthdayGraphicController = new Timer();
             m_BirthdayGraphicController.Interval = r_GraphicSpeed;
             m_BirthdayGraphicController.Tick += ChangeControllersBackColor;
+        }
+        public DataGridView DataGridViewBirthdays
+        {
+            get
+            {
+                return m_DataGridViewBirthdays;
+            }
         }
         private void ChangeControllersBackColor(object sender, EventArgs e)
         {
@@ -46,29 +54,30 @@ namespace View
             m_AppControl = i_AppControl;
             try
             {
-                m_FriendsToShow = m_AppControl.getConnectedUserFriendsSortedByBirthdays();
+                FriendsToShow = m_AppControl.getConnectedUserFriendsSortedByBirthdays();
             }
             catch (Exception e)
             {
                 DesktopFacebook.showFacebookServerErrorMessege();
             }
 
+            m_DataGridViewBirthdays.MultiSelect = false;
             m_DataGridViewBirthdays.Invoke(new Action(initializeUserFriendsBirthdays));
         }
         private void initializeUserFriendsBirthdays()
         {
-            m_BindingSourceBirthday.DataSource = m_FriendsToShow;
+            m_BindingSourceBirthday.DataSource = FriendsToShow;
         }
         private void showFriendProfilePicture()
         {
-            m_PictureBoxProfilePicture.LoadAsync(m_FriendsToShow[m_CurrentShowFriendIndex].PictureLargeURL);
+            m_PictureBoxProfilePicture.LoadAsync(FriendsToShow[m_CurrentShowFriendIndex].PictureLargeURL);
 
         }
         private void m_ButtonPost_Click(object sender, EventArgs e)
         {
             try
             {
-                m_AppControl.PostStatus(Model.Utils.eUSER_PROFILE.FRIEND_PROFILE, m_TextBoxPost.Text);
+                m_AppControl.PostStatus(Model.Utils.eUserProfile.FRIEND_PROFILE, m_TextBoxPost.Text);
             }
             catch(Exception exception)
             {
@@ -77,7 +86,7 @@ namespace View
         }
         private void m_DataGridViewBirthdays_SelectionChanged(object sender, EventArgs e)
         {
-            if (m_FriendsToShow != null && m_DataGridViewBirthdays.RowCount == m_FriendsToShow.Count)
+            if (FriendsToShow != null && m_DataGridViewBirthdays.RowCount == FriendsToShow.Count)
             {
                 if (m_DataGridViewBirthdays.SelectedRows.Count == 0)
                 {
@@ -116,9 +125,6 @@ namespace View
         private void m_ButtonGenerateWish_Click(object sender, EventArgs e)
         {
             m_TextBoxPost.Text = m_AppControl.GenerateRandomBirthdayWish((string)m_DataGridViewBirthdays.SelectedCells[0].Value);
-
-            //Microsoft.Office.Interop.Excel.Application xlexcel;
-
         }
     }
 

@@ -130,7 +130,7 @@
             this.Controls.Add(this.m_DataGridViewBirthdays);
             this.Controls.Add(this.m_PictureBoxProfilePicture);
             this.Name = "BirthdayViewerComponent";
-            this.Size = new System.Drawing.Size(580, 376);
+            this.Size = new System.Drawing.Size(582, 376);
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxProfilePicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_DataGridViewBirthdays)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceBirthday)).EndInit();

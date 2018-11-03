@@ -43,23 +43,23 @@ namespace View
             {
                 m_AppControl.Login();
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 showFacebookServerErrorMessege("Login Failed");
             }
             initializeComponents();
 
             //to move:
-            m_LogoPictureBox.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.desktop_facebook.png",380,150);
-            m_PictureBoxGoToMainTab.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.home.png",25,25);
+            m_LogoPictureBox.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.desktop_facebook.png", 380, 150);
+            m_PictureBoxGoToMainTab.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.home.png", 25, 25);
 
 
         }
         private void initializeTabsBackground()
         {
-            foreach(TabPage tab in m_TabsControl.TabPages)
+            foreach (TabPage tab in m_TabsControl.TabPages)
             {
-                tab.BackColor= Color.LightGray;
+                tab.BackColor = Color.LightGray;
             }
 
         }
@@ -75,9 +75,9 @@ namespace View
             m_ButtonNextPage.BackgroundImage = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.next.png", 40, 40);
             m_ButtonPreviousPage.BackgroundImage = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.back.png", 40, 40);
         }
-        public static void showFacebookServerErrorMessege(string i_AdditionalMessege="")
+        public static void showFacebookServerErrorMessege(string i_AdditionalMessege = "")
         {
-            MessageBox.Show(string.Format("Facebook Server Error\n{0}",i_AdditionalMessege));
+            MessageBox.Show(string.Format("Facebook Server Error\n{0}", i_AdditionalMessege));
         }
         private void initializeUserProfilePicture()
         {
@@ -92,9 +92,9 @@ namespace View
             string profilePictureURL = null;
             try
             {
-                 profilePictureURL= m_AppControl.FacebookAuth.LoggedInUser.PictureLargeURL;
+                profilePictureURL = m_AppControl.FacebookAuth.LoggedInUser.PictureLargeURL;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 showFacebookServerErrorMessege("Profile-Picture Load Failed");
             }
@@ -110,9 +110,9 @@ namespace View
         {
             try
             {
-                m_AppControl.PostStatus(Utils.eUSER_PROFILE.MY_PROFILE,m_TextBoxPostToMyWall.Text);
+                m_AppControl.PostStatus(Utils.eUserProfile.MY_PROFILE, m_TextBoxPostToMyWall.Text);
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
             }
@@ -174,7 +174,7 @@ namespace View
         }
         private void displayAlbumLabels(string i_NumOfPicturesPerPage, string i_NumOfPictureInAlbum)
         {
-            m_labelPicturesPerPage.Text =i_NumOfPicturesPerPage ;
+            m_labelPicturesPerPage.Text = i_NumOfPicturesPerPage;
             m_labelNumOfPictures.Text = i_NumOfPictureInAlbum;
         }
         private void m_ButtonNextPage_Click(object sender, EventArgs e)
@@ -202,7 +202,7 @@ namespace View
         }
         private void m_ComboBoxZoom_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string zoom= m_ComboBoxZoom.SelectedItem.ToString().Remove(m_ComboBoxZoom.Text.Length-1,1);
+            string zoom = m_ComboBoxZoom.SelectedItem.ToString().Remove(m_ComboBoxZoom.Text.Length - 1, 1);
             m_AlbumDisplay.ChangeDisplayZoom(zoom, m_TabPageMyAlbums);
 
         }
@@ -225,7 +225,7 @@ namespace View
             ValidatePostsAgeCheckBoxAndExecute(m_TextBoxPostMonthOld);
             try
             {
-                m_RecentPosts = m_AppControl.getFeed(Utils.eUSER_PROFILE.MY_PROFILE, PostsAgeInMonths);
+                m_RecentPosts = m_AppControl.getFeed(Utils.eUserProfile.MY_PROFILE, PostsAgeInMonths);
             }
             catch (Exception exception)
             {
@@ -250,19 +250,19 @@ namespace View
         public void ShowMyFeed()
         {
             m_FeedTextBox.Text = string.Empty;
-            foreach(Post post in m_RecentPosts)
+            foreach (Post post in m_RecentPosts)
             {
                 m_FeedTextBox.Text += m_AppControl.DerivePostTextFormat(post);
             }
         }
-        
+
 
         ///////////////////////////// Friend Info Tab ////////////////////////////
         private void m_ButtonFriendInfo_click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageFriendsInfo);
 
-            m_FriendProfileViewComponent.populate(m_AppControl, Utils.eUSER_PROFILE.FRIEND_PROFILE);
+            m_FriendProfileViewComponent.populate(m_AppControl, Utils.eUserProfile.FRIEND_PROFILE);
         }
         private void m_TextBoxSearchFriend_Click(object sender, EventArgs e)
         {
@@ -292,7 +292,7 @@ namespace View
         private void m_ButtonMyProfile_Click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageMyProfile);
-            m_MyProfileViewComponent.populate(m_AppControl, Utils.eUSER_PROFILE.MY_PROFILE);
+            m_MyProfileViewComponent.populate(m_AppControl, Utils.eUserProfile.MY_PROFILE);
             m_MyProfileViewComponent.ShowedUserProfilePictureURL = m_ConnectedUserProfilePictureURL;
             m_MyProfileViewComponent.InitializeProfileViewer();
         }
@@ -304,7 +304,7 @@ namespace View
             m_TabsControl.SelectTab(m_TabPageBirthdayTracker);
             if (m_Animation == null)
             {
-                 m_Animation = new MovingUpAnimationPlayer();
+                m_Animation = new MovingUpAnimationPlayer();
             }
 
             m_BirthdayViewerComponent.Populate(m_AppControl, m_TabPageBirthdayTracker);
@@ -316,6 +316,11 @@ namespace View
             Point startLocation = new Point(0, i_CurrentTab.Height);
             m_Animation.InitializeAnimatedImage(startLocation, i_CurrentTab.Controls, i_Picture);
             m_Animation.Play();
+        }
+
+        private void m_ButtonExportCurrentMonthToExcel_Click(object sender, EventArgs e)
+        {
+            m_AppControl.ExportData(Utils.eFileType.XLS, null);
         }
     }
 }

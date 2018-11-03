@@ -2,6 +2,7 @@
 using FacebookWrapper.ObjectModel;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace Model
         private UserAlbumsManager m_UserAlbumManager;
         private UserFriendManager m_UserFriendManager;
         private List<string> m_WishList;
+        public OfficeManager OfficeManager { get; private set; } = null;
 
         public Control()
         {
@@ -43,18 +45,18 @@ namespace Model
         {
             return m_DFSetting.LoadAppSettings() != null && m_DFSetting.LoadAppSettings().LastAccessToken != string.Empty;
         }
-        public void PostStatus(Utils.eUSER_PROFILE i_User, string i_TextToPost, List<TagInfo> i_UserTags = null, Checkin i_CheckIn = null)//not finished: tags, checkin
+        public void PostStatus(Utils.eUserProfile i_User, string i_TextToPost, List<TagInfo> i_UserTags = null, Checkin i_CheckIn = null)//not finished: tags, checkin
         {
             validateInputString(i_TextToPost);
             try
             {
                 switch(i_User)
                 {
-                    case Utils.eUSER_PROFILE.MY_PROFILE:
+                    case Utils.eUserProfile.MY_PROFILE:
                         FacebookAuth.LoggedInUser.PostStatus(i_TextToPost);
 
                         break;
-                    case Utils.eUSER_PROFILE.FRIEND_PROFILE:
+                    case Utils.eUserProfile.FRIEND_PROFILE:
                         m_UserFriendManager.UserFriend.PostStatus(i_TextToPost);
                         break;
                 }
@@ -87,7 +89,7 @@ namespace Model
         {
             return m_UserAlbumManager.GetAlbumURLs(i_Album);
         }
-        public FacebookObjectCollection<Post> getFeed(Utils.eUSER_PROFILE i_UserType, int i_PostsMonthsOld)
+        public FacebookObjectCollection<Post> getFeed(Utils.eUserProfile i_UserType, int i_PostsMonthsOld)
         {
             FacebookObjectCollection<Post> recentWallPosts = new FacebookObjectCollection<Post>();
             FacebookObjectCollection<Post> allUserPosts = getAllUserPosts(i_UserType);
@@ -101,15 +103,15 @@ namespace Model
 
             return recentWallPosts;
         }
-        private FacebookObjectCollection<Post> getAllUserPosts(Utils.eUSER_PROFILE i_UserType)
+        private FacebookObjectCollection<Post> getAllUserPosts(Utils.eUserProfile i_UserType)
         {
             FacebookObjectCollection<Post> allUserPosts = null;
             switch (i_UserType)
             {
-                case Utils.eUSER_PROFILE.MY_PROFILE:
+                case Utils.eUserProfile.MY_PROFILE:
                     allUserPosts = FacebookAuth.LoggedInUser.WallPosts;
                     break;
-                case Utils.eUSER_PROFILE.FRIEND_PROFILE:
+                case Utils.eUserProfile.FRIEND_PROFILE:
                     allUserPosts = m_UserFriendManager.UserFriend.NewsFeed;
                     break;
             }
@@ -143,15 +145,15 @@ POSTED AT:{1}
         {
             return m_UserFriendManager.UserFriend.PictureLargeURL;
         }
-        public string GetcurrentShowedUserInfo(Utils.eUSER_PROFILE i_UserType)
+        public string GetcurrentShowedUserInfo(Utils.eUserProfile i_UserType)
         {
             User currUser = null;
             switch (i_UserType)
             {
-                case Utils.eUSER_PROFILE.MY_PROFILE:
+                case Utils.eUserProfile.MY_PROFILE:
                     currUser = FacebookAuth.LoggedInUser;
                     break;
-                case Utils.eUSER_PROFILE.FRIEND_PROFILE:
+                case Utils.eUserProfile.FRIEND_PROFILE:
                     currUser = m_UserFriendManager.UserFriend;
                     break;
             }
@@ -176,15 +178,15 @@ currUser?.WorkExperiences?[0].Name,
 currUser?.RelationshipStatus,
 currUser?.About);
         }
-        public FacebookObjectCollection<Event> GetUserUpcomingEvents(Utils.eUSER_PROFILE i_UserType)
+        public FacebookObjectCollection<Event> GetUserUpcomingEvents(Utils.eUserProfile i_UserType)
         {
             FacebookObjectCollection<Event> userEvents = null;
             switch (i_UserType)
             {
-                case Utils.eUSER_PROFILE.MY_PROFILE:
+                case Utils.eUserProfile.MY_PROFILE:
                     userEvents = FacebookAuth.LoggedInUser.Events;
                     break;
-                case Utils.eUSER_PROFILE.FRIEND_PROFILE:
+                case Utils.eUserProfile.FRIEND_PROFILE:
                     userEvents = m_UserFriendManager.getFriendUpcomingEvents();
                     break;
             }
@@ -225,5 +227,57 @@ currUser?.About);
             m_WishList.Add("May the joy that you have spread in the past come back to you on this day. \nWishing you a very happy birthday!");
             m_WishList.Add("May you be gifted with life’s biggest joys and never-ending bliss. \nAfter all, you yourself are a gift to earth, so you deserve the best. \nHappy birthday");
         }
+        public void ExportData(Utils.eFileType i_FileType, string i_FilePath=null)
+        {
+            if(OfficeManager==null)
+            {
+                OfficeManager = new OfficeManager();
+            }
+
+            switch (i_FileType)
+            {
+                case Utils.eFileType.XLS:
+                    try
+                    {
+                        string SheetName = (((Utils.eMonths)DateTime.Now.Month)).ToString();
+                        OfficeManager.ExportToExcel(initializeCalenderTable(SheetName), i_FilePath);
+                    }
+                    catch(Exception)
+                    {
+                        throw;
+                    }   
+                   
+                    break;
+            }
+        }
+        private DataTable initializeCalenderTable(string i_TableName)
+        {
+            DataTable userHighLights = new DataTable(i_TableName);
+
+            DateTime monthDay = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1); // initializes to the first day of the current month
+            DataRow row = userHighLights.NewRow();
+            string day = (monthDay.DayOfWeek).ToString();
+
+            for (int days = (int)DayOfWeek.Sunday; days <= (int)DayOfWeek.Saturday; days++)
+            {
+                userHighLights.Columns.Add(((DayOfWeek)days).ToString());
+
+            }
+
+            for (int i = 1; i <= DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month); i++)
+            {
+                row[day] = string.Format("{0}\n\n{1}", i,null);
+                if (day == DayOfWeek.Saturday.ToString() || i== DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month))
+                {
+                    userHighLights.Rows.Add(row);
+                    row = userHighLights.NewRow();
+                }
+                monthDay=monthDay.AddDays(1);
+                day = (monthDay.DayOfWeek).ToString();   
+            }
+
+            return userHighLights;
+        }
+
     }
 }

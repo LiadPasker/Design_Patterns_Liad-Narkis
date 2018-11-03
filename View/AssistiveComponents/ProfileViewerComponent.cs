@@ -14,13 +14,13 @@ namespace View
     {
         private Model.Control m_AppControl;
         public string ShowedUserProfilePictureURL { get; set; } = null;
-        private Utils.eUSER_PROFILE eUserType;
+        private Utils.eUserProfile eUserType;
 
         public ProfileViewerComponent()
         {
             InitializeComponent();
         }
-        public void populate(Model.Control i_AppControl, Utils.eUSER_PROFILE i_UserType)
+        public void populate(Model.Control i_AppControl, Utils.eUserProfile i_UserType)
         {
             eUserType = i_UserType;
             m_AppControl = i_AppControl;

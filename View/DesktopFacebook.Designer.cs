@@ -41,6 +41,7 @@
             this.m_ComboBoxAlbums = new System.Windows.Forms.ComboBox();
             this.m_TabsControl = new System.Windows.Forms.TabControl();
             this.m_MainWindowTab = new System.Windows.Forms.TabPage();
+            this.m_ButtonExportCurrentMonthToExcel = new System.Windows.Forms.Button();
             this.m_ButtonBirthdayTracker = new System.Windows.Forms.Button();
             this.m_ButtonMyProfile = new System.Windows.Forms.Button();
             this.m_ButtonFriendInfo = new System.Windows.Forms.Button();
@@ -208,6 +209,7 @@
             // 
             // m_MainWindowTab
             // 
+            this.m_MainWindowTab.Controls.Add(this.m_ButtonExportCurrentMonthToExcel);
             this.m_MainWindowTab.Controls.Add(this.m_ButtonBirthdayTracker);
             this.m_MainWindowTab.Controls.Add(this.m_ButtonMyProfile);
             this.m_MainWindowTab.Controls.Add(this.m_ButtonFriendInfo);
@@ -226,15 +228,27 @@
             this.m_MainWindowTab.Text = "tabPage1";
             this.m_MainWindowTab.UseVisualStyleBackColor = true;
             // 
+            // m_ButtonExportCurrentMonthToExcel
+            // 
+            this.m_ButtonExportCurrentMonthToExcel.BackColor = System.Drawing.Color.Crimson;
+            this.m_ButtonExportCurrentMonthToExcel.ForeColor = System.Drawing.Color.White;
+            this.m_ButtonExportCurrentMonthToExcel.Location = new System.Drawing.Point(516, 375);
+            this.m_ButtonExportCurrentMonthToExcel.Name = "m_ButtonExportCurrentMonthToExcel";
+            this.m_ButtonExportCurrentMonthToExcel.Size = new System.Drawing.Size(226, 36);
+            this.m_ButtonExportCurrentMonthToExcel.TabIndex = 24;
+            this.m_ButtonExportCurrentMonthToExcel.Text = "Export This Month To Excel";
+            this.m_ButtonExportCurrentMonthToExcel.UseVisualStyleBackColor = false;
+            this.m_ButtonExportCurrentMonthToExcel.Click += new System.EventHandler(this.m_ButtonExportCurrentMonthToExcel_Click);
+            // 
             // m_ButtonBirthdayTracker
             // 
             this.m_ButtonBirthdayTracker.BackColor = System.Drawing.Color.DarkBlue;
             this.m_ButtonBirthdayTracker.ForeColor = System.Drawing.Color.White;
-            this.m_ButtonBirthdayTracker.Location = new System.Drawing.Point(516, 393);
+            this.m_ButtonBirthdayTracker.Location = new System.Drawing.Point(516, 333);
             this.m_ButtonBirthdayTracker.Name = "m_ButtonBirthdayTracker";
             this.m_ButtonBirthdayTracker.Size = new System.Drawing.Size(226, 36);
             this.m_ButtonBirthdayTracker.TabIndex = 24;
-            this.m_ButtonBirthdayTracker.Text = "BirthdayTracker";
+            this.m_ButtonBirthdayTracker.Text = "Birthday Tracker";
             this.m_ButtonBirthdayTracker.UseVisualStyleBackColor = false;
             this.m_ButtonBirthdayTracker.Click += new System.EventHandler(this.m_ButtonBirthdayTracker_Click);
             // 
@@ -254,7 +268,7 @@
             // 
             this.m_ButtonFriendInfo.BackColor = System.Drawing.Color.DarkBlue;
             this.m_ButtonFriendInfo.ForeColor = System.Drawing.Color.White;
-            this.m_ButtonFriendInfo.Location = new System.Drawing.Point(516, 284);
+            this.m_ButtonFriendInfo.Location = new System.Drawing.Point(516, 249);
             this.m_ButtonFriendInfo.Name = "m_ButtonFriendInfo";
             this.m_ButtonFriendInfo.Size = new System.Drawing.Size(226, 36);
             this.m_ButtonFriendInfo.TabIndex = 22;
@@ -298,7 +312,7 @@
             // 
             this.m_ButtonFeed.BackColor = System.Drawing.Color.DarkBlue;
             this.m_ButtonFeed.ForeColor = System.Drawing.Color.White;
-            this.m_ButtonFeed.Location = new System.Drawing.Point(516, 340);
+            this.m_ButtonFeed.Location = new System.Drawing.Point(516, 291);
             this.m_ButtonFeed.Name = "m_ButtonFeed";
             this.m_ButtonFeed.Size = new System.Drawing.Size(226, 36);
             this.m_ButtonFeed.TabIndex = 17;
@@ -310,7 +324,7 @@
             // 
             this.m_Button_MyAlbums.BackColor = System.Drawing.Color.DarkBlue;
             this.m_Button_MyAlbums.ForeColor = System.Drawing.Color.White;
-            this.m_Button_MyAlbums.Location = new System.Drawing.Point(516, 224);
+            this.m_Button_MyAlbums.Location = new System.Drawing.Point(516, 207);
             this.m_Button_MyAlbums.Name = "m_Button_MyAlbums";
             this.m_Button_MyAlbums.Size = new System.Drawing.Size(226, 36);
             this.m_Button_MyAlbums.TabIndex = 18;
@@ -481,6 +495,7 @@
             // 
             // m_BirthdayViewerComponent
             // 
+            this.m_BirthdayViewerComponent.FriendsToShow = null;
             this.m_BirthdayViewerComponent.Location = new System.Drawing.Point(201, 88);
             this.m_BirthdayViewerComponent.Name = "m_BirthdayViewerComponent";
             this.m_BirthdayViewerComponent.Size = new System.Drawing.Size(580, 376);
@@ -559,6 +574,7 @@
         private ProfileViewerComponent m_MyProfileViewComponent;
         private ProfileViewerComponent m_FriendProfileViewComponent;
         private BirthdayViewerComponent m_BirthdayViewerComponent;
+        private System.Windows.Forms.Button m_ButtonExportCurrentMonthToExcel;
     }
 }
 
