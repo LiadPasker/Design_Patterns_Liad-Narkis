@@ -302,7 +302,7 @@ currUser?.About);
                 foreach (User friend in friends)
                 {
                     DateTime birthdayDate = DateTime.ParseExact(friend.Birthday, "MM/dd/yyyy", null);
-                    if (isOccasionSoon(friend.Birthday, 0,true))
+                    if (isOccasionSoon(friend.Birthday, 12,true))
                     {
                         birthdays[birthdayDate.Day-1] += string.Format("{0} have a Birthday\n", friend.Name);
                     }

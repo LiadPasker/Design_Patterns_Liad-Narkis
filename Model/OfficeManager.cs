@@ -40,10 +40,11 @@ namespace Model
                 setSheetBorders(workSheet);
                 fillExcelWorksheetWithData(workSheet, i_Data);
                 isSuccessfulExportaion = DecideFileVisibilityByFilePathGiven(workSheet, i_ExcelFilePath);
+                insertTotalEventsFormula(workSheet);
             }
             catch (Exception e)
             {
-                throw;
+                throw new Exception("Error Occured");
             }
 
             return isSuccessfulExportaion;
@@ -111,6 +112,18 @@ namespace Model
             }
 
             return isSaved;
+        }
+        private void insertTotalEventsFormula(_Worksheet i_Worksheet)
+        {
+            Range formulaHolder;
+            i_Worksheet.Cells[r_FirstSheetRow, r_FirstSheetColumn] = "Total Busy Days:";
+            for (int i = 2; i < r_LastSheetRow; i += 2)
+            {
+                formulaHolder = i_Worksheet.get_Range(excelRangeGenerator(r_FirstSheetColumn, r_FirstSheetRow + i, r_FirstSheetColumn, r_FirstSheetRow + i));
+                formulaHolder.Formula = string.Format(@"=COUNTIF({0},""*"")",
+                    excelRangeGenerator(r_FirstSheetColumn + 1, r_FirstSheetRow + i, r_LastSheetColumn, r_FirstSheetRow + i));
+                formulaHolder.Interior.Color = XlRgbColor.rgbLightGoldenrodYellow;
+            }
         }
     }
 }
