@@ -57,13 +57,10 @@
             this.m_TextBoxPostMonthOld = new System.Windows.Forms.TextBox();
             this.m_FeedTextBox = new System.Windows.Forms.TextBox();
             this.m_TabPageFriendsInfo = new System.Windows.Forms.TabPage();
-            this.m_FriendProfileViewComponent = new View.ProfileViewerComponent();
             this.m_ButtonSearchFriend = new System.Windows.Forms.Button();
             this.m_TextBoxSearchFriend = new System.Windows.Forms.TextBox();
             this.m_TabPageMyProfile = new System.Windows.Forms.TabPage();
-            this.m_MyProfileViewComponent = new View.ProfileViewerComponent();
             this.m_TabPageBirthdayTracker = new System.Windows.Forms.TabPage();
-            this.m_BirthdayViewerComponent = new View.BirthdayViewerComponent();
             this.m_TabPageExport = new System.Windows.Forms.TabPage();
             this.m_TextBoxExportFilePath = new System.Windows.Forms.TextBox();
             this.m_ButtonExport = new System.Windows.Forms.Button();
@@ -73,6 +70,10 @@
             this.m_PictureBoxGoToMainTab = new System.Windows.Forms.PictureBox();
             this.m_BindingSourceFriendFeed = new System.Windows.Forms.BindingSource(this.components);
             this.m_BindingSourceUpcomingEvents = new System.Windows.Forms.BindingSource(this.components);
+            this.m_FriendProfileViewComponent = new View.ProfileViewerComponent();
+            this.m_MyProfileViewComponent = new View.ProfileViewerComponent();
+            this.m_BirthdayViewerComponent = new View.BirthdayViewerComponent();
+            this.m_PictureBoxExcelExport = new System.Windows.Forms.PictureBox();
             this.m_TabPageMyAlbums.SuspendLayout();
             this.m_TabsControl.SuspendLayout();
             this.m_MainWindowTab.SuspendLayout();
@@ -86,6 +87,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxGoToMainTab)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendFeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceUpcomingEvents)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxExcelExport)).BeginInit();
             this.SuspendLayout();
             // 
             // m_TabPageMyAlbums
@@ -105,7 +107,7 @@
             this.m_TabPageMyAlbums.Padding = new System.Windows.Forms.Padding(3);
             this.m_TabPageMyAlbums.Size = new System.Drawing.Size(945, 592);
             this.m_TabPageMyAlbums.TabIndex = 1;
-            this.m_TabPageMyAlbums.Text = "tabPage2";
+            this.m_TabPageMyAlbums.Text = "Albums";
             this.m_TabPageMyAlbums.UseVisualStyleBackColor = true;
             // 
             // m_ComboBoxZoom
@@ -232,7 +234,7 @@
             this.m_MainWindowTab.Padding = new System.Windows.Forms.Padding(3);
             this.m_MainWindowTab.Size = new System.Drawing.Size(945, 592);
             this.m_MainWindowTab.TabIndex = 0;
-            this.m_MainWindowTab.Text = "tabPage1";
+            this.m_MainWindowTab.Text = "Home";
             this.m_MainWindowTab.UseVisualStyleBackColor = true;
             // 
             // m_ButtonExportCurrentMonthToExcel
@@ -358,7 +360,7 @@
             this.m_TabPageFeed.Name = "m_TabPageFeed";
             this.m_TabPageFeed.Size = new System.Drawing.Size(945, 592);
             this.m_TabPageFeed.TabIndex = 2;
-            this.m_TabPageFeed.Text = "tabPage3";
+            this.m_TabPageFeed.Text = "Feed";
             this.m_TabPageFeed.UseVisualStyleBackColor = true;
             // 
             // label3
@@ -410,16 +412,8 @@
             this.m_TabPageFriendsInfo.Name = "m_TabPageFriendsInfo";
             this.m_TabPageFriendsInfo.Size = new System.Drawing.Size(945, 592);
             this.m_TabPageFriendsInfo.TabIndex = 3;
-            this.m_TabPageFriendsInfo.Text = "tabPage4";
+            this.m_TabPageFriendsInfo.Text = "Friends";
             this.m_TabPageFriendsInfo.UseVisualStyleBackColor = true;
-            // 
-            // m_FriendProfileViewComponent
-            // 
-            this.m_FriendProfileViewComponent.Location = new System.Drawing.Point(44, 86);
-            this.m_FriendProfileViewComponent.Name = "m_FriendProfileViewComponent";
-            this.m_FriendProfileViewComponent.ShowedUserProfilePictureURL = null;
-            this.m_FriendProfileViewComponent.Size = new System.Drawing.Size(870, 463);
-            this.m_FriendProfileViewComponent.TabIndex = 3;
             // 
             // m_ButtonSearchFriend
             // 
@@ -452,16 +446,8 @@
             this.m_TabPageMyProfile.Name = "m_TabPageMyProfile";
             this.m_TabPageMyProfile.Size = new System.Drawing.Size(945, 592);
             this.m_TabPageMyProfile.TabIndex = 4;
-            this.m_TabPageMyProfile.Text = "tabPage5";
+            this.m_TabPageMyProfile.Text = "My Profile";
             this.m_TabPageMyProfile.UseVisualStyleBackColor = true;
-            // 
-            // m_MyProfileViewComponent
-            // 
-            this.m_MyProfileViewComponent.Location = new System.Drawing.Point(39, 62);
-            this.m_MyProfileViewComponent.Name = "m_MyProfileViewComponent";
-            this.m_MyProfileViewComponent.ShowedUserProfilePictureURL = null;
-            this.m_MyProfileViewComponent.Size = new System.Drawing.Size(870, 463);
-            this.m_MyProfileViewComponent.TabIndex = 0;
             // 
             // m_TabPageBirthdayTracker
             // 
@@ -470,19 +456,12 @@
             this.m_TabPageBirthdayTracker.Name = "m_TabPageBirthdayTracker";
             this.m_TabPageBirthdayTracker.Size = new System.Drawing.Size(945, 592);
             this.m_TabPageBirthdayTracker.TabIndex = 5;
-            this.m_TabPageBirthdayTracker.Text = "tabPage6";
+            this.m_TabPageBirthdayTracker.Text = "Birthdays";
             this.m_TabPageBirthdayTracker.UseVisualStyleBackColor = true;
-            // 
-            // m_BirthdayViewerComponent
-            // 
-            this.m_BirthdayViewerComponent.FriendsToShow = null;
-            this.m_BirthdayViewerComponent.Location = new System.Drawing.Point(201, 88);
-            this.m_BirthdayViewerComponent.Name = "m_BirthdayViewerComponent";
-            this.m_BirthdayViewerComponent.Size = new System.Drawing.Size(580, 376);
-            this.m_BirthdayViewerComponent.TabIndex = 0;
             // 
             // m_TabPageExport
             // 
+            this.m_TabPageExport.Controls.Add(this.m_PictureBoxExcelExport);
             this.m_TabPageExport.Controls.Add(this.m_TextBoxExportFilePath);
             this.m_TabPageExport.Controls.Add(this.m_ButtonExport);
             this.m_TabPageExport.Controls.Add(this.m_ButtonCancelExport);
@@ -491,7 +470,7 @@
             this.m_TabPageExport.Name = "m_TabPageExport";
             this.m_TabPageExport.Size = new System.Drawing.Size(945, 592);
             this.m_TabPageExport.TabIndex = 6;
-            this.m_TabPageExport.Text = "tabPage1";
+            this.m_TabPageExport.Text = "Export";
             this.m_TabPageExport.UseVisualStyleBackColor = true;
             // 
             // m_TextBoxExportFilePath
@@ -505,12 +484,13 @@
             // 
             // m_ButtonExport
             // 
+            this.m_ButtonExport.BackColor = System.Drawing.Color.PaleTurquoise;
             this.m_ButtonExport.Location = new System.Drawing.Point(475, 255);
             this.m_ButtonExport.Name = "m_ButtonExport";
             this.m_ButtonExport.Size = new System.Drawing.Size(128, 44);
             this.m_ButtonExport.TabIndex = 1;
             this.m_ButtonExport.Text = "Export";
-            this.m_ButtonExport.UseVisualStyleBackColor = true;
+            this.m_ButtonExport.UseVisualStyleBackColor = false;
             this.m_ButtonExport.Click += new System.EventHandler(this.m_ButtonExport_Click);
             // 
             // m_ButtonCancelExport
@@ -529,10 +509,10 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label4.Location = new System.Drawing.Point(253, 101);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(435, 75);
+            this.label4.Size = new System.Drawing.Size(442, 75);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Do you want to save the exported file?\r\nif you do, please provide a file path.\r\nl" +
-    "eaving it empty will open file without saving.";
+            this.label4.Text = "Do you want to save the exported file?\r\nIf you do, please provide a full file pat" +
+    "h.\r\nLeaving it empty will open file without saving.";
             // 
             // m_Button_LogOut
             // 
@@ -560,6 +540,38 @@
             // m_BindingSourceUpcomingEvents
             // 
             this.m_BindingSourceUpcomingEvents.DataSource = typeof(FacebookWrapper.ObjectModel.Event);
+            // 
+            // m_FriendProfileViewComponent
+            // 
+            this.m_FriendProfileViewComponent.Location = new System.Drawing.Point(44, 86);
+            this.m_FriendProfileViewComponent.Name = "m_FriendProfileViewComponent";
+            this.m_FriendProfileViewComponent.ShowedUserProfilePictureURL = null;
+            this.m_FriendProfileViewComponent.Size = new System.Drawing.Size(870, 463);
+            this.m_FriendProfileViewComponent.TabIndex = 3;
+            // 
+            // m_MyProfileViewComponent
+            // 
+            this.m_MyProfileViewComponent.Location = new System.Drawing.Point(39, 62);
+            this.m_MyProfileViewComponent.Name = "m_MyProfileViewComponent";
+            this.m_MyProfileViewComponent.ShowedUserProfilePictureURL = null;
+            this.m_MyProfileViewComponent.Size = new System.Drawing.Size(870, 463);
+            this.m_MyProfileViewComponent.TabIndex = 0;
+            // 
+            // m_BirthdayViewerComponent
+            // 
+            this.m_BirthdayViewerComponent.FriendsToShow = null;
+            this.m_BirthdayViewerComponent.Location = new System.Drawing.Point(201, 88);
+            this.m_BirthdayViewerComponent.Name = "m_BirthdayViewerComponent";
+            this.m_BirthdayViewerComponent.Size = new System.Drawing.Size(580, 376);
+            this.m_BirthdayViewerComponent.TabIndex = 0;
+            // 
+            // m_PictureBoxExcelExport
+            // 
+            this.m_PictureBoxExcelExport.Location = new System.Drawing.Point(374, 330);
+            this.m_PictureBoxExcelExport.Name = "m_PictureBoxExcelExport";
+            this.m_PictureBoxExcelExport.Size = new System.Drawing.Size(204, 93);
+            this.m_PictureBoxExcelExport.TabIndex = 3;
+            this.m_PictureBoxExcelExport.TabStop = false;
             // 
             // DesktopFacebook
             // 
@@ -592,6 +604,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxGoToMainTab)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendFeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceUpcomingEvents)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxExcelExport)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -642,6 +655,7 @@
         private System.Windows.Forms.TextBox m_TextBoxExportFilePath;
         private System.Windows.Forms.Button m_ButtonExport;
         private System.Windows.Forms.Button m_ButtonCancelExport;
+        private System.Windows.Forms.PictureBox m_PictureBoxExcelExport;
     }
 }
 

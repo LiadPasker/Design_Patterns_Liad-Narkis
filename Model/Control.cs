@@ -198,11 +198,16 @@ currUser?.About);
             friends.OrderBy(x => x.Birthday);
             return friends;
         }
-        public bool isOccasionSoon(string i_Occasion, int i_HowFarInMonths)
+        public bool isOccasionSoon(string i_Occasion, int i_HowFarInMonths, bool isBirthday=false)
         {
             bool isSoon = false;
             DateTime occasion = DateTime.ParseExact(i_Occasion,"MM/dd/yyyy",null);
-            if (occasion.Month <= DateTime.Now.AddMonths(Math.Abs(i_HowFarInMonths)).Month && occasion.Month>= DateTime.Now.Month)
+            if(isBirthday)
+            {
+                occasion = occasion.AddYears(DateTime.Now.Year - occasion.Year + 1);
+            }
+
+            if (occasion <= DateTime.Now.AddMonths(Math.Abs(i_HowFarInMonths))&& occasion>=DateTime.Now)
             {
                 isSoon = true;
             }
@@ -254,7 +259,8 @@ currUser?.About);
         {
             DataTable userHighLights = new DataTable(i_TableName);
             DateTime monthDay = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1); // initializes to the first day of the current month
-            DataRow row = userHighLights.NewRow();
+            DataRow dayRow = userHighLights.NewRow();
+            DataRow occasionRow = userHighLights.NewRow();
             int numOfDaysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
             string day = (monthDay.DayOfWeek).ToString();
             string[] birthdays = getBirthdaysCalendarically(numOfDaysInCurrentMonth);
@@ -267,12 +273,18 @@ currUser?.About);
 
             for (int i = 1; i <= numOfDaysInCurrentMonth; i++)
             {
-                row[day] = string.Format("{0}\n{1}\n{2}", i,birthdays[i-1],events[i-1]);
+                dayRow[day] = i;
+                if(birthdays[i-1]!=null || events[i-1]!=null)
+                {
+                    occasionRow[day] = string.Format("{0}\n{1}", birthdays[i - 1], events[i - 1]);
+                }
 
                 if (day == DayOfWeek.Saturday.ToString() || i== DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month))
                 {
-                    userHighLights.Rows.Add(row);
-                    row = userHighLights.NewRow();
+                    userHighLights.Rows.Add(dayRow);
+                    userHighLights.Rows.Add(occasionRow);
+                    dayRow = userHighLights.NewRow();
+                    occasionRow = userHighLights.NewRow();
                 }
                 monthDay=monthDay.AddDays(1);
                 day = (monthDay.DayOfWeek).ToString();   
@@ -290,7 +302,7 @@ currUser?.About);
                 foreach (User friend in friends)
                 {
                     DateTime birthdayDate = DateTime.ParseExact(friend.Birthday, "MM/dd/yyyy", null);
-                    if (isOccasionSoon(friend.Birthday, 0))
+                    if (isOccasionSoon(friend.Birthday, 0,true))
                     {
                         birthdays[birthdayDate.Day-1] += string.Format("{0} have a Birthday\n", friend.Name);
                     }

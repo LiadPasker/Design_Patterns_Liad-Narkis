@@ -12,11 +12,10 @@ namespace Model
     public class OfficeManager
     {
         private readonly int r_FirstSheetRow = 1;
-        private readonly int r_LastSheetRow = 6;
+        private readonly int r_LastSheetRow = 11;
         private readonly int r_FirstSheetColumn = 1;
         private readonly int r_LastSheetColumn = 8;
-        private readonly XlRgbColor r_HeadlineCellsColor = XlRgbColor.rgbSkyBlue;
-        private readonly int r_RowsHeight=50;
+        private readonly int r_RowsHeight=60;
         private readonly int r_ColumnWidth = 15;
         public Application excelFile { get; private set; } = null;
 
@@ -65,17 +64,25 @@ namespace Model
             }
         }
         private void setSheetBorders(_Worksheet i_WorkSheet)
-        {//a1:h5
+        {
             i_WorkSheet.get_Range(excelRangeGenerator(r_FirstSheetColumn, r_FirstSheetRow, r_LastSheetColumn,r_LastSheetRow)).Cells.Borders.LineStyle = XlLineStyle.xlContinuous;
         }
         private void setColumnsHeight(_Worksheet i_WorkSheet)
-        {//a2:h5
-            i_WorkSheet.get_Range(excelRangeGenerator(r_FirstSheetColumn,2 , r_LastSheetColumn, r_LastSheetRow)).RowHeight = r_RowsHeight;
+        {
+            for (int i = 2; i < r_LastSheetRow; i += 2)
+            {
+                i_WorkSheet.get_Range(excelRangeGenerator(r_FirstSheetColumn, r_FirstSheetRow+i, r_LastSheetColumn, r_FirstSheetRow + i)).RowHeight = r_RowsHeight;
+            }
         }
         private void changeHeadlineColor(_Worksheet i_Worksheet)
         {
-            Range heading = i_Worksheet.Range[i_Worksheet.Cells[r_FirstSheetRow, r_FirstSheetColumn], i_Worksheet.Cells[r_FirstSheetRow, r_LastSheetColumn]];
-            heading.Interior.Color = r_HeadlineCellsColor;
+            Range heading = i_Worksheet.Range[excelRangeGenerator(r_FirstSheetColumn, r_FirstSheetRow, r_LastSheetColumn, r_FirstSheetRow)];
+            heading.Interior.Color = XlRgbColor.rgbRoyalBlue;
+            for (int i = 1; i < r_LastSheetRow; i += 2)
+            {
+                Range MonthDays = i_Worksheet.Range[excelRangeGenerator(r_FirstSheetColumn, r_FirstSheetRow + i, r_LastSheetColumn, r_FirstSheetRow + i)];
+                MonthDays.Interior.Color = XlRgbColor.rgbLightSkyBlue;
+            }
         }
         private string excelRangeGenerator(int i_ColumnsFrom, int i_RowFrom, int i_ColumnTo, int i_RowTo)
         {

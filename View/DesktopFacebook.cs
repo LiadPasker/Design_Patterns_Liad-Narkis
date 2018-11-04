@@ -317,13 +317,18 @@ namespace View
             m_Animation.Play();
         }
 
+
+        ///////////////////////// Export Tab - feature 1 ////////////////////////
         private void m_ButtonExportCurrentMonthToExcel_Click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageExport);
             m_TextBoxExportFilePath.Text = m_TextBoxExportFilePath.Tag.ToString();
             m_TextBoxExportFilePath.BackColor = Color.AliceBlue;
+            if (m_PictureBoxExcelExport.Image == null)
+            {
+                m_PictureBoxExcelExport.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.excel.png",130,60);
+            }
         }
-
         private void m_ButtonExport_Click(object sender, EventArgs e)
         {
             try
@@ -335,10 +340,10 @@ namespace View
                 MessageBox.Show(exception.Message);
             }
         }
-
         private void m_ButtonCancelExport_Click(object sender, EventArgs e)
         {
             m_PictureBoxGoToMainTab_Click(null, null);
         }
+
     }
 }

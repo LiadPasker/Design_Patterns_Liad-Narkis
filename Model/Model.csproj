@@ -81,5 +81,8 @@
   <ItemGroup>
     <EmbeddedResource Include="pictureSources\balloons.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="pictureSources\excel.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
