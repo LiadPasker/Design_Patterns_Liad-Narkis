@@ -104,7 +104,6 @@ namespace View
         {
             m_TabsControl.SelectTab(m_MainWindowTab);
             initializeButtonTextBoxRelationship(m_TextBoxPostToMyWall, m_ButtonPostStatus);
-            //m_ComboBoxZoom.SelectedIndex++; 
         }
         private void m_ButtonPostStatus_Click(object sender, EventArgs e)// tags? checkins?
         {
@@ -320,7 +319,26 @@ namespace View
 
         private void m_ButtonExportCurrentMonthToExcel_Click(object sender, EventArgs e)
         {
-            m_AppControl.ExportData(Utils.eFileType.XLS, null);
+            m_TabsControl.SelectTab(m_TabPageExport);
+            m_TextBoxExportFilePath.Text = m_TextBoxExportFilePath.Tag.ToString();
+            m_TextBoxExportFilePath.BackColor = Color.AliceBlue;
+        }
+
+        private void m_ButtonExport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                m_AppControl.ExportData(Utils.eFileType.XLS, m_TextBoxExportFilePath.Text);
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
+
+        private void m_ButtonCancelExport_Click(object sender, EventArgs e)
+        {
+            m_PictureBoxGoToMainTab_Click(null, null);
         }
     }
 }

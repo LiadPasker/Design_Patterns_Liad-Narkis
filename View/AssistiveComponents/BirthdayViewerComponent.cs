@@ -112,7 +112,7 @@ namespace View
         }
         private void handleBirthdays(DataGridViewRow i_Row)
         {
-                if (m_AppControl.isBirthdaySoon((string)i_Row.Cells[r_BirthdayCoulmnNumber].Value, r_HowFarInMonths))
+                if (m_AppControl.isOccasionSoon((string)i_Row.Cells[r_BirthdayCoulmnNumber].Value, r_HowFarInMonths))
                 {
                     m_ButtonGenerateWish.Enabled = true;
                     showBirthdaySoonGraphics();

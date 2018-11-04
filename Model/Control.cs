@@ -198,11 +198,11 @@ currUser?.About);
             friends.OrderBy(x => x.Birthday);
             return friends;
         }
-        public bool isBirthdaySoon(string i_Birthday, int i_HowFarInMonths)
+        public bool isOccasionSoon(string i_Occasion, int i_HowFarInMonths)
         {
             bool isSoon = false;
-            DateTime birthday = DateTime.ParseExact(i_Birthday,"MM/dd/yyyy",null);
-            if (birthday.Month <= DateTime.Now.AddMonths(Math.Abs(i_HowFarInMonths)).Month)
+            DateTime occasion = DateTime.ParseExact(i_Occasion,"MM/dd/yyyy",null);
+            if (occasion.Month <= DateTime.Now.AddMonths(Math.Abs(i_HowFarInMonths)).Month && occasion.Month>= DateTime.Now.Month)
             {
                 isSoon = true;
             }
@@ -253,20 +253,22 @@ currUser?.About);
         private DataTable initializeCalenderTable(string i_TableName)
         {
             DataTable userHighLights = new DataTable(i_TableName);
-
             DateTime monthDay = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1); // initializes to the first day of the current month
             DataRow row = userHighLights.NewRow();
+            int numOfDaysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
             string day = (monthDay.DayOfWeek).ToString();
+            string[] birthdays = getBirthdaysCalendarically(numOfDaysInCurrentMonth);
+            string[] events = getEventsCalendarically(numOfDaysInCurrentMonth);
 
             for (int days = (int)DayOfWeek.Sunday; days <= (int)DayOfWeek.Saturday; days++)
             {
                 userHighLights.Columns.Add(((DayOfWeek)days).ToString());
-
             }
 
-            for (int i = 1; i <= DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month); i++)
+            for (int i = 1; i <= numOfDaysInCurrentMonth; i++)
             {
-                row[day] = string.Format("{0}\n\n{1}", i,null);
+                row[day] = string.Format("{0}\n{1}\n{2}", i,birthdays[i-1],events[i-1]);
+
                 if (day == DayOfWeek.Saturday.ToString() || i== DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month))
                 {
                     userHighLights.Rows.Add(row);
@@ -278,6 +280,51 @@ currUser?.About);
 
             return userHighLights;
         }
+        private string[] getBirthdaysCalendarically(int i_numOfDaysInCurrentMonth)
+        {
+            string[] birthdays=new string[i_numOfDaysInCurrentMonth];
 
+            try
+            {
+                FacebookObjectCollection<User> friends = getConnectedUserFriendsSortedByBirthdays();
+                foreach (User friend in friends)
+                {
+                    DateTime birthdayDate = DateTime.ParseExact(friend.Birthday, "MM/dd/yyyy", null);
+                    if (isOccasionSoon(friend.Birthday, 0))
+                    {
+                        birthdays[birthdayDate.Day-1] += string.Format("{0} have a Birthday\n", friend.Name);
+                    }
+                }
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+
+            return birthdays;
+        }
+        private string[] getEventsCalendarically(int i_numOfDaysInCurrentMonth)
+        {
+            string[] events = new string[i_numOfDaysInCurrentMonth];
+
+            try
+            {
+                FacebookObjectCollection<Event> ConnectedUserEvents = FacebookAuth.LoggedInUser.Events;
+                foreach (Event currentEvent in ConnectedUserEvents)
+                {
+                    DateTime? eventDate = currentEvent.StartTime;
+                    if (isOccasionSoon(eventDate.ToString(), 0))
+                    {
+                        events[eventDate.Value.Day - 1] += string.Format("{0}\n", currentEvent.Name);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return events;
+        }
     }
 }
