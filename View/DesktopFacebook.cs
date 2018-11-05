@@ -59,7 +59,7 @@ namespace View
         {
             foreach (TabPage tab in m_TabsControl.TabPages)
             {
-                tab.BackColor = Color.LightGray;
+                tab.BackColor = Color.Lavender;
             }
 
         }

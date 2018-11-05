@@ -62,6 +62,7 @@
             this.m_TabPageMyProfile = new System.Windows.Forms.TabPage();
             this.m_TabPageBirthdayTracker = new System.Windows.Forms.TabPage();
             this.m_TabPageExport = new System.Windows.Forms.TabPage();
+            this.m_PictureBoxExcelExport = new System.Windows.Forms.PictureBox();
             this.m_TextBoxExportFilePath = new System.Windows.Forms.TextBox();
             this.m_ButtonExport = new System.Windows.Forms.Button();
             this.m_ButtonCancelExport = new System.Windows.Forms.Button();
@@ -70,10 +71,11 @@
             this.m_PictureBoxGoToMainTab = new System.Windows.Forms.PictureBox();
             this.m_BindingSourceFriendFeed = new System.Windows.Forms.BindingSource(this.components);
             this.m_BindingSourceUpcomingEvents = new System.Windows.Forms.BindingSource(this.components);
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.m_FriendProfileViewComponent = new View.ProfileViewerComponent();
             this.m_MyProfileViewComponent = new View.ProfileViewerComponent();
             this.m_BirthdayViewerComponent = new View.BirthdayViewerComponent();
-            this.m_PictureBoxExcelExport = new System.Windows.Forms.PictureBox();
             this.m_TabPageMyAlbums.SuspendLayout();
             this.m_TabsControl.SuspendLayout();
             this.m_MainWindowTab.SuspendLayout();
@@ -84,10 +86,10 @@
             this.m_TabPageMyProfile.SuspendLayout();
             this.m_TabPageBirthdayTracker.SuspendLayout();
             this.m_TabPageExport.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxExcelExport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxGoToMainTab)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendFeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceUpcomingEvents)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxExcelExport)).BeginInit();
             this.SuspendLayout();
             // 
             // m_TabPageMyAlbums
@@ -218,6 +220,7 @@
             // 
             // m_MainWindowTab
             // 
+            this.m_MainWindowTab.BackColor = System.Drawing.Color.Lavender;
             this.m_MainWindowTab.Controls.Add(this.m_ButtonExportCurrentMonthToExcel);
             this.m_MainWindowTab.Controls.Add(this.m_ButtonBirthdayTracker);
             this.m_MainWindowTab.Controls.Add(this.m_ButtonMyProfile);
@@ -235,7 +238,6 @@
             this.m_MainWindowTab.Size = new System.Drawing.Size(945, 592);
             this.m_MainWindowTab.TabIndex = 0;
             this.m_MainWindowTab.Text = "Home";
-            this.m_MainWindowTab.UseVisualStyleBackColor = true;
             // 
             // m_ButtonExportCurrentMonthToExcel
             // 
@@ -461,6 +463,8 @@
             // 
             // m_TabPageExport
             // 
+            this.m_TabPageExport.Controls.Add(this.label6);
+            this.m_TabPageExport.Controls.Add(this.label5);
             this.m_TabPageExport.Controls.Add(this.m_PictureBoxExcelExport);
             this.m_TabPageExport.Controls.Add(this.m_TextBoxExportFilePath);
             this.m_TabPageExport.Controls.Add(this.m_ButtonExport);
@@ -472,6 +476,14 @@
             this.m_TabPageExport.TabIndex = 6;
             this.m_TabPageExport.Text = "Export";
             this.m_TabPageExport.UseVisualStyleBackColor = true;
+            // 
+            // m_PictureBoxExcelExport
+            // 
+            this.m_PictureBoxExcelExport.Location = new System.Drawing.Point(374, 330);
+            this.m_PictureBoxExcelExport.Name = "m_PictureBoxExcelExport";
+            this.m_PictureBoxExcelExport.Size = new System.Drawing.Size(204, 93);
+            this.m_PictureBoxExcelExport.TabIndex = 3;
+            this.m_PictureBoxExcelExport.TabStop = false;
             // 
             // m_TextBoxExportFilePath
             // 
@@ -506,13 +518,12 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label4.Location = new System.Drawing.Point(253, 101);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label4.Location = new System.Drawing.Point(251, 88);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(442, 75);
+            this.label4.Size = new System.Drawing.Size(454, 29);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Do you want to save the exported file?\r\nIf you do, please provide a full file pat" +
-    "h.\r\nLeaving it empty will open file without saving.";
+            this.label4.Text = "Do you want to save the exported file?\r\n";
             // 
             // m_Button_LogOut
             // 
@@ -541,6 +552,29 @@
             // 
             this.m_BindingSourceUpcomingEvents.DataSource = typeof(FacebookWrapper.ObjectModel.Event);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label5.Location = new System.Drawing.Point(17, 456);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(909, 22);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "This exporting feature gives you the best known and covenient way of keeping your" +
+    " social cycle closer than ever!";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label6.Location = new System.Drawing.Point(234, 154);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(481, 44);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "                If you do, please provide a full file path\r\n(Leaving it empty wil" +
+    "l open the created file without opening)";
+            // 
             // m_FriendProfileViewComponent
             // 
             this.m_FriendProfileViewComponent.Location = new System.Drawing.Point(44, 86);
@@ -564,14 +598,6 @@
             this.m_BirthdayViewerComponent.Name = "m_BirthdayViewerComponent";
             this.m_BirthdayViewerComponent.Size = new System.Drawing.Size(580, 376);
             this.m_BirthdayViewerComponent.TabIndex = 0;
-            // 
-            // m_PictureBoxExcelExport
-            // 
-            this.m_PictureBoxExcelExport.Location = new System.Drawing.Point(374, 330);
-            this.m_PictureBoxExcelExport.Name = "m_PictureBoxExcelExport";
-            this.m_PictureBoxExcelExport.Size = new System.Drawing.Size(204, 93);
-            this.m_PictureBoxExcelExport.TabIndex = 3;
-            this.m_PictureBoxExcelExport.TabStop = false;
             // 
             // DesktopFacebook
             // 
@@ -601,10 +627,10 @@
             this.m_TabPageBirthdayTracker.ResumeLayout(false);
             this.m_TabPageExport.ResumeLayout(false);
             this.m_TabPageExport.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxExcelExport)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxGoToMainTab)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendFeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceUpcomingEvents)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxExcelExport)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -656,6 +682,8 @@
         private System.Windows.Forms.Button m_ButtonExport;
         private System.Windows.Forms.Button m_ButtonCancelExport;
         private System.Windows.Forms.PictureBox m_PictureBoxExcelExport;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }
 
