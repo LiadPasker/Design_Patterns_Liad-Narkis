@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
@@ -17,18 +18,29 @@ namespace View
 {
     public partial class DesktopFacebook : Form
     {
+        private readonly int r_ViewControllerInterval = 400;
         private Model.Control m_AppControl;
         private AlbumViewerComponent m_AlbumDisplay = null; // manages albums and images display in 'MyAlbums' tab
         public static int PostsAgeInMonths { get; set; } = 6;
         private FacebookObjectCollection<Post> m_RecentPosts = null;
         private string m_ConnectedUserProfilePictureURL = null;
-        MovingUpAnimationPlayer m_Animation = null;
+        private MovingUpAnimationPlayer m_Animation = null;
+        private System.Windows.Forms.Timer m_TemporaryViewController;
 
         /////////////////////// General Settings & 'MainWindow' Tab //////////////////////
         public DesktopFacebook()
         {
             InitializeComponent();
             m_AppControl = new Model.Control();
+            m_TemporaryViewController = new System.Windows.Forms.Timer();
+            m_TemporaryViewController.Interval = r_ViewControllerInterval;
+            m_TemporaryViewController.Tick += ShowAdLabels;
+        }
+        private void ShowAdLabels(object sender, EventArgs e)
+        {
+            Color color = m_LabelFeaturesAd.ForeColor;
+            m_LabelFeaturesAd.ForeColor = m_LabelHomeButtonAd.ForeColor;
+            m_LabelHomeButtonAd.ForeColor = color;
         }
         private void initializeComponents()
         {
@@ -47,13 +59,12 @@ namespace View
             {
                 showFacebookServerErrorMessege("Login Failed");
             }
+            
             initializeComponents();
-
+            m_TemporaryViewController.Start();
             //to move:
             m_LogoPictureBox.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.desktop_facebook.png", 380, 150);
             m_PictureBoxGoToMainTab.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.home.png", 25, 25);
-
-
         }
         private void initializeTabsBackground()
         {
@@ -102,7 +113,7 @@ namespace View
         }
         private void m_PictureBoxGoToMainTab_Click(object sender, EventArgs e)
         {
-            m_TabsControl.SelectTab(m_MainWindowTab);
+            m_TabsControl.SelectTab(m_TabPageMainWindow);
             initializeButtonTextBoxRelationship(m_TextBoxPostToMyWall, m_ButtonPostStatus);
         }
         private void m_ButtonPostStatus_Click(object sender, EventArgs e)// tags? checkins?
@@ -134,6 +145,15 @@ namespace View
             i_TextBox.Text = i_TextBox.Tag.ToString();
             i_TextBox.BackColor = Color.LightCyan;
             i_Button.Enabled = false;
+        }
+        private void m_TabsControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (m_TemporaryViewController != null)
+            {
+                m_TemporaryViewController.Stop();
+                m_LabelFeaturesAd.Visible = false;
+                m_LabelHomeButtonAd.Visible = false;
+            }
         }
 
 
@@ -276,7 +296,6 @@ namespace View
             try
             {
                 m_AppControl.verifyFriendSearchAndImportInfo(m_TextBoxSearchFriend.Text); //throws exeption if searched failed or facebook server failed
-                //initializeFriendInfoTab();
                 m_FriendProfileViewComponent.ShowedUserProfilePictureURL = m_AppControl.getCurrentShowedFriendProfilePictureURL();
                 m_FriendProfileViewComponent.InitializeProfileViewer();
             }
@@ -345,5 +364,39 @@ namespace View
             m_PictureBoxGoToMainTab_Click(null, null);
         }
 
+        private void m_ButtonAutomateYourActivity_Click(object sender, EventArgs e)
+        {
+            m_TabsControl.SelectTab(m_TabPageAutomateActivity);
+
+        }
+
+
+
+
+        //private void func()
+        //{
+        //    var t = new System.Threading.Timer(callback);
+
+        //    // Figure how much time until 4:00
+        //    DateTime now = DateTime.Now;
+        //    DateTime ActionTime = DateTime.Now.AddSeconds(5);
+
+        //    // If it's already past 4:00, wait until 4:00 tomorrow    
+        //    if (now > ActionTime)
+        //    {
+        //        ActionTime = ActionTime.AddDays(1.0);
+        //    }
+
+        //    int msUntilFour = (int)((ActionTime - now).TotalMilliseconds);
+
+        //    // Set the timer to elapse only once, at 4:00.
+        //    t.Change(msUntilFour, Timeout.Infinite);
+
+        //}
+
+        //private void callback(object state)
+        //{
+        //    MessageBox.Show("Time Up");
+        //}
     }
 }

@@ -30,7 +30,7 @@ namespace View
             InitializeComponent();
             m_BirthdayGraphicController = new Timer();
             m_BirthdayGraphicController.Interval = r_GraphicSpeed;
-            m_BirthdayGraphicController.Tick += ChangeControllersBackColor;
+            m_BirthdayGraphicController.Tick += handleGraphics;
         }
         public DataGridView DataGridViewBirthdays
         {
@@ -39,14 +39,14 @@ namespace View
                 return m_DataGridViewBirthdays;
             }
         }
-        private void ChangeControllersBackColor(object sender, EventArgs e)
+        private void handleGraphics(object sender, EventArgs e)
         {
             Random rand = new Random();
             Color color=Color.FromArgb(r_ColorAlpha, Color.FromArgb(rand.Next(r_ColorMaxRange), rand.Next(r_ColorMaxRange), rand.Next(r_ColorMaxRange)));
             Graphics drawer = Graphics.FromHwnd(m_TabPageControl.Handle);
             Font font = new Font("Calibri", 20, FontStyle.Bold);
             string messege = string.Format("{0} have a birthday soon!", m_DataGridViewBirthdays.SelectedCells[r_NameCoulmnNumber].Value);
-            drawer.DrawString(messege, font, new SolidBrush(color), new Point(this.Left,0));
+            drawer.DrawString(messege, font, new SolidBrush(color), new Point(this.Left,10));
         }
         public void Populate(Model.Control i_AppControl, TabPage i_TabPageControl)
         {
@@ -124,6 +124,7 @@ namespace View
         }
         private void m_ButtonGenerateWish_Click(object sender, EventArgs e)
         {
+            m_ButtonPost.Enabled = true;
             m_TextBoxPost.Text = m_AppControl.GenerateRandomBirthdayWish((string)m_DataGridViewBirthdays.SelectedCells[0].Value);
         }
     }

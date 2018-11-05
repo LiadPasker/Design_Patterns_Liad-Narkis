@@ -53,6 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssistiveComponents\ActivityAutomation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AssistiveComponents\ActivityAutomation.Designer.cs">
+      <DependentUpon>ActivityAutomation.cs</DependentUpon>
+    </Compile>
     <Compile Include="AssistiveComponents\AlbumViewerComponent.cs" />
     <Compile Include="AssistiveComponents\AlbumPage.cs" />
     <Compile Include="AssistiveComponents\BirthdayViewerComponent.cs">
@@ -76,6 +82,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AssistiveComponents\ActivityAutomation.resx">
+      <DependentUpon>ActivityAutomation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AssistiveComponents\BirthdayViewerComponent.resx">
       <DependentUpon>BirthdayViewerComponent.cs</DependentUpon>
     </EmbeddedResource>

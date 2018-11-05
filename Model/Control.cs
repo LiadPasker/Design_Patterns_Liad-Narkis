@@ -143,19 +143,34 @@ POSTED AT:{1}
         }
         public string getCurrentShowedFriendProfilePictureURL()
         {
-            return m_UserFriendManager.UserFriend.PictureLargeURL;
+            try
+            {
+                return m_UserFriendManager.UserFriend.PictureLargeURL;
+            }
+            catch(Exception e)
+            {
+                throw new Exception("Couldn't find Picture");
+            }
+            
         }
         public string GetcurrentShowedUserInfo(Utils.eUserProfile i_UserType)
         {
             User currUser = null;
-            switch (i_UserType)
+            try
             {
-                case Utils.eUserProfile.MY_PROFILE:
-                    currUser = FacebookAuth.LoggedInUser;
-                    break;
-                case Utils.eUserProfile.FRIEND_PROFILE:
-                    currUser = m_UserFriendManager.UserFriend;
-                    break;
+                switch (i_UserType)
+                {
+                    case Utils.eUserProfile.MY_PROFILE:
+                        currUser = FacebookAuth.LoggedInUser;
+                        break;
+                    case Utils.eUserProfile.FRIEND_PROFILE:
+                        currUser = m_UserFriendManager.UserFriend;
+                        break;
+                }
+            }
+            catch(Exception e)
+            {
+                throw new Exception("Information Import Failed");
             }
             return string.Format(
 @"Name: {0}
@@ -168,15 +183,8 @@ Work: {6}
 Status: {7}
 About:
 {8}",
-currUser?.Name,
-currUser?.Gender,
-currUser?.Birthday,
-currUser?.Email,
-currUser?.Hometown?.Name,
-currUser?.Educations?[0].School?.Name,
-currUser?.WorkExperiences?[0].Name,
-currUser?.RelationshipStatus,
-currUser?.About);
+currUser?.Name,currUser?.Gender,currUser?.Birthday,currUser?.Email,currUser?.Hometown?.Name,currUser?.Educations?[0].School?.Name,
+currUser?.WorkExperiences?[0].Name,currUser?.RelationshipStatus,currUser?.About);
         }
         public FacebookObjectCollection<Event> GetUserUpcomingEvents(Utils.eUserProfile i_UserType)
         {
@@ -302,7 +310,7 @@ currUser?.About);
                 foreach (User friend in friends)
                 {
                     DateTime birthdayDate = DateTime.ParseExact(friend.Birthday, "MM/dd/yyyy", null);
-                    if (isOccasionSoon(friend.Birthday, 12,true))
+                    if (isOccasionSoon(friend.Birthday, 0,true))
                     {
                         birthdays[birthdayDate.Day-1] += string.Format("{0} have a Birthday\n", friend.Name);
                     }

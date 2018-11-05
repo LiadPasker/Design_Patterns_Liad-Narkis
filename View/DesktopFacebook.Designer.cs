@@ -40,7 +40,9 @@
             this.m_ButtonNextPage = new System.Windows.Forms.Button();
             this.m_ComboBoxAlbums = new System.Windows.Forms.ComboBox();
             this.m_TabsControl = new System.Windows.Forms.TabControl();
-            this.m_MainWindowTab = new System.Windows.Forms.TabPage();
+            this.m_TabPageMainWindow = new System.Windows.Forms.TabPage();
+            this.m_LabelFeaturesAd = new System.Windows.Forms.Label();
+            this.m_ButtonAutomateYourActivity = new System.Windows.Forms.Button();
             this.m_ButtonExportCurrentMonthToExcel = new System.Windows.Forms.Button();
             this.m_ButtonBirthdayTracker = new System.Windows.Forms.Button();
             this.m_ButtonMyProfile = new System.Windows.Forms.Button();
@@ -57,28 +59,32 @@
             this.m_TextBoxPostMonthOld = new System.Windows.Forms.TextBox();
             this.m_FeedTextBox = new System.Windows.Forms.TextBox();
             this.m_TabPageFriendsInfo = new System.Windows.Forms.TabPage();
+            this.m_FriendProfileViewComponent = new View.ProfileViewerComponent();
             this.m_ButtonSearchFriend = new System.Windows.Forms.Button();
             this.m_TextBoxSearchFriend = new System.Windows.Forms.TextBox();
             this.m_TabPageMyProfile = new System.Windows.Forms.TabPage();
+            this.m_MyProfileViewComponent = new View.ProfileViewerComponent();
             this.m_TabPageBirthdayTracker = new System.Windows.Forms.TabPage();
+            this.m_BirthdayViewerComponent = new View.BirthdayViewerComponent();
             this.m_TabPageExport = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.m_PictureBoxExcelExport = new System.Windows.Forms.PictureBox();
             this.m_TextBoxExportFilePath = new System.Windows.Forms.TextBox();
             this.m_ButtonExport = new System.Windows.Forms.Button();
             this.m_ButtonCancelExport = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.m_TabPageAutomateActivity = new System.Windows.Forms.TabPage();
             this.m_Button_LogOut = new System.Windows.Forms.Button();
             this.m_PictureBoxGoToMainTab = new System.Windows.Forms.PictureBox();
             this.m_BindingSourceFriendFeed = new System.Windows.Forms.BindingSource(this.components);
             this.m_BindingSourceUpcomingEvents = new System.Windows.Forms.BindingSource(this.components);
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.m_FriendProfileViewComponent = new View.ProfileViewerComponent();
-            this.m_MyProfileViewComponent = new View.ProfileViewerComponent();
-            this.m_BirthdayViewerComponent = new View.BirthdayViewerComponent();
+            this.button1 = new System.Windows.Forms.Button();
+            this.m_LabelHomeButtonAd = new System.Windows.Forms.Label();
+            this.activityAutomation1 = new View.ActivityAutomation();
             this.m_TabPageMyAlbums.SuspendLayout();
             this.m_TabsControl.SuspendLayout();
-            this.m_MainWindowTab.SuspendLayout();
+            this.m_TabPageMainWindow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_LogoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBox_ProfilePicture)).BeginInit();
             this.m_TabPageFeed.SuspendLayout();
@@ -87,6 +93,7 @@
             this.m_TabPageBirthdayTracker.SuspendLayout();
             this.m_TabPageExport.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxExcelExport)).BeginInit();
+            this.m_TabPageAutomateActivity.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxGoToMainTab)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendFeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceUpcomingEvents)).BeginInit();
@@ -205,39 +212,67 @@
             // 
             // m_TabsControl
             // 
-            this.m_TabsControl.Controls.Add(this.m_MainWindowTab);
+            this.m_TabsControl.Controls.Add(this.m_TabPageMainWindow);
             this.m_TabsControl.Controls.Add(this.m_TabPageMyAlbums);
             this.m_TabsControl.Controls.Add(this.m_TabPageFeed);
             this.m_TabsControl.Controls.Add(this.m_TabPageFriendsInfo);
             this.m_TabsControl.Controls.Add(this.m_TabPageMyProfile);
             this.m_TabsControl.Controls.Add(this.m_TabPageBirthdayTracker);
             this.m_TabsControl.Controls.Add(this.m_TabPageExport);
+            this.m_TabsControl.Controls.Add(this.m_TabPageAutomateActivity);
             this.m_TabsControl.Location = new System.Drawing.Point(3, 3);
             this.m_TabsControl.Name = "m_TabsControl";
             this.m_TabsControl.SelectedIndex = 0;
             this.m_TabsControl.Size = new System.Drawing.Size(953, 625);
             this.m_TabsControl.TabIndex = 2;
+            this.m_TabsControl.SelectedIndexChanged += new System.EventHandler(this.m_TabsControl_SelectedIndexChanged);
             // 
-            // m_MainWindowTab
+            // m_TabPageMainWindow
             // 
-            this.m_MainWindowTab.BackColor = System.Drawing.Color.Lavender;
-            this.m_MainWindowTab.Controls.Add(this.m_ButtonExportCurrentMonthToExcel);
-            this.m_MainWindowTab.Controls.Add(this.m_ButtonBirthdayTracker);
-            this.m_MainWindowTab.Controls.Add(this.m_ButtonMyProfile);
-            this.m_MainWindowTab.Controls.Add(this.m_ButtonFriendInfo);
-            this.m_MainWindowTab.Controls.Add(this.m_LogoPictureBox);
-            this.m_MainWindowTab.Controls.Add(this.m_TextBoxPostToMyWall);
-            this.m_MainWindowTab.Controls.Add(this.m_ButtonPostStatus);
-            this.m_MainWindowTab.Controls.Add(this.m_ButtonFeed);
-            this.m_MainWindowTab.Controls.Add(this.m_Button_MyAlbums);
-            this.m_MainWindowTab.Controls.Add(this.m_PictureBox_ProfilePicture);
-            this.m_MainWindowTab.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.m_MainWindowTab.Location = new System.Drawing.Point(4, 29);
-            this.m_MainWindowTab.Name = "m_MainWindowTab";
-            this.m_MainWindowTab.Padding = new System.Windows.Forms.Padding(3);
-            this.m_MainWindowTab.Size = new System.Drawing.Size(945, 592);
-            this.m_MainWindowTab.TabIndex = 0;
-            this.m_MainWindowTab.Text = "Home";
+            this.m_TabPageMainWindow.BackColor = System.Drawing.Color.Lavender;
+            this.m_TabPageMainWindow.Controls.Add(this.m_LabelFeaturesAd);
+            this.m_TabPageMainWindow.Controls.Add(this.m_ButtonAutomateYourActivity);
+            this.m_TabPageMainWindow.Controls.Add(this.m_ButtonExportCurrentMonthToExcel);
+            this.m_TabPageMainWindow.Controls.Add(this.m_ButtonBirthdayTracker);
+            this.m_TabPageMainWindow.Controls.Add(this.m_ButtonMyProfile);
+            this.m_TabPageMainWindow.Controls.Add(this.m_ButtonFriendInfo);
+            this.m_TabPageMainWindow.Controls.Add(this.m_LogoPictureBox);
+            this.m_TabPageMainWindow.Controls.Add(this.m_TextBoxPostToMyWall);
+            this.m_TabPageMainWindow.Controls.Add(this.m_ButtonPostStatus);
+            this.m_TabPageMainWindow.Controls.Add(this.m_ButtonFeed);
+            this.m_TabPageMainWindow.Controls.Add(this.m_Button_MyAlbums);
+            this.m_TabPageMainWindow.Controls.Add(this.m_PictureBox_ProfilePicture);
+            this.m_TabPageMainWindow.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.m_TabPageMainWindow.Location = new System.Drawing.Point(4, 29);
+            this.m_TabPageMainWindow.Name = "m_TabPageMainWindow";
+            this.m_TabPageMainWindow.Padding = new System.Windows.Forms.Padding(3);
+            this.m_TabPageMainWindow.Size = new System.Drawing.Size(945, 592);
+            this.m_TabPageMainWindow.TabIndex = 0;
+            this.m_TabPageMainWindow.Text = "Home";
+            // 
+            // m_LabelFeaturesAd
+            // 
+            this.m_LabelFeaturesAd.AutoSize = true;
+            this.m_LabelFeaturesAd.BackColor = System.Drawing.Color.Transparent;
+            this.m_LabelFeaturesAd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.m_LabelFeaturesAd.ForeColor = System.Drawing.Color.Goldenrod;
+            this.m_LabelFeaturesAd.Location = new System.Drawing.Point(748, 393);
+            this.m_LabelFeaturesAd.Name = "m_LabelFeaturesAd";
+            this.m_LabelFeaturesAd.Size = new System.Drawing.Size(156, 40);
+            this.m_LabelFeaturesAd.TabIndex = 25;
+            this.m_LabelFeaturesAd.Text = "Don\'t miss  these\r\ncool new features!";
+            // 
+            // m_ButtonAutomateYourActivity
+            // 
+            this.m_ButtonAutomateYourActivity.BackColor = System.Drawing.Color.Crimson;
+            this.m_ButtonAutomateYourActivity.ForeColor = System.Drawing.Color.White;
+            this.m_ButtonAutomateYourActivity.Location = new System.Drawing.Point(516, 417);
+            this.m_ButtonAutomateYourActivity.Name = "m_ButtonAutomateYourActivity";
+            this.m_ButtonAutomateYourActivity.Size = new System.Drawing.Size(226, 36);
+            this.m_ButtonAutomateYourActivity.TabIndex = 24;
+            this.m_ButtonAutomateYourActivity.Text = "Automate Your Activity";
+            this.m_ButtonAutomateYourActivity.UseVisualStyleBackColor = false;
+            this.m_ButtonAutomateYourActivity.Click += new System.EventHandler(this.m_ButtonAutomateYourActivity_Click);
             // 
             // m_ButtonExportCurrentMonthToExcel
             // 
@@ -289,7 +324,7 @@
             // 
             // m_LogoPictureBox
             // 
-            this.m_LogoPictureBox.Location = new System.Drawing.Point(196, -24);
+            this.m_LogoPictureBox.Location = new System.Drawing.Point(194, -24);
             this.m_LogoPictureBox.Name = "m_LogoPictureBox";
             this.m_LogoPictureBox.Size = new System.Drawing.Size(546, 183);
             this.m_LogoPictureBox.TabIndex = 21;
@@ -299,7 +334,7 @@
             // 
             this.m_TextBoxPostToMyWall.BackColor = System.Drawing.Color.AliceBlue;
             this.m_TextBoxPostToMyWall.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.m_TextBoxPostToMyWall.Location = new System.Drawing.Point(222, 435);
+            this.m_TextBoxPostToMyWall.Location = new System.Drawing.Point(222, 461);
             this.m_TextBoxPostToMyWall.Multiline = true;
             this.m_TextBoxPostToMyWall.Name = "m_TextBoxPostToMyWall";
             this.m_TextBoxPostToMyWall.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -312,7 +347,7 @@
             // m_ButtonPostStatus
             // 
             this.m_ButtonPostStatus.Enabled = false;
-            this.m_ButtonPostStatus.Location = new System.Drawing.Point(683, 449);
+            this.m_ButtonPostStatus.Location = new System.Drawing.Point(683, 475);
             this.m_ButtonPostStatus.Name = "m_ButtonPostStatus";
             this.m_ButtonPostStatus.Size = new System.Drawing.Size(60, 60);
             this.m_ButtonPostStatus.TabIndex = 15;
@@ -347,7 +382,7 @@
             // 
             this.m_PictureBox_ProfilePicture.Location = new System.Drawing.Point(222, 165);
             this.m_PictureBox_ProfilePicture.Name = "m_PictureBox_ProfilePicture";
-            this.m_PictureBox_ProfilePicture.Size = new System.Drawing.Size(252, 264);
+            this.m_PictureBox_ProfilePicture.Size = new System.Drawing.Size(269, 290);
             this.m_PictureBox_ProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.m_PictureBox_ProfilePicture.TabIndex = 12;
             this.m_PictureBox_ProfilePicture.TabStop = false;
@@ -417,6 +452,14 @@
             this.m_TabPageFriendsInfo.Text = "Friends";
             this.m_TabPageFriendsInfo.UseVisualStyleBackColor = true;
             // 
+            // m_FriendProfileViewComponent
+            // 
+            this.m_FriendProfileViewComponent.Location = new System.Drawing.Point(44, 86);
+            this.m_FriendProfileViewComponent.Name = "m_FriendProfileViewComponent";
+            this.m_FriendProfileViewComponent.ShowedUserProfilePictureURL = null;
+            this.m_FriendProfileViewComponent.Size = new System.Drawing.Size(870, 463);
+            this.m_FriendProfileViewComponent.TabIndex = 3;
+            // 
             // m_ButtonSearchFriend
             // 
             this.m_ButtonSearchFriend.BackColor = System.Drawing.Color.DarkBlue;
@@ -451,6 +494,14 @@
             this.m_TabPageMyProfile.Text = "My Profile";
             this.m_TabPageMyProfile.UseVisualStyleBackColor = true;
             // 
+            // m_MyProfileViewComponent
+            // 
+            this.m_MyProfileViewComponent.Location = new System.Drawing.Point(39, 62);
+            this.m_MyProfileViewComponent.Name = "m_MyProfileViewComponent";
+            this.m_MyProfileViewComponent.ShowedUserProfilePictureURL = null;
+            this.m_MyProfileViewComponent.Size = new System.Drawing.Size(870, 463);
+            this.m_MyProfileViewComponent.TabIndex = 0;
+            // 
             // m_TabPageBirthdayTracker
             // 
             this.m_TabPageBirthdayTracker.Controls.Add(this.m_BirthdayViewerComponent);
@@ -460,6 +511,14 @@
             this.m_TabPageBirthdayTracker.TabIndex = 5;
             this.m_TabPageBirthdayTracker.Text = "Birthdays";
             this.m_TabPageBirthdayTracker.UseVisualStyleBackColor = true;
+            // 
+            // m_BirthdayViewerComponent
+            // 
+            this.m_BirthdayViewerComponent.FriendsToShow = null;
+            this.m_BirthdayViewerComponent.Location = new System.Drawing.Point(201, 88);
+            this.m_BirthdayViewerComponent.Name = "m_BirthdayViewerComponent";
+            this.m_BirthdayViewerComponent.Size = new System.Drawing.Size(580, 376);
+            this.m_BirthdayViewerComponent.TabIndex = 0;
             // 
             // m_TabPageExport
             // 
@@ -476,6 +535,29 @@
             this.m_TabPageExport.TabIndex = 6;
             this.m_TabPageExport.Text = "Export";
             this.m_TabPageExport.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label6.Location = new System.Drawing.Point(234, 154);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(481, 44);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "                If you do, please provide a full file path\r\n(Leaving it empty wil" +
+    "l open the created file without opening)";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label5.Location = new System.Drawing.Point(17, 456);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(909, 22);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "This exporting feature gives you the best known and covenient way of keeping your" +
+    " social cycle closer than ever!";
             // 
             // m_PictureBoxExcelExport
             // 
@@ -525,6 +607,16 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "Do you want to save the exported file?\r\n";
             // 
+            // m_TabPageAutomateActivity
+            // 
+            this.m_TabPageAutomateActivity.Controls.Add(this.activityAutomation1);
+            this.m_TabPageAutomateActivity.Location = new System.Drawing.Point(4, 29);
+            this.m_TabPageAutomateActivity.Name = "m_TabPageAutomateActivity";
+            this.m_TabPageAutomateActivity.Size = new System.Drawing.Size(945, 592);
+            this.m_TabPageAutomateActivity.TabIndex = 7;
+            this.m_TabPageAutomateActivity.Text = "AutomationActivity";
+            this.m_TabPageAutomateActivity.UseVisualStyleBackColor = true;
+            // 
             // m_Button_LogOut
             // 
             this.m_Button_LogOut.Location = new System.Drawing.Point(857, 629);
@@ -533,6 +625,7 @@
             this.m_Button_LogOut.TabIndex = 19;
             this.m_Button_LogOut.Text = "Log Out";
             this.m_Button_LogOut.UseVisualStyleBackColor = true;
+            this.m_Button_LogOut.Click += new System.EventHandler(this.Button_LogOut_Click);
             // 
             // m_PictureBoxGoToMainTab
             // 
@@ -552,58 +645,42 @@
             // 
             this.m_BindingSourceUpcomingEvents.DataSource = typeof(FacebookWrapper.ObjectModel.Event);
             // 
-            // label5
+            // button1
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label5.Location = new System.Drawing.Point(17, 456);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(909, 22);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "This exporting feature gives you the best known and covenient way of keeping your" +
-    " social cycle closer than ever!";
+            this.button1.Location = new System.Drawing.Point(757, 630);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(94, 36);
+            this.button1.TabIndex = 21;
+            this.button1.Text = "Quit";
+            this.button1.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // m_LabelHomeButtonAd
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label6.Location = new System.Drawing.Point(234, 154);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(481, 44);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "                If you do, please provide a full file path\r\n(Leaving it empty wil" +
-    "l open the created file without opening)";
+            this.m_LabelHomeButtonAd.AutoSize = true;
+            this.m_LabelHomeButtonAd.BackColor = System.Drawing.Color.Transparent;
+            this.m_LabelHomeButtonAd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.m_LabelHomeButtonAd.ForeColor = System.Drawing.Color.Black;
+            this.m_LabelHomeButtonAd.Location = new System.Drawing.Point(50, 627);
+            this.m_LabelHomeButtonAd.Name = "m_LabelHomeButtonAd";
+            this.m_LabelHomeButtonAd.Size = new System.Drawing.Size(296, 40);
+            this.m_LabelHomeButtonAd.TabIndex = 25;
+            this.m_LabelHomeButtonAd.Text = "By clicking here you will get back to \r\n  this \'Home\' page from anywhere";
             // 
-            // m_FriendProfileViewComponent
+            // activityAutomation1
             // 
-            this.m_FriendProfileViewComponent.Location = new System.Drawing.Point(44, 86);
-            this.m_FriendProfileViewComponent.Name = "m_FriendProfileViewComponent";
-            this.m_FriendProfileViewComponent.ShowedUserProfilePictureURL = null;
-            this.m_FriendProfileViewComponent.Size = new System.Drawing.Size(870, 463);
-            this.m_FriendProfileViewComponent.TabIndex = 3;
-            // 
-            // m_MyProfileViewComponent
-            // 
-            this.m_MyProfileViewComponent.Location = new System.Drawing.Point(39, 62);
-            this.m_MyProfileViewComponent.Name = "m_MyProfileViewComponent";
-            this.m_MyProfileViewComponent.ShowedUserProfilePictureURL = null;
-            this.m_MyProfileViewComponent.Size = new System.Drawing.Size(870, 463);
-            this.m_MyProfileViewComponent.TabIndex = 0;
-            // 
-            // m_BirthdayViewerComponent
-            // 
-            this.m_BirthdayViewerComponent.FriendsToShow = null;
-            this.m_BirthdayViewerComponent.Location = new System.Drawing.Point(201, 88);
-            this.m_BirthdayViewerComponent.Name = "m_BirthdayViewerComponent";
-            this.m_BirthdayViewerComponent.Size = new System.Drawing.Size(580, 376);
-            this.m_BirthdayViewerComponent.TabIndex = 0;
+            this.activityAutomation1.BackColor = System.Drawing.SystemColors.Info;
+            this.activityAutomation1.Location = new System.Drawing.Point(115, 3);
+            this.activityAutomation1.Name = "activityAutomation1";
+            this.activityAutomation1.Size = new System.Drawing.Size(729, 570);
+            this.activityAutomation1.TabIndex = 0;
             // 
             // DesktopFacebook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(959, 670);
+            this.Controls.Add(this.m_LabelHomeButtonAd);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.m_PictureBoxGoToMainTab);
             this.Controls.Add(this.m_TabsControl);
             this.Controls.Add(this.m_Button_LogOut);
@@ -615,8 +692,8 @@
             this.m_TabPageMyAlbums.ResumeLayout(false);
             this.m_TabPageMyAlbums.PerformLayout();
             this.m_TabsControl.ResumeLayout(false);
-            this.m_MainWindowTab.ResumeLayout(false);
-            this.m_MainWindowTab.PerformLayout();
+            this.m_TabPageMainWindow.ResumeLayout(false);
+            this.m_TabPageMainWindow.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_LogoPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBox_ProfilePicture)).EndInit();
             this.m_TabPageFeed.ResumeLayout(false);
@@ -628,17 +705,19 @@
             this.m_TabPageExport.ResumeLayout(false);
             this.m_TabPageExport.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxExcelExport)).EndInit();
+            this.m_TabPageAutomateActivity.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxGoToMainTab)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendFeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceUpcomingEvents)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.TabControl m_TabsControl;
-        private System.Windows.Forms.TabPage m_MainWindowTab;
+        private System.Windows.Forms.TabPage m_TabPageMainWindow;
         private System.Windows.Forms.TextBox m_TextBoxPostToMyWall;
         private System.Windows.Forms.Button m_ButtonPostStatus;
         private System.Windows.Forms.Button m_ButtonFeed;
@@ -684,6 +763,12 @@
         private System.Windows.Forms.PictureBox m_PictureBoxExcelExport;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label m_LabelFeaturesAd;
+        private System.Windows.Forms.Button m_ButtonAutomateYourActivity;
+        private System.Windows.Forms.Label m_LabelHomeButtonAd;
+        private System.Windows.Forms.TabPage m_TabPageAutomateActivity;
+        private ActivityAutomation activityAutomation1;
     }
 }
 
