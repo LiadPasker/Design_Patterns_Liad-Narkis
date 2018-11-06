@@ -16,7 +16,7 @@ namespace Model
         private DesktopFacebookSettings m_DFSetting;
         public FacebookAuthentication FacebookAuth { get; private set; }
         private UserAlbumsManager m_UserAlbumManager;
-        private UserFriendManager m_UserFriendManager;
+        private User m_CurrentUserFriend = null;
         private List<string> m_WishList;
         public OfficeManager OfficeManager { get; private set; } = null;
 
@@ -45,23 +45,16 @@ namespace Model
         {
             return m_DFSetting.LoadAppSettings() != null && m_DFSetting.LoadAppSettings().LastAccessToken != string.Empty;
         }
-        public void PostStatus(Utils.eUserProfile i_User, string i_TextToPost, List<TagInfo> i_UserTags = null, Checkin i_CheckIn = null)//not finished: tags, checkin
+        public void PostStatus(Utils.eUserProfile i_UserType, string i_TextToPost, List<TagInfo> i_UserTags = null, Checkin i_CheckIn = null)//not finished: tags, checkin
         {
             validateInputString(i_TextToPost);
+            User user = null;
             try
             {
-                switch(i_User)
-                {
-                    case Utils.eUserProfile.MY_PROFILE:
-                        FacebookAuth.LoggedInUser.PostStatus(i_TextToPost);
-
-                        break;
-                    case Utils.eUserProfile.FRIEND_PROFILE:
-                        m_UserFriendManager.UserFriend.PostStatus(i_TextToPost);
-                        break;
-                }
+                user = getUser(i_UserType);
+                user.PostStatus(i_TextToPost);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception("Facebook Server Error");
             }
@@ -105,17 +98,16 @@ namespace Model
         }
         private FacebookObjectCollection<Post> getAllUserPosts(Utils.eUserProfile i_UserType)
         {
-            FacebookObjectCollection<Post> allUserPosts = null;
-            switch (i_UserType)
+            User user = null;
+            try
             {
-                case Utils.eUserProfile.MY_PROFILE:
-                    allUserPosts = FacebookAuth.LoggedInUser.WallPosts;
-                    break;
-                case Utils.eUserProfile.FRIEND_PROFILE:
-                    allUserPosts = m_UserFriendManager.UserFriend.NewsFeed;
-                    break;
+                user = getUser(i_UserType);
             }
-            return allUserPosts;
+            catch (Exception)
+            {
+                throw;
+            }
+            return user.NewsFeed;
         }
         public static bool isValidPostEnteredValue(string i_TextToCheck)
         {
@@ -132,22 +124,26 @@ POSTED AT:{1}
         }
         public void verifyFriendSearchAndImportInfo(string i_FriendNameToSearch)
         {
-            User desiredFriend = FacebookAuth.LoggedInUser.Friends.Find(x => x.Name == i_FriendNameToSearch);
-            if(desiredFriend==null)
+            try
+            {
+                m_CurrentUserFriend = FacebookAuth.LoggedInUser.Friends.Find(x => x.Name == i_FriendNameToSearch);
+                if(m_CurrentUserFriend==null)
+                {
+                    throw new Exception();
+                }
+            }
+            catch(Exception)
             {
                 throw new Exception("We couldn't find your Friend\nPlease try again");
             }
-
-            m_UserFriendManager = new UserFriendManager(desiredFriend);
-
         }
         public string getCurrentShowedFriendProfilePictureURL()
         {
             try
             {
-                return m_UserFriendManager.UserFriend.PictureLargeURL;
+                return m_CurrentUserFriend.PictureLargeURL;
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 throw new Exception("Couldn't find Picture");
             }
@@ -158,20 +154,14 @@ POSTED AT:{1}
             User currUser = null;
             try
             {
-                switch (i_UserType)
-                {
-                    case Utils.eUserProfile.MY_PROFILE:
-                        currUser = FacebookAuth.LoggedInUser;
-                        break;
-                    case Utils.eUserProfile.FRIEND_PROFILE:
-                        currUser = m_UserFriendManager.UserFriend;
-                        break;
-                }
+                currUser = getUser(i_UserType);
+
             }
-            catch(Exception e)
+            catch (Exception)
             {
-                throw new Exception("Information Import Failed");
+                throw;
             }
+
             return string.Format(
 @"Name: {0}
 Gender: {1}
@@ -188,24 +178,67 @@ currUser?.WorkExperiences?[0].Name,currUser?.RelationshipStatus,currUser?.About)
         }
         public FacebookObjectCollection<Event> GetUserUpcomingEvents(Utils.eUserProfile i_UserType)
         {
+            User user = null;
             FacebookObjectCollection<Event> userEvents = null;
-            switch (i_UserType)
+
+            try
             {
-                case Utils.eUserProfile.MY_PROFILE:
-                    userEvents = FacebookAuth.LoggedInUser.Events;
-                    break;
-                case Utils.eUserProfile.FRIEND_PROFILE:
-                    userEvents = m_UserFriendManager.getFriendUpcomingEvents();
-                    break;
+                user = getUser(i_UserType);
+                userEvents = getFriendUpcomingEvents(user.Events);
             }
+            catch (Exception)
+            {
+                throw;
+            }
+
             return userEvents;
         }
-        public FacebookObjectCollection<User> getConnectedUserFriendsSortedByBirthdays()
+        public FacebookObjectCollection<Event> getFriendUpcomingEvents(FacebookObjectCollection<Event> i_RecentEvents, int i_EventsAgeInMonths = 100)
         {
-            FacebookObjectCollection<User> friends = FacebookAuth.LoggedInUser.Friends;
-            friends.OrderBy(x => x.Birthday);
-            return friends;
+            FacebookObjectCollection<Event> recentUserEvents = null;
+            foreach (Event userEvent in i_RecentEvents)
+            {
+                if (userEvent.StartTime >= DateTime.Now.AddMonths(Math.Abs(i_EventsAgeInMonths)))
+                {
+                    recentUserEvents.Add(userEvent);
+                }
+            }
+
+            return recentUserEvents;
         }
+        public List<User> getConnectedUserFriendsSortedByBirthdays()
+        {
+            List<User> sortedFriendsList;
+            try
+            {
+                FacebookObjectCollection<User> friends = FacebookAuth.LoggedInUser.Friends;
+                sortedFriendsList = friends.OrderBy(x => DateTime.ParseExact(x.Birthday.Substring(0, 5), "MM/dd", null)).ToList();
+                //sortedFriendsList = removeFriendsThatAlreadyHadBirthdays(sortedFriendsList);
+            }
+            catch (Exception)
+            {
+                throw new Exception("Import sorted Friends Failed");
+            }
+
+            return sortedFriendsList;
+        }
+
+        public List<User> RemoveFriendsThatAlreadyHadBirthdays(List<User> i_SortedByBirthdayFriendsList)
+        {
+            DateTime now = DateTime.Now;
+            List<User> birthdaysList = new List<User>();
+            foreach(User friend in i_SortedByBirthdayFriendsList)
+            {
+                DateTime userBirthday = DateTime.ParseExact(friend.Birthday, "MM/dd/yyyy", null);
+                if(userBirthday>now)
+                {
+                    birthdaysList.Add(friend);
+                }
+            }
+
+            return birthdaysList;
+        }
+
         public bool isOccasionSoon(string i_Occasion, int i_HowFarInMonths, bool isBirthday=false)
         {
             bool isSoon = false;
@@ -306,7 +339,7 @@ currUser?.WorkExperiences?[0].Name,currUser?.RelationshipStatus,currUser?.About)
 
             try
             {
-                FacebookObjectCollection<User> friends = getConnectedUserFriendsSortedByBirthdays();
+                List<User> friends = getConnectedUserFriendsSortedByBirthdays();
                 foreach (User friend in friends)
                 {
                     DateTime birthdayDate = DateTime.ParseExact(friend.Birthday, "MM/dd/yyyy", null);
@@ -346,5 +379,32 @@ currUser?.WorkExperiences?[0].Name,currUser?.RelationshipStatus,currUser?.About)
 
             return events;
         }
+        private User getUser(Utils.eUserProfile i_UserType)
+        {
+            User currUser = null;
+            try
+            {
+                switch (i_UserType)
+                {
+                    case Utils.eUserProfile.MY_PROFILE:
+                        currUser = FacebookAuth.LoggedInUser;
+                        break;
+                    case Utils.eUserProfile.FRIEND_PROFILE:
+                        currUser = m_CurrentUserFriend;
+                        if(currUser==null)
+                        {
+                            throw new Exception();
+                        }
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+                throw new Exception("Information Import Failed");
+            }
+
+            return currUser;
+
+        } //throws exception if fails
     }
 }

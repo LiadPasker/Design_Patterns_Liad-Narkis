@@ -326,7 +326,7 @@ namespace View
             }
 
             m_BirthdayViewerComponent.Populate(m_AppControl, m_TabPageBirthdayTracker);
-            PlayBalloonAnimation(m_TabPageBirthdayTracker, Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.balloons.png", 100, 100));
+            //PlayBalloonAnimation(m_TabPageBirthdayTracker, Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.balloons.png", 100, 100));
 
         }
         private void PlayBalloonAnimation(TabPage i_CurrentTab, Image i_Picture)
@@ -364,6 +364,8 @@ namespace View
             m_PictureBoxGoToMainTab_Click(null, null);
         }
 
+
+        ///////////////////// Automation Activity - feature 2 ////////////////////
         private void m_ButtonAutomateYourActivity_Click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageAutomateActivity);

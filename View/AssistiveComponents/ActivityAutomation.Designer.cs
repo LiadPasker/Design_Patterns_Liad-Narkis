@@ -59,6 +59,7 @@ namespace View
             this.label6 = new System.Windows.Forms.Label();
             this.m_TextBoxScheduleStatus = new System.Windows.Forms.TextBox();
             this.m_ButtonAbort = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.m_TabControlAutomationActivity.SuspendLayout();
             this.m_TabPagePickTime.SuspendLayout();
             this.m_TabPageActions.SuspendLayout();
@@ -75,7 +76,7 @@ namespace View
             this.m_TabControlAutomationActivity.Location = new System.Drawing.Point(3, 3);
             this.m_TabControlAutomationActivity.Name = "m_TabControlAutomationActivity";
             this.m_TabControlAutomationActivity.SelectedIndex = 0;
-            this.m_TabControlAutomationActivity.Size = new System.Drawing.Size(726, 512);
+            this.m_TabControlAutomationActivity.Size = new System.Drawing.Size(726, 508);
             this.m_TabControlAutomationActivity.TabIndex = 0;
             // 
             // m_TabPagePickTime
@@ -91,7 +92,7 @@ namespace View
             this.m_TabPagePickTime.Location = new System.Drawing.Point(4, 29);
             this.m_TabPagePickTime.Name = "m_TabPagePickTime";
             this.m_TabPagePickTime.Padding = new System.Windows.Forms.Padding(3);
-            this.m_TabPagePickTime.Size = new System.Drawing.Size(718, 479);
+            this.m_TabPagePickTime.Size = new System.Drawing.Size(718, 475);
             this.m_TabPagePickTime.TabIndex = 0;
             this.m_TabPagePickTime.Text = "Pick Time";
             // 
@@ -175,7 +176,7 @@ namespace View
             this.m_TabPageActions.Location = new System.Drawing.Point(4, 29);
             this.m_TabPageActions.Name = "m_TabPageActions";
             this.m_TabPageActions.Padding = new System.Windows.Forms.Padding(3);
-            this.m_TabPageActions.Size = new System.Drawing.Size(718, 479);
+            this.m_TabPageActions.Size = new System.Drawing.Size(718, 475);
             this.m_TabPageActions.TabIndex = 1;
             this.m_TabPageActions.Text = "Actions";
             // 
@@ -239,6 +240,7 @@ namespace View
             // m_TabPageSummary
             // 
             this.m_TabPageSummary.BackColor = System.Drawing.Color.AliceBlue;
+            this.m_TabPageSummary.Controls.Add(this.label7);
             this.m_TabPageSummary.Controls.Add(this.m_PictureBoxPost);
             this.m_TabPageSummary.Controls.Add(this.m_PictureBoxCheckIn);
             this.m_TabPageSummary.Controls.Add(this.m_TextBoxSummaryCheckIn);
@@ -246,7 +248,7 @@ namespace View
             this.m_TabPageSummary.Controls.Add(this.m_ButtonSummaryPagePost);
             this.m_TabPageSummary.Location = new System.Drawing.Point(4, 29);
             this.m_TabPageSummary.Name = "m_TabPageSummary";
-            this.m_TabPageSummary.Size = new System.Drawing.Size(718, 479);
+            this.m_TabPageSummary.Size = new System.Drawing.Size(718, 475);
             this.m_TabPageSummary.TabIndex = 2;
             this.m_TabPageSummary.Text = "Summary";
             // 
@@ -290,8 +292,9 @@ namespace View
             // 
             this.m_ButtonSummaryPagePost.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.m_ButtonSummaryPagePost.Enabled = false;
+            this.m_ButtonSummaryPagePost.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.m_ButtonSummaryPagePost.ForeColor = System.Drawing.Color.White;
-            this.m_ButtonSummaryPagePost.Location = new System.Drawing.Point(337, 343);
+            this.m_ButtonSummaryPagePost.Location = new System.Drawing.Point(337, 320);
             this.m_ButtonSummaryPagePost.Name = "m_ButtonSummaryPagePost";
             this.m_ButtonSummaryPagePost.Size = new System.Drawing.Size(60, 60);
             this.m_ButtonSummaryPagePost.TabIndex = 6;
@@ -378,7 +381,18 @@ namespace View
             this.m_ButtonAbort.TabIndex = 6;
             this.m_ButtonAbort.Text = "Abort";
             this.m_ButtonAbort.UseVisualStyleBackColor = false;
-            this.m_ButtonAbort.Click += new System.EventHandler(this.m_ButtonScheduleOrAbort_Click);
+            this.m_ButtonAbort.Click += new System.EventHandler(this.m_ButtoAbort_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label7.Location = new System.Drawing.Point(17, 401);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(430, 60);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "Notice:\r\nAny changes you\'ll make followed with setting another timer,\r\nwill cause" +
+    " a complete loss of the old one (if was).";
             // 
             // ActivityAutomation
             // 
@@ -441,5 +455,6 @@ namespace View
         private System.Windows.Forms.PictureBox m_PictureBoxCheckIn;
         private System.Windows.Forms.TextBox m_TextBoxSummaryCheckIn;
         private System.Windows.Forms.TextBox m_TextBoxSummaryPost;
+        private System.Windows.Forms.Label label7;
     }
 }

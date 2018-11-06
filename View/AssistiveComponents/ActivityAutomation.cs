@@ -23,13 +23,14 @@ namespace View
 
         public void Populate(Model.Control i_AppControl)
         {
+            m_TabControlAutomationActivity.SelectTab(m_TabPagePickTime);
             m_AppControl = i_AppControl;
             m_SchduledTo = DateTime.Now;
             initializePickTimeCumboBoxes();
-            SetScheduledStatus(false);
             if (m_PostTimer == null)
             {
                 m_PostTimer = new System.Threading.Timer(HandlePost);
+                SetScheduledStatus(false);
             }
         }
 
@@ -183,6 +184,15 @@ namespace View
 
         private void m_ButtonSummaryPagePost_Click(object sender, EventArgs e)
         {
+            StartTimerAccordingToUserChoice();
+            MessageBox.Show("Automatic Activity Timer Is On!");
+            m_ButtonSummaryPagePost.Enabled = false;
+            SetScheduledStatus(true);
+            m_ButtonAbort.Enabled = true;
+        }
+
+        private void StartTimerAccordingToUserChoice()
+        {
             if (DateTime.Now > m_SchduledTo) // if the due-hour  past, automatic scheduled to the next day
             {
                 m_SchduledTo = m_SchduledTo.AddDays(1);
@@ -194,22 +204,33 @@ namespace View
             {
                 m_PostTimer.Change(TimeToExecuteInMilliSeconds, System.Threading.Timeout.Infinite); // Set the timer to elapse only once
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show("Couldn't Set Timer");
             }
-            MessageBox.Show("Automatic Activity Timer Is On!");
-            m_ButtonSummaryPagePost.Enabled = false;
-            SetScheduledStatus(true);
-            m_ButtonAbort.Enabled = true;
         }
 
-        private void m_ButtonScheduleOrAbort_Click(object sender, EventArgs e)
+        private void m_ButtoAbort_Click(object sender, EventArgs e)
         {
-            m_PostTimer.Change(System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
-            MessageBox.Show("Automatic Activity Timer Stopped");
-            m_ButtonAbort.Enabled = false;
+            try
+            {
+                m_PostTimer.Change(System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
+                MessageBox.Show("Automatic Activity Timer Stopped");
+                zeroizeControllers();
+                Populate(m_AppControl);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Stopping Activity Timer Failed");
+            }
+        }
+
+        private void zeroizeControllers()
+        {
+            m_CheckBoxScheduleCheckIn.Checked = m_CheckBoxSchedulePost.Checked = m_ButtonAbort.Enabled = false;
+            m_TextBoxScheduledTime.Text = string.Empty;
             SetScheduledStatus(false);
+            m_PostTimer = null;
         }
     }
 }

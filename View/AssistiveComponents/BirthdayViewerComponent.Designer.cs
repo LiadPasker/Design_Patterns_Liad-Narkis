@@ -37,6 +37,7 @@
             this.m_TextBoxPost = new System.Windows.Forms.TextBox();
             this.m_ButtonPost = new System.Windows.Forms.Button();
             this.m_ButtonGenerateWish = new System.Windows.Forms.Button();
+            this.m_CheckBoxRemoveFriendsThatHadBirthday = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxProfilePicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_DataGridViewBirthdays)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceBirthday)).BeginInit();
@@ -66,7 +67,7 @@
             this.m_DataGridViewBirthdays.ReadOnly = true;
             this.m_DataGridViewBirthdays.RowTemplate.Height = 28;
             this.m_DataGridViewBirthdays.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.m_DataGridViewBirthdays.Size = new System.Drawing.Size(350, 247);
+            this.m_DataGridViewBirthdays.Size = new System.Drawing.Size(350, 221);
             this.m_DataGridViewBirthdays.TabIndex = 1;
             this.m_DataGridViewBirthdays.SelectionChanged += new System.EventHandler(this.m_DataGridViewBirthdays_SelectionChanged);
             // 
@@ -120,10 +121,22 @@
             this.m_ButtonGenerateWish.UseVisualStyleBackColor = true;
             this.m_ButtonGenerateWish.Click += new System.EventHandler(this.m_ButtonGenerateWish_Click);
             // 
+            // m_CheckBoxRemoveFriendsThatHadBirthday
+            // 
+            this.m_CheckBoxRemoveFriendsThatHadBirthday.AutoSize = true;
+            this.m_CheckBoxRemoveFriendsThatHadBirthday.Location = new System.Drawing.Point(227, 225);
+            this.m_CheckBoxRemoveFriendsThatHadBirthday.Name = "m_CheckBoxRemoveFriendsThatHadBirthday";
+            this.m_CheckBoxRemoveFriendsThatHadBirthday.Size = new System.Drawing.Size(345, 24);
+            this.m_CheckBoxRemoveFriendsThatHadBirthday.TabIndex = 6;
+            this.m_CheckBoxRemoveFriendsThatHadBirthday.Text = "Remove Friends Who Already Had Birthday ";
+            this.m_CheckBoxRemoveFriendsThatHadBirthday.UseVisualStyleBackColor = true;
+            this.m_CheckBoxRemoveFriendsThatHadBirthday.CheckedChanged += new System.EventHandler(this.m_CheckBoxRemoveFriendsThatHadBirthday_CheckedChanged);
+            // 
             // BirthdayViewerComponent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.m_CheckBoxRemoveFriendsThatHadBirthday);
             this.Controls.Add(this.m_ButtonGenerateWish);
             this.Controls.Add(this.m_ButtonPost);
             this.Controls.Add(this.m_TextBoxPost);
@@ -149,5 +162,6 @@
         private System.Windows.Forms.Button m_ButtonGenerateWish;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn birthdayDataGridViewTextBoxColumn;
+        private System.Windows.Forms.CheckBox m_CheckBoxRemoveFriendsThatHadBirthday;
     }
 }
