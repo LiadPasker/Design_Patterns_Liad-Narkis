@@ -30,7 +30,7 @@ namespace View
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.m_TabControlAutomationActivity = new System.Windows.Forms.TabControl();
             this.m_TabPagePickTime = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.m_ButtonGoToActionsTabPage = new System.Windows.Forms.Button();
@@ -38,9 +38,19 @@ namespace View
             this.m_ComboBoxPickMinute = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.m_MonthCalendarScheduleDatePicker = new System.Windows.Forms.MonthCalendar();
             this.m_TabPageActions = new System.Windows.Forms.TabPage();
+            this.m_ButtonGoToSummaryTabPage = new System.Windows.Forms.Button();
+            this.m_TextBoxActionPageCheckIn = new System.Windows.Forms.TextBox();
+            this.m_TextBoxActionPagePost = new System.Windows.Forms.TextBox();
+            this.m_CheckBoxActionPageCheckIn = new System.Windows.Forms.CheckBox();
+            this.m_CheckBoxActionPagePost = new System.Windows.Forms.CheckBox();
             this.m_TabPageSummary = new System.Windows.Forms.TabPage();
+            this.m_PictureBoxPost = new System.Windows.Forms.PictureBox();
+            this.m_PictureBoxCheckIn = new System.Windows.Forms.PictureBox();
+            this.m_TextBoxSummaryCheckIn = new System.Windows.Forms.TextBox();
+            this.m_TextBoxSummaryPost = new System.Windows.Forms.TextBox();
+            this.m_ButtonSummaryPagePost = new System.Windows.Forms.Button();
             this.m_TextBoxScheduledTime = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -48,38 +58,42 @@ namespace View
             this.m_CheckBoxScheduleCheckIn = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.m_TextBoxScheduleStatus = new System.Windows.Forms.TextBox();
-            this.m_ButtonScheduleOrAbort = new System.Windows.Forms.Button();
-            this.tabControl1.SuspendLayout();
+            this.m_ButtonAbort = new System.Windows.Forms.Button();
+            this.m_TabControlAutomationActivity.SuspendLayout();
             this.m_TabPagePickTime.SuspendLayout();
+            this.m_TabPageActions.SuspendLayout();
+            this.m_TabPageSummary.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxPost)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxCheckIn)).BeginInit();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // m_TabControlAutomationActivity
             // 
-            this.tabControl1.Controls.Add(this.m_TabPagePickTime);
-            this.tabControl1.Controls.Add(this.m_TabPageActions);
-            this.tabControl1.Controls.Add(this.m_TabPageSummary);
-            this.tabControl1.Location = new System.Drawing.Point(3, 3);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(726, 512);
-            this.tabControl1.TabIndex = 0;
+            this.m_TabControlAutomationActivity.Controls.Add(this.m_TabPagePickTime);
+            this.m_TabControlAutomationActivity.Controls.Add(this.m_TabPageActions);
+            this.m_TabControlAutomationActivity.Controls.Add(this.m_TabPageSummary);
+            this.m_TabControlAutomationActivity.Location = new System.Drawing.Point(3, 3);
+            this.m_TabControlAutomationActivity.Name = "m_TabControlAutomationActivity";
+            this.m_TabControlAutomationActivity.SelectedIndex = 0;
+            this.m_TabControlAutomationActivity.Size = new System.Drawing.Size(726, 512);
+            this.m_TabControlAutomationActivity.TabIndex = 0;
             // 
             // m_TabPagePickTime
             // 
+            this.m_TabPagePickTime.BackColor = System.Drawing.Color.AliceBlue;
             this.m_TabPagePickTime.Controls.Add(this.label5);
             this.m_TabPagePickTime.Controls.Add(this.m_ButtonGoToActionsTabPage);
             this.m_TabPagePickTime.Controls.Add(this.m_ComboBoxPickHour);
             this.m_TabPagePickTime.Controls.Add(this.m_ComboBoxPickMinute);
             this.m_TabPagePickTime.Controls.Add(this.label3);
             this.m_TabPagePickTime.Controls.Add(this.label2);
-            this.m_TabPagePickTime.Controls.Add(this.monthCalendar1);
+            this.m_TabPagePickTime.Controls.Add(this.m_MonthCalendarScheduleDatePicker);
             this.m_TabPagePickTime.Location = new System.Drawing.Point(4, 29);
             this.m_TabPagePickTime.Name = "m_TabPagePickTime";
             this.m_TabPagePickTime.Padding = new System.Windows.Forms.Padding(3);
             this.m_TabPagePickTime.Size = new System.Drawing.Size(718, 479);
             this.m_TabPagePickTime.TabIndex = 0;
             this.m_TabPagePickTime.Text = "Pick Time";
-            this.m_TabPagePickTime.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -99,9 +113,11 @@ namespace View
             this.m_ButtonGoToActionsTabPage.TabIndex = 4;
             this.m_ButtonGoToActionsTabPage.Text = "Proceed";
             this.m_ButtonGoToActionsTabPage.UseVisualStyleBackColor = true;
+            this.m_ButtonGoToActionsTabPage.Click += new System.EventHandler(this.m_ButtonGoToActionsTabPage_Click);
             // 
             // m_ComboBoxPickHour
             // 
+            this.m_ComboBoxPickHour.BackColor = System.Drawing.Color.Azure;
             this.m_ComboBoxPickHour.FormattingEnabled = true;
             this.m_ComboBoxPickHour.Location = new System.Drawing.Point(302, 345);
             this.m_ComboBoxPickHour.Name = "m_ComboBoxPickHour";
@@ -111,11 +127,13 @@ namespace View
             // 
             // m_ComboBoxPickMinute
             // 
+            this.m_ComboBoxPickMinute.BackColor = System.Drawing.Color.Azure;
             this.m_ComboBoxPickMinute.FormattingEnabled = true;
             this.m_ComboBoxPickMinute.Location = new System.Drawing.Point(395, 345);
             this.m_ComboBoxPickMinute.Name = "m_ComboBoxPickMinute";
             this.m_ComboBoxPickMinute.Size = new System.Drawing.Size(78, 28);
             this.m_ComboBoxPickMinute.TabIndex = 3;
+            this.m_ComboBoxPickMinute.SelectedIndexChanged += new System.EventHandler(this.m_ComboBoxPickMinute_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -137,31 +155,148 @@ namespace View
             this.label2.TabIndex = 2;
             this.label2.Text = "Time:";
             // 
-            // monthCalendar1
+            // m_MonthCalendarScheduleDatePicker
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(197, 83);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 0;
-            this.monthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
+            this.m_MonthCalendarScheduleDatePicker.BackColor = System.Drawing.Color.Azure;
+            this.m_MonthCalendarScheduleDatePicker.Location = new System.Drawing.Point(197, 83);
+            this.m_MonthCalendarScheduleDatePicker.Name = "m_MonthCalendarScheduleDatePicker";
+            this.m_MonthCalendarScheduleDatePicker.TabIndex = 0;
+            this.m_MonthCalendarScheduleDatePicker.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
             // 
             // m_TabPageActions
             // 
+            this.m_TabPageActions.BackColor = System.Drawing.Color.AliceBlue;
+            this.m_TabPageActions.Controls.Add(this.m_ButtonGoToSummaryTabPage);
+            this.m_TabPageActions.Controls.Add(this.m_TextBoxActionPageCheckIn);
+            this.m_TabPageActions.Controls.Add(this.m_TextBoxActionPagePost);
+            this.m_TabPageActions.Controls.Add(this.m_CheckBoxActionPageCheckIn);
+            this.m_TabPageActions.Controls.Add(this.m_CheckBoxActionPagePost);
+            this.m_TabPageActions.ForeColor = System.Drawing.SystemColors.ControlText;
             this.m_TabPageActions.Location = new System.Drawing.Point(4, 29);
             this.m_TabPageActions.Name = "m_TabPageActions";
             this.m_TabPageActions.Padding = new System.Windows.Forms.Padding(3);
             this.m_TabPageActions.Size = new System.Drawing.Size(718, 479);
             this.m_TabPageActions.TabIndex = 1;
             this.m_TabPageActions.Text = "Actions";
-            this.m_TabPageActions.UseVisualStyleBackColor = true;
+            // 
+            // m_ButtonGoToSummaryTabPage
+            // 
+            this.m_ButtonGoToSummaryTabPage.Enabled = false;
+            this.m_ButtonGoToSummaryTabPage.Location = new System.Drawing.Point(564, 415);
+            this.m_ButtonGoToSummaryTabPage.Name = "m_ButtonGoToSummaryTabPage";
+            this.m_ButtonGoToSummaryTabPage.Size = new System.Drawing.Size(132, 40);
+            this.m_ButtonGoToSummaryTabPage.TabIndex = 5;
+            this.m_ButtonGoToSummaryTabPage.Text = "Proceed";
+            this.m_ButtonGoToSummaryTabPage.UseVisualStyleBackColor = true;
+            this.m_ButtonGoToSummaryTabPage.Click += new System.EventHandler(this.m_ButtonGoToSummaryTabPage_Click);
+            // 
+            // m_TextBoxActionPageCheckIn
+            // 
+            this.m_TextBoxActionPageCheckIn.BackColor = System.Drawing.Color.Azure;
+            this.m_TextBoxActionPageCheckIn.Enabled = false;
+            this.m_TextBoxActionPageCheckIn.Location = new System.Drawing.Point(175, 330);
+            this.m_TextBoxActionPageCheckIn.Name = "m_TextBoxActionPageCheckIn";
+            this.m_TextBoxActionPageCheckIn.Size = new System.Drawing.Size(370, 26);
+            this.m_TextBoxActionPageCheckIn.TabIndex = 1;
+            this.m_TextBoxActionPageCheckIn.Tag = "Where Are You?";
+            this.m_TextBoxActionPageCheckIn.Text = "Where Are You?";
+            // 
+            // m_TextBoxActionPagePost
+            // 
+            this.m_TextBoxActionPagePost.BackColor = System.Drawing.Color.Azure;
+            this.m_TextBoxActionPagePost.Enabled = false;
+            this.m_TextBoxActionPagePost.Location = new System.Drawing.Point(175, 98);
+            this.m_TextBoxActionPagePost.Multiline = true;
+            this.m_TextBoxActionPagePost.Name = "m_TextBoxActionPagePost";
+            this.m_TextBoxActionPagePost.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.m_TextBoxActionPagePost.Size = new System.Drawing.Size(370, 119);
+            this.m_TextBoxActionPagePost.TabIndex = 1;
+            this.m_TextBoxActionPagePost.Tag = "What\'s On Your Mind?";
+            this.m_TextBoxActionPagePost.Text = "What\'s On Your Mind?";
+            // 
+            // m_CheckBoxActionPageCheckIn
+            // 
+            this.m_CheckBoxActionPageCheckIn.AutoSize = true;
+            this.m_CheckBoxActionPageCheckIn.Location = new System.Drawing.Point(175, 300);
+            this.m_CheckBoxActionPageCheckIn.Name = "m_CheckBoxActionPageCheckIn";
+            this.m_CheckBoxActionPageCheckIn.Size = new System.Drawing.Size(99, 24);
+            this.m_CheckBoxActionPageCheckIn.TabIndex = 0;
+            this.m_CheckBoxActionPageCheckIn.Text = "Check-In";
+            this.m_CheckBoxActionPageCheckIn.UseVisualStyleBackColor = true;
+            this.m_CheckBoxActionPageCheckIn.CheckedChanged += new System.EventHandler(this.m_CheckBoxActionPageCheckIn_CheckedChanged);
+            // 
+            // m_CheckBoxActionPagePost
+            // 
+            this.m_CheckBoxActionPagePost.AutoSize = true;
+            this.m_CheckBoxActionPagePost.Location = new System.Drawing.Point(175, 68);
+            this.m_CheckBoxActionPagePost.Name = "m_CheckBoxActionPagePost";
+            this.m_CheckBoxActionPagePost.Size = new System.Drawing.Size(67, 24);
+            this.m_CheckBoxActionPagePost.TabIndex = 0;
+            this.m_CheckBoxActionPagePost.Text = "Post";
+            this.m_CheckBoxActionPagePost.UseVisualStyleBackColor = true;
+            this.m_CheckBoxActionPagePost.CheckedChanged += new System.EventHandler(this.m_CheckBoxActionPagePost_CheckedChanged);
             // 
             // m_TabPageSummary
             // 
+            this.m_TabPageSummary.BackColor = System.Drawing.Color.AliceBlue;
+            this.m_TabPageSummary.Controls.Add(this.m_PictureBoxPost);
+            this.m_TabPageSummary.Controls.Add(this.m_PictureBoxCheckIn);
+            this.m_TabPageSummary.Controls.Add(this.m_TextBoxSummaryCheckIn);
+            this.m_TabPageSummary.Controls.Add(this.m_TextBoxSummaryPost);
+            this.m_TabPageSummary.Controls.Add(this.m_ButtonSummaryPagePost);
             this.m_TabPageSummary.Location = new System.Drawing.Point(4, 29);
             this.m_TabPageSummary.Name = "m_TabPageSummary";
             this.m_TabPageSummary.Size = new System.Drawing.Size(718, 479);
             this.m_TabPageSummary.TabIndex = 2;
             this.m_TabPageSummary.Text = "Summary";
-            this.m_TabPageSummary.UseVisualStyleBackColor = true;
+            // 
+            // m_PictureBoxPost
+            // 
+            this.m_PictureBoxPost.Location = new System.Drawing.Point(514, 26);
+            this.m_PictureBoxPost.Name = "m_PictureBoxPost";
+            this.m_PictureBoxPost.Size = new System.Drawing.Size(107, 101);
+            this.m_PictureBoxPost.TabIndex = 9;
+            this.m_PictureBoxPost.TabStop = false;
+            // 
+            // m_PictureBoxCheckIn
+            // 
+            this.m_PictureBoxCheckIn.Location = new System.Drawing.Point(514, 194);
+            this.m_PictureBoxCheckIn.Name = "m_PictureBoxCheckIn";
+            this.m_PictureBoxCheckIn.Size = new System.Drawing.Size(84, 85);
+            this.m_PictureBoxCheckIn.TabIndex = 9;
+            this.m_PictureBoxCheckIn.TabStop = false;
+            // 
+            // m_TextBoxSummaryCheckIn
+            // 
+            this.m_TextBoxSummaryCheckIn.BackColor = System.Drawing.Color.Azure;
+            this.m_TextBoxSummaryCheckIn.Location = new System.Drawing.Point(209, 253);
+            this.m_TextBoxSummaryCheckIn.Name = "m_TextBoxSummaryCheckIn";
+            this.m_TextBoxSummaryCheckIn.ReadOnly = true;
+            this.m_TextBoxSummaryCheckIn.Size = new System.Drawing.Size(299, 26);
+            this.m_TextBoxSummaryCheckIn.TabIndex = 8;
+            // 
+            // m_TextBoxSummaryPost
+            // 
+            this.m_TextBoxSummaryPost.BackColor = System.Drawing.Color.Azure;
+            this.m_TextBoxSummaryPost.Location = new System.Drawing.Point(209, 90);
+            this.m_TextBoxSummaryPost.Multiline = true;
+            this.m_TextBoxSummaryPost.Name = "m_TextBoxSummaryPost";
+            this.m_TextBoxSummaryPost.ReadOnly = true;
+            this.m_TextBoxSummaryPost.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.m_TextBoxSummaryPost.Size = new System.Drawing.Size(299, 84);
+            this.m_TextBoxSummaryPost.TabIndex = 7;
+            // 
+            // m_ButtonSummaryPagePost
+            // 
+            this.m_ButtonSummaryPagePost.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.m_ButtonSummaryPagePost.Enabled = false;
+            this.m_ButtonSummaryPagePost.ForeColor = System.Drawing.Color.White;
+            this.m_ButtonSummaryPagePost.Location = new System.Drawing.Point(337, 343);
+            this.m_ButtonSummaryPagePost.Name = "m_ButtonSummaryPagePost";
+            this.m_ButtonSummaryPagePost.Size = new System.Drawing.Size(60, 60);
+            this.m_ButtonSummaryPagePost.TabIndex = 6;
+            this.m_ButtonSummaryPagePost.UseVisualStyleBackColor = false;
+            this.m_ButtonSummaryPagePost.Click += new System.EventHandler(this.m_ButtonSummaryPagePost_Click);
             // 
             // m_TextBoxScheduledTime
             // 
@@ -225,41 +360,51 @@ namespace View
             // 
             // m_TextBoxScheduleStatus
             // 
+            this.m_TextBoxScheduleStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.m_TextBoxScheduleStatus.Location = new System.Drawing.Point(408, 537);
             this.m_TextBoxScheduleStatus.Name = "m_TextBoxScheduleStatus";
             this.m_TextBoxScheduleStatus.ReadOnly = true;
-            this.m_TextBoxScheduleStatus.Size = new System.Drawing.Size(100, 26);
+            this.m_TextBoxScheduleStatus.Size = new System.Drawing.Size(132, 23);
             this.m_TextBoxScheduleStatus.TabIndex = 1;
             // 
-            // m_ButtonScheduleOrAbort
+            // m_ButtonAbort
             // 
-            this.m_ButtonScheduleOrAbort.Enabled = false;
-            this.m_ButtonScheduleOrAbort.Location = new System.Drawing.Point(571, 521);
-            this.m_ButtonScheduleOrAbort.Name = "m_ButtonScheduleOrAbort";
-            this.m_ButtonScheduleOrAbort.Size = new System.Drawing.Size(132, 40);
-            this.m_ButtonScheduleOrAbort.TabIndex = 6;
-            this.m_ButtonScheduleOrAbort.Text = "Schedule";
-            this.m_ButtonScheduleOrAbort.UseVisualStyleBackColor = true;
+            this.m_ButtonAbort.BackColor = System.Drawing.Color.Crimson;
+            this.m_ButtonAbort.Enabled = false;
+            this.m_ButtonAbort.ForeColor = System.Drawing.Color.White;
+            this.m_ButtonAbort.Location = new System.Drawing.Point(628, 521);
+            this.m_ButtonAbort.Name = "m_ButtonAbort";
+            this.m_ButtonAbort.Size = new System.Drawing.Size(75, 40);
+            this.m_ButtonAbort.TabIndex = 6;
+            this.m_ButtonAbort.Text = "Abort";
+            this.m_ButtonAbort.UseVisualStyleBackColor = false;
+            this.m_ButtonAbort.Click += new System.EventHandler(this.m_ButtonScheduleOrAbort_Click);
             // 
             // ActivityAutomation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Info;
-            this.Controls.Add(this.m_ButtonScheduleOrAbort);
+            this.BackColor = System.Drawing.Color.PowderBlue;
+            this.Controls.Add(this.m_ButtonAbort);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.m_CheckBoxScheduleCheckIn);
             this.Controls.Add(this.m_CheckBoxSchedulePost);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.m_TabControlAutomationActivity);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.m_TextBoxScheduleStatus);
             this.Controls.Add(this.m_TextBoxScheduledTime);
             this.Name = "ActivityAutomation";
             this.Size = new System.Drawing.Size(729, 570);
-            this.tabControl1.ResumeLayout(false);
+            this.m_TabControlAutomationActivity.ResumeLayout(false);
             this.m_TabPagePickTime.ResumeLayout(false);
             this.m_TabPagePickTime.PerformLayout();
+            this.m_TabPageActions.ResumeLayout(false);
+            this.m_TabPageActions.PerformLayout();
+            this.m_TabPageSummary.ResumeLayout(false);
+            this.m_TabPageSummary.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxPost)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxCheckIn)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -267,10 +412,10 @@ namespace View
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl m_TabControlAutomationActivity;
         private System.Windows.Forms.TabPage m_TabPagePickTime;
         private System.Windows.Forms.TextBox m_TextBoxScheduledTime;
-        private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private System.Windows.Forms.MonthCalendar m_MonthCalendarScheduleDatePicker;
         private System.Windows.Forms.TabPage m_TabPageActions;
         private System.Windows.Forms.TabPage m_TabPageSummary;
         private System.Windows.Forms.Label label1;
@@ -285,6 +430,16 @@ namespace View
         private System.Windows.Forms.CheckBox m_CheckBoxScheduleCheckIn;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox m_TextBoxScheduleStatus;
-        private System.Windows.Forms.Button m_ButtonScheduleOrAbort;
+        private System.Windows.Forms.Button m_ButtonAbort;
+        private System.Windows.Forms.TextBox m_TextBoxActionPageCheckIn;
+        private System.Windows.Forms.TextBox m_TextBoxActionPagePost;
+        private System.Windows.Forms.CheckBox m_CheckBoxActionPageCheckIn;
+        private System.Windows.Forms.CheckBox m_CheckBoxActionPagePost;
+        private System.Windows.Forms.Button m_ButtonGoToSummaryTabPage;
+        private System.Windows.Forms.Button m_ButtonSummaryPagePost;
+        private System.Windows.Forms.PictureBox m_PictureBoxPost;
+        private System.Windows.Forms.PictureBox m_PictureBoxCheckIn;
+        private System.Windows.Forms.TextBox m_TextBoxSummaryCheckIn;
+        private System.Windows.Forms.TextBox m_TextBoxSummaryPost;
     }
 }

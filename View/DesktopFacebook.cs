@@ -367,36 +367,12 @@ namespace View
         private void m_ButtonAutomateYourActivity_Click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageAutomateActivity);
-
+            m_ActivityAutomation.Populate(m_AppControl);
         }
 
 
 
 
-        //private void func()
-        //{
-        //    var t = new System.Threading.Timer(callback);
 
-        //    // Figure how much time until 4:00
-        //    DateTime now = DateTime.Now;
-        //    DateTime ActionTime = DateTime.Now.AddSeconds(5);
-
-        //    // If it's already past 4:00, wait until 4:00 tomorrow    
-        //    if (now > ActionTime)
-        //    {
-        //        ActionTime = ActionTime.AddDays(1.0);
-        //    }
-
-        //    int msUntilFour = (int)((ActionTime - now).TotalMilliseconds);
-
-        //    // Set the timer to elapse only once, at 4:00.
-        //    t.Change(msUntilFour, Timeout.Infinite);
-
-        //}
-
-        //private void callback(object state)
-        //{
-        //    MessageBox.Show("Time Up");
-        //}
     }
 }

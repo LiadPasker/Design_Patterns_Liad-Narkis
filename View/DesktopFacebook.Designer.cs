@@ -75,13 +75,13 @@
             this.m_ButtonCancelExport = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.m_TabPageAutomateActivity = new System.Windows.Forms.TabPage();
+            this.m_ActivityAutomation = new View.ActivityAutomation();
             this.m_Button_LogOut = new System.Windows.Forms.Button();
             this.m_PictureBoxGoToMainTab = new System.Windows.Forms.PictureBox();
             this.m_BindingSourceFriendFeed = new System.Windows.Forms.BindingSource(this.components);
             this.m_BindingSourceUpcomingEvents = new System.Windows.Forms.BindingSource(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.m_LabelHomeButtonAd = new System.Windows.Forms.Label();
-            this.activityAutomation1 = new View.ActivityAutomation();
             this.m_TabPageMyAlbums.SuspendLayout();
             this.m_TabsControl.SuspendLayout();
             this.m_TabPageMainWindow.SuspendLayout();
@@ -609,13 +609,21 @@
             // 
             // m_TabPageAutomateActivity
             // 
-            this.m_TabPageAutomateActivity.Controls.Add(this.activityAutomation1);
+            this.m_TabPageAutomateActivity.Controls.Add(this.m_ActivityAutomation);
             this.m_TabPageAutomateActivity.Location = new System.Drawing.Point(4, 29);
             this.m_TabPageAutomateActivity.Name = "m_TabPageAutomateActivity";
             this.m_TabPageAutomateActivity.Size = new System.Drawing.Size(945, 592);
             this.m_TabPageAutomateActivity.TabIndex = 7;
             this.m_TabPageAutomateActivity.Text = "AutomationActivity";
             this.m_TabPageAutomateActivity.UseVisualStyleBackColor = true;
+            // 
+            // m_ActivityAutomation
+            // 
+            this.m_ActivityAutomation.BackColor = System.Drawing.Color.PowderBlue;
+            this.m_ActivityAutomation.Location = new System.Drawing.Point(108, 7);
+            this.m_ActivityAutomation.Name = "m_ActivityAutomation";
+            this.m_ActivityAutomation.Size = new System.Drawing.Size(729, 570);
+            this.m_ActivityAutomation.TabIndex = 0;
             // 
             // m_Button_LogOut
             // 
@@ -665,14 +673,6 @@
             this.m_LabelHomeButtonAd.Size = new System.Drawing.Size(296, 40);
             this.m_LabelHomeButtonAd.TabIndex = 25;
             this.m_LabelHomeButtonAd.Text = "By clicking here you will get back to \r\n  this \'Home\' page from anywhere";
-            // 
-            // activityAutomation1
-            // 
-            this.activityAutomation1.BackColor = System.Drawing.SystemColors.Info;
-            this.activityAutomation1.Location = new System.Drawing.Point(115, 3);
-            this.activityAutomation1.Name = "activityAutomation1";
-            this.activityAutomation1.Size = new System.Drawing.Size(729, 570);
-            this.activityAutomation1.TabIndex = 0;
             // 
             // DesktopFacebook
             // 
@@ -768,7 +768,7 @@
         private System.Windows.Forms.Button m_ButtonAutomateYourActivity;
         private System.Windows.Forms.Label m_LabelHomeButtonAd;
         private System.Windows.Forms.TabPage m_TabPageAutomateActivity;
-        private ActivityAutomation activityAutomation1;
+        private ActivityAutomation m_ActivityAutomation;
     }
 }
 
