@@ -53,11 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssistiveComponents\ActivityAutomation.cs">
+    <Compile Include="AssistiveComponents\ActivityAutomationComponent.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AssistiveComponents\ActivityAutomation.Designer.cs">
-      <DependentUpon>ActivityAutomation.cs</DependentUpon>
+    <Compile Include="AssistiveComponents\ActivityAutomationComponent.Designer.cs">
+      <DependentUpon>ActivityAutomationComponent.cs</DependentUpon>
     </Compile>
     <Compile Include="AssistiveComponents\AlbumViewerComponent.cs" />
     <Compile Include="AssistiveComponents\AlbumPage.cs" />
@@ -82,8 +82,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AssistiveComponents\ActivityAutomation.resx">
-      <DependentUpon>ActivityAutomation.cs</DependentUpon>
+    <EmbeddedResource Include="AssistiveComponents\ActivityAutomationComponent.resx">
+      <DependentUpon>ActivityAutomationComponent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AssistiveComponents\BirthdayViewerComponent.resx">
       <DependentUpon>BirthdayViewerComponent.cs</DependentUpon>
@@ -104,6 +104,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.Checkin.datasource" />
     <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.Event.datasource" />
     <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.Place.datasource" />

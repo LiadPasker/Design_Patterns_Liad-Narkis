@@ -17,7 +17,7 @@ namespace Model
         private readonly int r_LastSheetColumn = 8;
         private readonly int r_RowsHeight=60;
         private readonly int r_ColumnWidth = 15;
-        public Application excelFile { get; private set; } = null;
+        public Application ExcelFile { get; private set; } = null;
 
         public bool ExportToExcel(System.Data.DataTable i_Data, string i_ExcelFilePath = null)
         {
@@ -30,9 +30,9 @@ namespace Model
                     throw new Exception("Exporting Failed!");
                 }
 
-                excelFile = new Application();
-                excelFile.Workbooks.Add();
-                _Worksheet workSheet = excelFile.ActiveSheet;
+                ExcelFile = new Application();
+                ExcelFile.Workbooks.Add();
+                _Worksheet workSheet = ExcelFile.ActiveSheet;
                 workSheet.Columns.ColumnWidth = r_ColumnWidth;
                 workSheet.Name = i_Data.TableName;
                 changeHeadlineColor(workSheet);
@@ -98,7 +98,7 @@ namespace Model
                 try
                 {
                     i_CurrentWorkSheet.SaveAs(i_FilePath);
-                    excelFile.Quit();
+                    ExcelFile.Quit();
                     isSaved = true;
                 }
                 catch (Exception ex)
@@ -108,7 +108,7 @@ namespace Model
             }
             else
             { // no file path is given
-                excelFile.Visible = true;
+                ExcelFile.Visible = true;
             }
 
             return isSaved;

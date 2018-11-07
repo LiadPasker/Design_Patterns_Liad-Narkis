@@ -18,14 +18,14 @@ namespace View
         private readonly int r_FirstPictureLocation_Y = 50;
         private readonly TabPage r_AlbumPageTab;
         private int m_NumberOfPicturesToShow;
-        public Size m_PicturesSizeToshow { get; set; }
+        public Size PicturesSizeToshow { get; set; }
         public List<PictureBox> AlbumPictures { get; set; }
         private List<Photo> m_CurrentPagePhotos = null;
         private Graphics m_PictureBoxLikesAndCommentsDrawer;
 
         public AlbumPage(int i_NumberOfPictures, TabPage i_TabConrol, int i_PictureHeight=150, int i_PictureWidth=150)
         {
-            m_PicturesSizeToshow = new Size(i_PictureHeight, i_PictureWidth);
+            PicturesSizeToshow = new Size(i_PictureHeight, i_PictureWidth);
             m_NumberOfPicturesToShow = i_NumberOfPictures;
             r_AlbumPageTab = i_TabConrol;
         }
@@ -41,7 +41,7 @@ namespace View
         private void InitializeComponents()
         {
             AlbumPictures.Add(new PictureBox());
-            AlbumPictures[0].Size = m_PicturesSizeToshow;
+            AlbumPictures[0].Size = PicturesSizeToshow;
             AlbumPictures[0].Location = new Point(r_FirstPictureLocation_X, r_FirstPictureLocation_Y);
             AlbumPictures[0].MouseEnter += PictureBox_MouseEnter;
             AlbumPictures[0].MouseLeave += PictureBox_MouseLeave;
@@ -130,7 +130,7 @@ namespace View
                 else
                 {
                     AlbumPictures[i].Name = m_CurrentPagePhotos[i].PictureNormalURL;
-                    AlbumPictures[i].Image = Model.UserAlbumsManager.CreateCustomedImageFromURL(m_CurrentPagePhotos[i].PictureNormalURL, m_PicturesSizeToshow);
+                    AlbumPictures[i].Image = Model.UserAlbumsManager.CreateCustomedImageFromURL(m_CurrentPagePhotos[i].PictureNormalURL, PicturesSizeToshow);
                 }
                 AlbumPictures[i].Visible = true;
             }

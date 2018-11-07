@@ -19,7 +19,7 @@ namespace View
     public partial class DesktopFacebook : Form
     {
         private readonly int r_ViewControllerInterval = 400;
-        private Model.Control m_AppControl;
+        private readonly Model.Control r_AppControl;
         private AlbumViewerComponent m_AlbumDisplay = null; // manages albums and images display in 'MyAlbums' tab
         public static int PostsAgeInMonths { get; set; } = 6;
         private FacebookObjectCollection<Post> m_RecentPosts = null;
@@ -31,7 +31,7 @@ namespace View
         public DesktopFacebook()
         {
             InitializeComponent();
-            m_AppControl = new Model.Control();
+            r_AppControl = new Model.Control();
             m_TemporaryViewController = new System.Windows.Forms.Timer();
             m_TemporaryViewController.Interval = r_ViewControllerInterval;
             m_TemporaryViewController.Tick += ShowAdLabels;
@@ -53,7 +53,7 @@ namespace View
         {
             try
             {
-                m_AppControl.Login();
+                r_AppControl.Login();
             }
             catch (Exception exception)
             {
@@ -74,7 +74,7 @@ namespace View
             }
 
         }
-        private void Button_LogOut_Click(object sender, EventArgs e)//needs to be changed
+        private void ButtonLogOut_Click(object sender, EventArgs e)//needs to be changed
         {
             FacebookService.Logout(null);
             this.Close();
@@ -103,7 +103,7 @@ namespace View
             string profilePictureURL = null;
             try
             {
-                profilePictureURL = m_AppControl.FacebookAuth.LoggedInUser.PictureLargeURL;
+                profilePictureURL = r_AppControl.FacebookAuth.LoggedInUser.PictureLargeURL;
             }
             catch (Exception e)
             {
@@ -111,16 +111,16 @@ namespace View
             }
             return profilePictureURL;
         }
-        private void m_PictureBoxGoToMainTab_Click(object sender, EventArgs e)
+        private void PictureBoxGoToMainTab_Click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageMainWindow);
             initializeButtonTextBoxRelationship(m_TextBoxPostToMyWall, m_ButtonPostStatus);
         }
-        private void m_ButtonPostStatus_Click(object sender, EventArgs e)// tags? checkins?
+        private void ButtonPostStatus_Click(object sender, EventArgs e)// tags? checkins?
         {
             try
             {
-                m_AppControl.PostStatus(Utils.eUserProfile.MY_PROFILE, m_TextBoxPostToMyWall.Text);
+                r_AppControl.PostStatus(Utils.eUserProfile.MY_PROFILE, m_TextBoxPostToMyWall.Text);
             }
             catch (Exception exception)
             {
@@ -146,7 +146,7 @@ namespace View
             i_TextBox.BackColor = Color.LightCyan;
             i_Button.Enabled = false;
         }
-        private void m_TabsControl_SelectedIndexChanged(object sender, EventArgs e)
+        private void TabsControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (m_TemporaryViewController != null)
             {
@@ -158,7 +158,7 @@ namespace View
 
 
         /////////////////////////////// MyAlbum Tab //////////////////////////////
-        private void m_Button_MyAlbums_Click(object sender, EventArgs e)
+        private void Button_MyAlbums_Click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageMyAlbums);
             if (m_AlbumDisplay == null)
@@ -171,13 +171,13 @@ namespace View
             m_AlbumDisplay = new AlbumViewerComponent(m_TabPageMyAlbums);
             try
             {
-                m_AppControl.InitializeMyAlbums();
+                r_AppControl.InitializeMyAlbums();
             }
             catch (Exception exception)
             {
                 showFacebookServerErrorMessege("Albums Load Failed");
             }
-            initializeMyAlbumsComboBoxes(m_AppControl.GetAlbumsNames());
+            initializeMyAlbumsComboBoxes(r_AppControl.GetAlbumsNames());
         }
         private void initializeMyAlbumsComboBoxes(List<string> i_AlbumNames)
         {
@@ -196,18 +196,18 @@ namespace View
             m_labelPicturesPerPage.Text = i_NumOfPicturesPerPage;
             m_labelNumOfPictures.Text = i_NumOfPictureInAlbum;
         }
-        private void m_ButtonNextPage_Click(object sender, EventArgs e)
+        private void ButtonNextPage_Click(object sender, EventArgs e)
         {
             m_AlbumDisplay.MoveToNextPage();
         }
-        private void m_ButtonPreviousPage_Click(object sender, EventArgs e)
+        private void ButtonPreviousPage_Click(object sender, EventArgs e)
         {
             m_AlbumDisplay.MoveToPreviousPage();
         }
-        private void m_ComboBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Album albumToShow = m_AppControl.GetAlbum(m_ComboBoxAlbums.SelectedItem.ToString());
-            List<string> AlbumURLsToShow = m_AppControl.getAlbumURLs(albumToShow);
+            Album albumToShow = r_AppControl.GetAlbum(m_ComboBoxAlbums.SelectedItem.ToString());
+            List<string> AlbumURLsToShow = r_AppControl.GetAlbumURLs(albumToShow);
             m_AlbumDisplay.SetAlbumToShow(albumToShow, AlbumURLsToShow);
             displayAlbumLabels(m_AlbumDisplay.NumberOfPacturePerPage.ToString(), albumToShow.Count.ToString());
             if (m_ComboBoxZoom.SelectedIndex != 0) // in case of a new album choice.
@@ -219,7 +219,7 @@ namespace View
                 m_AlbumDisplay.Show();
             }
         }
-        private void m_ComboBoxZoom_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxZoom_SelectedIndexChanged(object sender, EventArgs e)
         {
             string zoom = m_ComboBoxZoom.SelectedItem.ToString().Remove(m_ComboBoxZoom.Text.Length - 1, 1);
             m_AlbumDisplay.ChangeDisplayZoom(zoom, m_TabPageMyAlbums);
@@ -228,13 +228,13 @@ namespace View
 
 
         /////////////////////////////// Feed Tab //////////////////////////////
-        private void m_ButtonFeed_Click(object sender, EventArgs e)
+        private void ButtonFeed_Click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageFeed);
-            m_TextBoxPostMonthOld_TextChanged(m_TextBoxPostMonthOld, null);
+            TextBoxPostMonthOld_TextChanged(m_TextBoxPostMonthOld, null);
 
         }
-        private void m_TextBoxPostMonthOld_TextChanged(object sender, EventArgs e)
+        private void TextBoxPostMonthOld_TextChanged(object sender, EventArgs e)
         {
             if (m_TextBoxPostMonthOld.Text == string.Empty)
             {
@@ -244,19 +244,19 @@ namespace View
             ValidatePostsAgeCheckBoxAndExecute(m_TextBoxPostMonthOld);
             try
             {
-                m_RecentPosts = m_AppControl.getFeed(Utils.eUserProfile.MY_PROFILE, PostsAgeInMonths);
+                m_RecentPosts = r_AppControl.getFeed(Utils.eUserProfile.MY_PROFILE, PostsAgeInMonths);
             }
             catch (Exception exception)
             {
                 showFacebookServerErrorMessege("Feed Load Failed");
             }
 
-            ShowMyFeed();
+            showMyFeed();
 
         }
         public static void ValidatePostsAgeCheckBoxAndExecute(TextBox i_TextBox)
         {
-            if (Model.Control.isValidPostEnteredValue(i_TextBox.Text))
+            if (Model.Control.IsValidPostEnteredValue(i_TextBox.Text))
             {
                 PostsAgeInMonths = int.Parse(i_TextBox.Text);
             }
@@ -266,37 +266,37 @@ namespace View
                 MessageBox.Show("Invalid Input");
             }
         }
-        public void ShowMyFeed()
+        private void showMyFeed()
         {
             m_FeedTextBox.Text = string.Empty;
             foreach (Post post in m_RecentPosts)
             {
-                m_FeedTextBox.Text += m_AppControl.DerivePostTextFormat(post);
+                m_FeedTextBox.Text += r_AppControl.DerivePostTextFormat(post);
             }
         }
 
 
         ///////////////////////////// Friend Info Tab ////////////////////////////
-        private void m_ButtonFriendInfo_click(object sender, EventArgs e)
+        private void ButtonFriendInfo_click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageFriendsInfo);
 
-            m_FriendProfileViewComponent.populate(m_AppControl, Utils.eUserProfile.FRIEND_PROFILE);
+            m_FriendProfileViewComponent.populate(r_AppControl, Utils.eUserProfile.FRIEND_PROFILE);
         }
-        private void m_TextBoxSearchFriend_Click(object sender, EventArgs e)
+        private void TextBoxSearchFriend_Click(object sender, EventArgs e)
         {
             ChangeButtonByTextBoxClick(m_TextBoxSearchFriend, m_ButtonSearchFriend);
         }
-        private void m_TextBoxSearchFriend_TextChanged(object sender, EventArgs e)
+        private void TextBoxSearchFriend_TextChanged(object sender, EventArgs e)
         {
-            m_TextBoxSearchFriend_Click(sender, e);
+            TextBoxSearchFriend_Click(sender, e);
         }
-        private void m_ButtonSearchFriend_Click(object sender, EventArgs e)
+        private void ButtonSearchFriend_Click(object sender, EventArgs e)
         {
             try
             {
-                m_AppControl.verifyFriendSearchAndImportInfo(m_TextBoxSearchFriend.Text); //throws exeption if searched failed or facebook server failed
-                m_FriendProfileViewComponent.ShowedUserProfilePictureURL = m_AppControl.getCurrentShowedFriendProfilePictureURL();
+                r_AppControl.verifyFriendSearchAndImportInfo(m_TextBoxSearchFriend.Text); //throws exeption if searched failed or facebook server failed
+                m_FriendProfileViewComponent.ShowedUserProfilePictureURL = r_AppControl.getCurrentShowedFriendProfilePictureURL();
                 m_FriendProfileViewComponent.InitializeProfileViewer();
             }
             catch (Exception exception)
@@ -307,17 +307,17 @@ namespace View
 
 
         ///////////////////////////// My Profile Tab ////////////////////////////
-        private void m_ButtonMyProfile_Click(object sender, EventArgs e)
+        private void ButtonMyProfile_Click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageMyProfile);
-            m_MyProfileViewComponent.populate(m_AppControl, Utils.eUserProfile.MY_PROFILE);
+            m_MyProfileViewComponent.populate(r_AppControl, Utils.eUserProfile.MY_PROFILE);
             m_MyProfileViewComponent.ShowedUserProfilePictureURL = m_ConnectedUserProfilePictureURL;
             m_MyProfileViewComponent.InitializeProfileViewer();
         }
 
 
         ///////////////////////////// Birthday Tracker Tab ////////////////////////////
-        private void m_ButtonBirthdayTracker_Click(object sender, EventArgs e)
+        private void ButtonBirthdayTracker_Click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageBirthdayTracker);
             if (m_Animation == null)
@@ -325,11 +325,11 @@ namespace View
                 m_Animation = new MovingUpAnimationPlayer();
             }
 
-            m_BirthdayViewerComponent.Populate(m_AppControl, m_TabPageBirthdayTracker);
+            m_BirthdayViewerComponent.Populate(r_AppControl, m_TabPageBirthdayTracker);
             //PlayBalloonAnimation(m_TabPageBirthdayTracker, Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.balloons.png", 100, 100));
 
         }
-        private void PlayBalloonAnimation(TabPage i_CurrentTab, Image i_Picture)
+        private void PlayAnimation(TabPage i_CurrentTab, Image i_Picture)
         {
             Point startLocation = new Point(0, i_CurrentTab.Height);
             m_Animation.InitializeAnimatedImage(startLocation, i_CurrentTab.Controls, i_Picture);
@@ -338,7 +338,7 @@ namespace View
 
 
         ///////////////////////// Export Tab - feature 1 ////////////////////////
-        private void m_ButtonExportCurrentMonthToExcel_Click(object sender, EventArgs e)
+        private void ButtonExportCurrentMonthToExcel_Click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageExport);
             m_TextBoxExportFilePath.Text = m_TextBoxExportFilePath.Tag.ToString();
@@ -348,28 +348,28 @@ namespace View
                 m_PictureBoxExcelExport.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.excel.png",130,60);
             }
         }
-        private void m_ButtonExport_Click(object sender, EventArgs e)
+        private void ButtonExport_Click(object sender, EventArgs e)
         {
             try
             {
-                m_AppControl.ExportData(Utils.eFileType.XLS, m_TextBoxExportFilePath.Text);
+                r_AppControl.ExportData(Utils.eFileType.XLS, m_TextBoxExportFilePath.Text);
             }
             catch(Exception exception)
             {
                 MessageBox.Show(exception.Message);
             }
         }
-        private void m_ButtonCancelExport_Click(object sender, EventArgs e)
+        private void ButtonCancelExport_Click(object sender, EventArgs e)
         {
-            m_PictureBoxGoToMainTab_Click(null, null);
+            PictureBoxGoToMainTab_Click(null, null);
         }
 
 
         ///////////////////// Automation Activity - feature 2 ////////////////////
-        private void m_ButtonAutomateYourActivity_Click(object sender, EventArgs e)
+        private void ButtonAutomateUserActivity_Click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageAutomateActivity);
-            m_ActivityAutomation.Populate(m_AppControl);
+            m_ActivityAutomation.Populate(r_AppControl);
         }
 
 

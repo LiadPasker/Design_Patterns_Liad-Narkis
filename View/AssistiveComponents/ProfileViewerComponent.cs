@@ -45,7 +45,7 @@ namespace View
             ShowProfilePicture();
             m_ComponentTextBoxUserInfo.Text = m_AppControl.GetcurrentShowedUserInfo(eUserType);
             m_ComponentDataGridViewUpcomingEvents.Invoke(new Action(initializeUserUpcomingEvents));
-            m_TextBoxFeedAge_TextChanged(m_ComponentTextBoxFeedAge, null);
+            TextBoxFeedAge_TextChanged(m_ComponentTextBoxFeedAge, null);
         }
         private void initializeUserUpcomingEvents()
         {
@@ -69,7 +69,7 @@ namespace View
                 DesktopFacebook.showFacebookServerErrorMessege();
             }
         }
-        private void m_TextBoxFeedAge_TextChanged(object sender, EventArgs e)
+        private void TextBoxFeedAge_TextChanged(object sender, EventArgs e)
         {
             if (m_ComponentTextBoxFeedAge.Text == string.Empty)
             {
@@ -78,7 +78,7 @@ namespace View
             DesktopFacebook.ValidatePostsAgeCheckBoxAndExecute(m_ComponentTextBoxFeedAge);
             m_ComponentDataGridViewRecentFeed.Invoke(new Action(initializeUserRecentFeed));
         }
-        private void m_ButtonPostOnWall_Click(object sender, EventArgs e)
+        private void ButtonPostOnWall_Click(object sender, EventArgs e)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace View
                 MessageBox.Show(exception.Message);
             }
         }
-        private void m_TextBoxPostOnWall_Click(object sender, EventArgs e)
+        private void TextBoxPostOnWall_Click(object sender, EventArgs e)
         {
 
             DesktopFacebook.ChangeButtonByTextBoxClick(m_ComponentTextBoxPostOnWall, m_ComponentButtonPostOnWall);

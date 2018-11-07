@@ -72,13 +72,13 @@ namespace Model
         }
         public void InitializeMyAlbums()
         {
-            m_UserAlbumManager.importUserAlbumsList(FacebookAuth.LoggedInUser.Albums);
+            m_UserAlbumManager.ImportUserAlbumsList(FacebookAuth.LoggedInUser.Albums);
         }
         public Album GetAlbum(string i_AlbumName)
         {
             return m_UserAlbumManager.GetAlbum(i_AlbumName);
         }
-        public List<string> getAlbumURLs(Album i_Album)
+        public List<string> GetAlbumURLs(Album i_Album)
         {
             return m_UserAlbumManager.GetAlbumURLs(i_Album);
         }
@@ -109,7 +109,7 @@ namespace Model
             }
             return user.NewsFeed;
         }
-        public static bool isValidPostEnteredValue(string i_TextToCheck)
+        public static bool IsValidPostEnteredValue(string i_TextToCheck)
         {
             return Regex.IsMatch(i_TextToCheck, @"^([1-9]|[1-2][0-9]|3[0-6])$");
         }
@@ -184,7 +184,7 @@ currUser?.WorkExperiences?[0].Name,currUser?.RelationshipStatus,currUser?.About)
             try
             {
                 user = getUser(i_UserType);
-                userEvents = getFriendUpcomingEvents(user.Events);
+                userEvents = GetFriendUpcomingEventsByTime(user.Events);
             }
             catch (Exception)
             {
@@ -193,7 +193,7 @@ currUser?.WorkExperiences?[0].Name,currUser?.RelationshipStatus,currUser?.About)
 
             return userEvents;
         }
-        public FacebookObjectCollection<Event> getFriendUpcomingEvents(FacebookObjectCollection<Event> i_RecentEvents, int i_EventsAgeInMonths = 100)
+        public FacebookObjectCollection<Event> GetFriendUpcomingEventsByTime(FacebookObjectCollection<Event> i_RecentEvents, int i_EventsAgeInMonths = 100)
         {
             FacebookObjectCollection<Event> recentUserEvents = null;
             foreach (Event userEvent in i_RecentEvents)

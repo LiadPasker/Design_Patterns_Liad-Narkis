@@ -2,7 +2,7 @@
 
 namespace View
 {
-    partial class ActivityAutomation
+    partial class ActivityAutomationComponent
     {
         /// <summary> 
         /// Required designer variable.
@@ -114,7 +114,7 @@ namespace View
             this.m_ButtonGoToActionsTabPage.TabIndex = 4;
             this.m_ButtonGoToActionsTabPage.Text = "Proceed";
             this.m_ButtonGoToActionsTabPage.UseVisualStyleBackColor = true;
-            this.m_ButtonGoToActionsTabPage.Click += new System.EventHandler(this.m_ButtonGoToActionsTabPage_Click);
+            this.m_ButtonGoToActionsTabPage.Click += new System.EventHandler(this.ButtonGoToActionsTabPage_Click);
             // 
             // m_ComboBoxPickHour
             // 
@@ -124,7 +124,7 @@ namespace View
             this.m_ComboBoxPickHour.Name = "m_ComboBoxPickHour";
             this.m_ComboBoxPickHour.Size = new System.Drawing.Size(78, 28);
             this.m_ComboBoxPickHour.TabIndex = 3;
-            this.m_ComboBoxPickHour.SelectedIndexChanged += new System.EventHandler(this.m_ComboBoxPickHour_SelectedIndexChanged);
+            this.m_ComboBoxPickHour.SelectedIndexChanged += new System.EventHandler(this.ComboBoxPickHour_SelectedIndexChanged);
             // 
             // m_ComboBoxPickMinute
             // 
@@ -134,7 +134,7 @@ namespace View
             this.m_ComboBoxPickMinute.Name = "m_ComboBoxPickMinute";
             this.m_ComboBoxPickMinute.Size = new System.Drawing.Size(78, 28);
             this.m_ComboBoxPickMinute.TabIndex = 3;
-            this.m_ComboBoxPickMinute.SelectedIndexChanged += new System.EventHandler(this.m_ComboBoxPickMinute_SelectedIndexChanged);
+            this.m_ComboBoxPickMinute.SelectedIndexChanged += new System.EventHandler(this.ComboBoxPickMinute_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -189,7 +189,7 @@ namespace View
             this.m_ButtonGoToSummaryTabPage.TabIndex = 5;
             this.m_ButtonGoToSummaryTabPage.Text = "Proceed";
             this.m_ButtonGoToSummaryTabPage.UseVisualStyleBackColor = true;
-            this.m_ButtonGoToSummaryTabPage.Click += new System.EventHandler(this.m_ButtonGoToSummaryTabPage_Click);
+            this.m_ButtonGoToSummaryTabPage.Click += new System.EventHandler(this.ButtonGoToSummaryTabPage_Click);
             // 
             // m_TextBoxActionPageCheckIn
             // 
@@ -224,7 +224,7 @@ namespace View
             this.m_CheckBoxActionPageCheckIn.TabIndex = 0;
             this.m_CheckBoxActionPageCheckIn.Text = "Check-In";
             this.m_CheckBoxActionPageCheckIn.UseVisualStyleBackColor = true;
-            this.m_CheckBoxActionPageCheckIn.CheckedChanged += new System.EventHandler(this.m_CheckBoxActionPageCheckIn_CheckedChanged);
+            this.m_CheckBoxActionPageCheckIn.CheckedChanged += new System.EventHandler(this.CheckBoxActionPageCheckIn_CheckedChanged);
             // 
             // m_CheckBoxActionPagePost
             // 
@@ -235,7 +235,7 @@ namespace View
             this.m_CheckBoxActionPagePost.TabIndex = 0;
             this.m_CheckBoxActionPagePost.Text = "Post";
             this.m_CheckBoxActionPagePost.UseVisualStyleBackColor = true;
-            this.m_CheckBoxActionPagePost.CheckedChanged += new System.EventHandler(this.m_CheckBoxActionPagePost_CheckedChanged);
+            this.m_CheckBoxActionPagePost.CheckedChanged += new System.EventHandler(this.CheckBoxActionPagePost_CheckedChanged);
             // 
             // m_TabPageSummary
             // 
@@ -299,7 +299,7 @@ namespace View
             this.m_ButtonSummaryPagePost.Size = new System.Drawing.Size(60, 60);
             this.m_ButtonSummaryPagePost.TabIndex = 6;
             this.m_ButtonSummaryPagePost.UseVisualStyleBackColor = false;
-            this.m_ButtonSummaryPagePost.Click += new System.EventHandler(this.m_ButtonSummaryPagePost_Click);
+            this.m_ButtonSummaryPagePost.Click += new System.EventHandler(this.ButtonSummaryPagePost_Click);
             // 
             // m_TextBoxScheduledTime
             // 
@@ -381,7 +381,7 @@ namespace View
             this.m_ButtonAbort.TabIndex = 6;
             this.m_ButtonAbort.Text = "Abort";
             this.m_ButtonAbort.UseVisualStyleBackColor = false;
-            this.m_ButtonAbort.Click += new System.EventHandler(this.m_ButtoAbort_Click);
+            this.m_ButtonAbort.Click += new System.EventHandler(this.ButtonAbort_Click);
             // 
             // label7
             // 

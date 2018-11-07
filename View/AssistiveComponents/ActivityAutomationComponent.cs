@@ -9,18 +9,17 @@ using System.Windows.Forms;
 
 namespace View
 {
-    public partial class ActivityAutomation : UserControl
+    public partial class ActivityAutomationComponent : UserControl
     {
         private DateTime m_SchduledTo;
         private Model.Control m_AppControl;
         private System.Threading.Timer m_PostTimer;
 
 
-        public ActivityAutomation()
+        public ActivityAutomationComponent()
         {
             InitializeComponent();
         }
-
         public void Populate(Model.Control i_AppControl)
         {
             m_TabControlAutomationActivity.SelectTab(m_TabPagePickTime);
@@ -33,7 +32,6 @@ namespace View
                 SetScheduledStatus(false);
             }
         }
-
         private void HandlePost(object state)
         {
             try
@@ -47,7 +45,6 @@ namespace View
                 DesktopFacebook.showFacebookServerErrorMessege();
             }
         }
-
         private void postData()
         {
             if (m_CheckBoxSchedulePost.Checked && m_CheckBoxScheduleCheckIn.Checked)
@@ -63,7 +60,6 @@ namespace View
                 m_AppControl.FacebookAuth.LoggedInUser.Checkin(m_TextBoxSummaryCheckIn.Text);
             }
         }
-
         private void initializePickTimeCumboBoxes()
         {
             for (int i = 0; i < 60; i++)
@@ -91,30 +87,25 @@ namespace View
             m_ComboBoxPickMinute.SelectedIndex = 0;
             m_ComboBoxPickHour.SelectedIndex = 0;
         }
-
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
             m_SchduledTo = e.Start;
         }
-
-        private void m_ComboBoxPickHour_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxPickHour_SelectedIndexChanged(object sender, EventArgs e)
         {
             m_SchduledTo = m_SchduledTo.AddHours(m_ComboBoxPickHour.SelectedIndex - m_SchduledTo.Hour);
         }
-
-        private void m_ComboBoxPickMinute_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxPickMinute_SelectedIndexChanged(object sender, EventArgs e)
         {
             m_SchduledTo = m_SchduledTo.AddMinutes(m_ComboBoxPickMinute.SelectedIndex - m_SchduledTo.Minute);
         }
-
-        private void m_ButtonGoToActionsTabPage_Click(object sender, EventArgs e)
+        private void ButtonGoToActionsTabPage_Click(object sender, EventArgs e)
         {
-            m_ComboBoxPickHour_SelectedIndexChanged(null, null);
-            m_ComboBoxPickMinute_SelectedIndexChanged(null, null);
+            ComboBoxPickHour_SelectedIndexChanged(null, null);
+            ComboBoxPickMinute_SelectedIndexChanged(null, null);
             m_TextBoxScheduledTime.Text = m_SchduledTo.ToString();
             m_TabControlAutomationActivity.SelectTab(m_TabPageActions);
         }
-
         private void handleButtonCheckBoxTextBoxRelationship(Button i_Button, TextBox i_TextBox, CheckBox i_CheckBox1, CheckBox i_CheckBox2 = null)
         {
             i_TextBox.Enabled = i_CheckBox1.Checked;
@@ -128,15 +119,15 @@ namespace View
                 i_TextBox.Text = (string)i_TextBox.Tag;
             }
         }
-        private void m_CheckBoxActionPagePost_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxActionPagePost_CheckedChanged(object sender, EventArgs e)
         {
             handleButtonCheckBoxTextBoxRelationship(m_ButtonGoToSummaryTabPage, m_TextBoxActionPagePost, m_CheckBoxActionPagePost, m_CheckBoxActionPageCheckIn);
         }
-        private void m_CheckBoxActionPageCheckIn_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxActionPageCheckIn_CheckedChanged(object sender, EventArgs e)
         {
             handleButtonCheckBoxTextBoxRelationship(m_ButtonGoToSummaryTabPage, m_TextBoxActionPageCheckIn, m_CheckBoxActionPageCheckIn, m_CheckBoxActionPagePost);
         }
-        private void m_ButtonGoToSummaryTabPage_Click(object sender, EventArgs e)
+        private void ButtonGoToSummaryTabPage_Click(object sender, EventArgs e)
         {
             m_CheckBoxScheduleCheckIn.Checked = m_CheckBoxActionPageCheckIn.Checked && m_TextBoxActionPageCheckIn.Text != string.Empty;
             m_CheckBoxSchedulePost.Checked = m_CheckBoxActionPagePost.Checked && m_TextBoxActionPagePost.Text != string.Empty;
@@ -151,8 +142,6 @@ namespace View
                 initializeSummaryTab();
             }
         }
-
-
         private void initializeSummaryTab()
         {
             initializeSummaryPageImages();
@@ -160,14 +149,12 @@ namespace View
             m_TextBoxSummaryCheckIn.Text = m_CheckBoxScheduleCheckIn.Checked == true ? m_TextBoxActionPageCheckIn.Text : string.Empty;
             m_ButtonSummaryPagePost.Enabled = m_CheckBoxScheduleCheckIn.Checked || m_CheckBoxSchedulePost.Checked;
         }
-
         private void initializeSummaryPageImages()
         {
             m_ButtonSummaryPagePost.BackgroundImage = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.postStatus.png", 40, 40);
             m_PictureBoxCheckIn.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.checkin.png", 50, 50);
             m_PictureBoxPost.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.postImage.png");
         }
-
         private void SetScheduledStatus(bool i_IsScheduled = false)
         {
             if (i_IsScheduled)
@@ -181,8 +168,7 @@ namespace View
                 m_TextBoxScheduleStatus.BackColor = Color.Red;
             }
         }
-
-        private void m_ButtonSummaryPagePost_Click(object sender, EventArgs e)
+        private void ButtonSummaryPagePost_Click(object sender, EventArgs e)
         {
             StartTimerAccordingToUserChoice();
             MessageBox.Show("Automatic Activity Timer Is On!");
@@ -190,7 +176,6 @@ namespace View
             SetScheduledStatus(true);
             m_ButtonAbort.Enabled = true;
         }
-
         private void StartTimerAccordingToUserChoice()
         {
             if (DateTime.Now > m_SchduledTo) // if the due-hour  past, automatic scheduled to the next day
@@ -209,8 +194,7 @@ namespace View
                 MessageBox.Show("Couldn't Set Timer");
             }
         }
-
-        private void m_ButtoAbort_Click(object sender, EventArgs e)
+        private void ButtonAbort_Click(object sender, EventArgs e)
         {
             try
             {
@@ -224,7 +208,6 @@ namespace View
                 MessageBox.Show("Stopping Activity Timer Failed");
             }
         }
-
         private void zeroizeControllers()
         {
             m_CheckBoxScheduleCheckIn.Checked = m_CheckBoxSchedulePost.Checked = m_ButtonAbort.Enabled = false;

@@ -67,8 +67,8 @@
             this.m_ComponentTextBoxFeedAge.Name = "m_ComponentTextBoxFeedAge";
             this.m_ComponentTextBoxFeedAge.Size = new System.Drawing.Size(38, 26);
             this.m_ComponentTextBoxFeedAge.TabIndex = 19;
-            this.m_ComponentTextBoxFeedAge.Click += new System.EventHandler(this.m_TextBoxFeedAge_TextChanged);
-            this.m_ComponentTextBoxFeedAge.TextChanged += new System.EventHandler(this.m_TextBoxFeedAge_TextChanged);
+            this.m_ComponentTextBoxFeedAge.Click += new System.EventHandler(this.TextBoxFeedAge_TextChanged);
+            this.m_ComponentTextBoxFeedAge.TextChanged += new System.EventHandler(this.TextBoxFeedAge_TextChanged);
             // 
             // m_ComponentDataGridViewRecentFeed
             // 
@@ -245,7 +245,7 @@
             this.m_ComponentButtonPostOnWall.TabIndex = 13;
             this.m_ComponentButtonPostOnWall.Text = "Post";
             this.m_ComponentButtonPostOnWall.UseVisualStyleBackColor = false;
-            this.m_ComponentButtonPostOnWall.Click += new System.EventHandler(this.m_ButtonPostOnWall_Click);
+            this.m_ComponentButtonPostOnWall.Click += new System.EventHandler(this.ButtonPostOnWall_Click);
             // 
             // m_ComponentTextBoxPostOnWall
             // 
@@ -258,7 +258,7 @@
             this.m_ComponentTextBoxPostOnWall.TabIndex = 12;
             this.m_ComponentTextBoxPostOnWall.Tag = "It\'s rude not to say anything...";
             this.m_ComponentTextBoxPostOnWall.Text = "It\'s rude not to say anything...";
-            this.m_ComponentTextBoxPostOnWall.Click += new System.EventHandler(this.m_TextBoxPostOnWall_Click);
+            this.m_ComponentTextBoxPostOnWall.Click += new System.EventHandler(this.TextBoxPostOnWall_Click);
             // 
             // m_ComponentTextBoxUserInfo
             // 

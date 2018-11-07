@@ -85,7 +85,7 @@ namespace View
                 m_PictureBoxProfilePicture.LoadAsync(FriendsToShow[m_CurrentShowFriendIndex].PictureLargeURL);
             }
         }
-        private void m_DataGridViewBirthdays_SelectionChanged(object sender, EventArgs e)
+        private void DataGridViewBirthdays_SelectionChanged(object sender, EventArgs e)
         {
             zeroizeControllers();
             if (FriendsToShow.Count != 0 && m_DataGridViewBirthdays.RowCount !=0)
@@ -122,7 +122,7 @@ namespace View
         {
             m_BirthdayGraphicController.Start();
         }
-        private void m_ButtonPost_Click(object sender, EventArgs e)
+        private void ButtonPost_Click(object sender, EventArgs e)
         {
             try
             {
@@ -133,7 +133,7 @@ namespace View
                 MessageBox.Show(exception.Message);
             }
         }
-        private void m_TextBoxPost_Click(object sender, EventArgs e)
+        private void TextBoxPost_Click(object sender, EventArgs e)
         {
             if (m_ButtonPost.Enabled == false)
             {
@@ -141,12 +141,12 @@ namespace View
                 m_TextBoxPost.BackColor = Color.White;
             }
         }
-        private void m_ButtonGenerateWish_Click(object sender, EventArgs e)
+        private void ButtonGenerateWish_Click(object sender, EventArgs e)
         {
             m_ButtonPost.Enabled = true;
             m_TextBoxPost.Text = m_AppControl.GenerateRandomBirthdayWish((string)m_DataGridViewBirthdays.SelectedCells[0].Value);
         }
-        private void m_CheckBoxRemoveFriendsThatHadBirthday_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxRemoveFriendsThatHadBirthday_CheckedChanged(object sender, EventArgs e)
         {
             handleView();
         }

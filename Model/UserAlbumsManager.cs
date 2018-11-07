@@ -13,7 +13,7 @@ namespace Model
     {
         private List<Album> m_UserAlbums = null;
 
-        public void importUserAlbumsList(FacebookObjectCollection<Album> i_Albums)
+        public void ImportUserAlbumsList(FacebookObjectCollection<Album> i_Albums)
         {
             m_UserAlbums = new List<Album>();
             foreach (Album album in i_Albums)

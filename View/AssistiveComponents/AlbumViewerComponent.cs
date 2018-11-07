@@ -31,7 +31,7 @@ namespace View
         }
         public void ChangeDisplayZoom(string i_Zoom, TabPage i_CurrentTab)
         {
-            m_AlbumPage.m_PicturesSizeToshow = new Size(int.Parse(i_Zoom) + 50, int.Parse(i_Zoom) + 50);
+            m_AlbumPage.PicturesSizeToshow = new Size(int.Parse(i_Zoom) + 50, int.Parse(i_Zoom) + 50);
             m_AlbumPage.InitializePictures();
             Show();
         }

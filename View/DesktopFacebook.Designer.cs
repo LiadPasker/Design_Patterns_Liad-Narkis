@@ -75,7 +75,7 @@
             this.m_ButtonCancelExport = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.m_TabPageAutomateActivity = new System.Windows.Forms.TabPage();
-            this.m_ActivityAutomation = new View.ActivityAutomation();
+            this.m_ActivityAutomation = new View.ActivityAutomationComponent();
             this.m_Button_LogOut = new System.Windows.Forms.Button();
             this.m_PictureBoxGoToMainTab = new System.Windows.Forms.PictureBox();
             this.m_BindingSourceFriendFeed = new System.Windows.Forms.BindingSource(this.components);
@@ -131,7 +131,7 @@
             this.m_ComboBoxZoom.Name = "m_ComboBoxZoom";
             this.m_ComboBoxZoom.Size = new System.Drawing.Size(85, 28);
             this.m_ComboBoxZoom.TabIndex = 6;
-            this.m_ComboBoxZoom.SelectedIndexChanged += new System.EventHandler(this.m_ComboBoxZoom_SelectedIndexChanged);
+            this.m_ComboBoxZoom.SelectedIndexChanged += new System.EventHandler(this.ComboBoxZoom_SelectedIndexChanged);
             // 
             // m_labelPicturesPerPage
             // 
@@ -190,7 +190,7 @@
             this.m_ButtonPreviousPage.Size = new System.Drawing.Size(60, 47);
             this.m_ButtonPreviousPage.TabIndex = 3;
             this.m_ButtonPreviousPage.UseVisualStyleBackColor = true;
-            this.m_ButtonPreviousPage.Click += new System.EventHandler(this.m_ButtonPreviousPage_Click);
+            this.m_ButtonPreviousPage.Click += new System.EventHandler(this.ButtonPreviousPage_Click);
             // 
             // m_ButtonNextPage
             // 
@@ -199,7 +199,7 @@
             this.m_ButtonNextPage.Size = new System.Drawing.Size(60, 48);
             this.m_ButtonNextPage.TabIndex = 3;
             this.m_ButtonNextPage.UseVisualStyleBackColor = true;
-            this.m_ButtonNextPage.Click += new System.EventHandler(this.m_ButtonNextPage_Click);
+            this.m_ButtonNextPage.Click += new System.EventHandler(this.ButtonNextPage_Click);
             // 
             // m_ComboBoxAlbums
             // 
@@ -208,7 +208,7 @@
             this.m_ComboBoxAlbums.Name = "m_ComboBoxAlbums";
             this.m_ComboBoxAlbums.Size = new System.Drawing.Size(316, 28);
             this.m_ComboBoxAlbums.TabIndex = 2;
-            this.m_ComboBoxAlbums.SelectedIndexChanged += new System.EventHandler(this.m_ComboBoxAlbums_SelectedIndexChanged);
+            this.m_ComboBoxAlbums.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAlbums_SelectedIndexChanged);
             // 
             // m_TabsControl
             // 
@@ -225,7 +225,7 @@
             this.m_TabsControl.SelectedIndex = 0;
             this.m_TabsControl.Size = new System.Drawing.Size(953, 625);
             this.m_TabsControl.TabIndex = 2;
-            this.m_TabsControl.SelectedIndexChanged += new System.EventHandler(this.m_TabsControl_SelectedIndexChanged);
+            this.m_TabsControl.SelectedIndexChanged += new System.EventHandler(this.TabsControl_SelectedIndexChanged);
             // 
             // m_TabPageMainWindow
             // 
@@ -272,7 +272,7 @@
             this.m_ButtonAutomateYourActivity.TabIndex = 24;
             this.m_ButtonAutomateYourActivity.Text = "Automate Your Activity";
             this.m_ButtonAutomateYourActivity.UseVisualStyleBackColor = false;
-            this.m_ButtonAutomateYourActivity.Click += new System.EventHandler(this.m_ButtonAutomateYourActivity_Click);
+            this.m_ButtonAutomateYourActivity.Click += new System.EventHandler(this.ButtonAutomateUserActivity_Click);
             // 
             // m_ButtonExportCurrentMonthToExcel
             // 
@@ -284,7 +284,7 @@
             this.m_ButtonExportCurrentMonthToExcel.TabIndex = 24;
             this.m_ButtonExportCurrentMonthToExcel.Text = "Export This Month Occasions";
             this.m_ButtonExportCurrentMonthToExcel.UseVisualStyleBackColor = false;
-            this.m_ButtonExportCurrentMonthToExcel.Click += new System.EventHandler(this.m_ButtonExportCurrentMonthToExcel_Click);
+            this.m_ButtonExportCurrentMonthToExcel.Click += new System.EventHandler(this.ButtonExportCurrentMonthToExcel_Click);
             // 
             // m_ButtonBirthdayTracker
             // 
@@ -296,7 +296,7 @@
             this.m_ButtonBirthdayTracker.TabIndex = 24;
             this.m_ButtonBirthdayTracker.Text = "Birthday Tracker";
             this.m_ButtonBirthdayTracker.UseVisualStyleBackColor = false;
-            this.m_ButtonBirthdayTracker.Click += new System.EventHandler(this.m_ButtonBirthdayTracker_Click);
+            this.m_ButtonBirthdayTracker.Click += new System.EventHandler(this.ButtonBirthdayTracker_Click);
             // 
             // m_ButtonMyProfile
             // 
@@ -308,7 +308,7 @@
             this.m_ButtonMyProfile.TabIndex = 23;
             this.m_ButtonMyProfile.Text = "My Profile";
             this.m_ButtonMyProfile.UseVisualStyleBackColor = false;
-            this.m_ButtonMyProfile.Click += new System.EventHandler(this.m_ButtonMyProfile_Click);
+            this.m_ButtonMyProfile.Click += new System.EventHandler(this.ButtonMyProfile_Click);
             // 
             // m_ButtonFriendInfo
             // 
@@ -320,7 +320,7 @@
             this.m_ButtonFriendInfo.TabIndex = 22;
             this.m_ButtonFriendInfo.Text = "friend Info";
             this.m_ButtonFriendInfo.UseVisualStyleBackColor = false;
-            this.m_ButtonFriendInfo.Click += new System.EventHandler(this.m_ButtonFriendInfo_click);
+            this.m_ButtonFriendInfo.Click += new System.EventHandler(this.ButtonFriendInfo_click);
             // 
             // m_LogoPictureBox
             // 
@@ -352,7 +352,7 @@
             this.m_ButtonPostStatus.Size = new System.Drawing.Size(60, 60);
             this.m_ButtonPostStatus.TabIndex = 15;
             this.m_ButtonPostStatus.UseVisualStyleBackColor = true;
-            this.m_ButtonPostStatus.Click += new System.EventHandler(this.m_ButtonPostStatus_Click);
+            this.m_ButtonPostStatus.Click += new System.EventHandler(this.ButtonPostStatus_Click);
             // 
             // m_ButtonFeed
             // 
@@ -364,7 +364,7 @@
             this.m_ButtonFeed.TabIndex = 17;
             this.m_ButtonFeed.Text = "Feed";
             this.m_ButtonFeed.UseVisualStyleBackColor = false;
-            this.m_ButtonFeed.Click += new System.EventHandler(this.m_ButtonFeed_Click);
+            this.m_ButtonFeed.Click += new System.EventHandler(this.ButtonFeed_Click);
             // 
             // m_Button_MyAlbums
             // 
@@ -376,7 +376,7 @@
             this.m_Button_MyAlbums.TabIndex = 18;
             this.m_Button_MyAlbums.Text = "My Albums";
             this.m_Button_MyAlbums.UseVisualStyleBackColor = false;
-            this.m_Button_MyAlbums.Click += new System.EventHandler(this.m_Button_MyAlbums_Click);
+            this.m_Button_MyAlbums.Click += new System.EventHandler(this.Button_MyAlbums_Click);
             // 
             // m_PictureBox_ProfilePicture
             // 
@@ -426,7 +426,7 @@
             this.m_TextBoxPostMonthOld.Name = "m_TextBoxPostMonthOld";
             this.m_TextBoxPostMonthOld.Size = new System.Drawing.Size(48, 26);
             this.m_TextBoxPostMonthOld.TabIndex = 1;
-            this.m_TextBoxPostMonthOld.TextChanged += new System.EventHandler(this.m_TextBoxPostMonthOld_TextChanged);
+            this.m_TextBoxPostMonthOld.TextChanged += new System.EventHandler(this.TextBoxPostMonthOld_TextChanged);
             // 
             // m_FeedTextBox
             // 
@@ -471,7 +471,7 @@
             this.m_ButtonSearchFriend.TabIndex = 2;
             this.m_ButtonSearchFriend.Text = "Search";
             this.m_ButtonSearchFriend.UseVisualStyleBackColor = false;
-            this.m_ButtonSearchFriend.Click += new System.EventHandler(this.m_ButtonSearchFriend_Click);
+            this.m_ButtonSearchFriend.Click += new System.EventHandler(this.ButtonSearchFriend_Click);
             // 
             // m_TextBoxSearchFriend
             // 
@@ -481,8 +481,8 @@
             this.m_TextBoxSearchFriend.TabIndex = 1;
             this.m_TextBoxSearchFriend.Tag = "What is your friend\'s name?";
             this.m_TextBoxSearchFriend.Text = "What is your friend\'s name?";
-            this.m_TextBoxSearchFriend.Click += new System.EventHandler(this.m_TextBoxSearchFriend_Click);
-            this.m_TextBoxSearchFriend.TextChanged += new System.EventHandler(this.m_TextBoxSearchFriend_TextChanged);
+            this.m_TextBoxSearchFriend.Click += new System.EventHandler(this.TextBoxSearchFriend_Click);
+            this.m_TextBoxSearchFriend.TextChanged += new System.EventHandler(this.TextBoxSearchFriend_TextChanged);
             // 
             // m_TabPageMyProfile
             // 
@@ -585,7 +585,7 @@
             this.m_ButtonExport.TabIndex = 1;
             this.m_ButtonExport.Text = "Export";
             this.m_ButtonExport.UseVisualStyleBackColor = false;
-            this.m_ButtonExport.Click += new System.EventHandler(this.m_ButtonExport_Click);
+            this.m_ButtonExport.Click += new System.EventHandler(this.ButtonExport_Click);
             // 
             // m_ButtonCancelExport
             // 
@@ -595,7 +595,7 @@
             this.m_ButtonCancelExport.TabIndex = 1;
             this.m_ButtonCancelExport.Text = "Cancel";
             this.m_ButtonCancelExport.UseVisualStyleBackColor = true;
-            this.m_ButtonCancelExport.Click += new System.EventHandler(this.m_ButtonCancelExport_Click);
+            this.m_ButtonCancelExport.Click += new System.EventHandler(this.ButtonCancelExport_Click);
             // 
             // label4
             // 
@@ -633,7 +633,7 @@
             this.m_Button_LogOut.TabIndex = 19;
             this.m_Button_LogOut.Text = "Log Out";
             this.m_Button_LogOut.UseVisualStyleBackColor = true;
-            this.m_Button_LogOut.Click += new System.EventHandler(this.Button_LogOut_Click);
+            this.m_Button_LogOut.Click += new System.EventHandler(this.ButtonLogOut_Click);
             // 
             // m_PictureBoxGoToMainTab
             // 
@@ -643,7 +643,7 @@
             this.m_PictureBoxGoToMainTab.Size = new System.Drawing.Size(37, 37);
             this.m_PictureBoxGoToMainTab.TabIndex = 20;
             this.m_PictureBoxGoToMainTab.TabStop = false;
-            this.m_PictureBoxGoToMainTab.Click += new System.EventHandler(this.m_PictureBoxGoToMainTab_Click);
+            this.m_PictureBoxGoToMainTab.Click += new System.EventHandler(this.PictureBoxGoToMainTab_Click);
             // 
             // m_BindingSourceFriendFeed
             // 
@@ -768,7 +768,7 @@
         private System.Windows.Forms.Button m_ButtonAutomateYourActivity;
         private System.Windows.Forms.Label m_LabelHomeButtonAd;
         private System.Windows.Forms.TabPage m_TabPageAutomateActivity;
-        private ActivityAutomation m_ActivityAutomation;
+        private ActivityAutomationComponent m_ActivityAutomation;
     }
 }
 

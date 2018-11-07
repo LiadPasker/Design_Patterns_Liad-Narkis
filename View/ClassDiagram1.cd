@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="View.AlbumPage" Collapsed="true">
+    <Position X="6.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEKABAAAAAgAEAACEAAAAAEgAAAEAAAIQAAEAIAAAAA=</HashCode>
+      <FileName>AssistiveComponents\AlbumPage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="View.AlbumViewerComponent" Collapsed="true">
+    <Position X="6.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAEAAAIAAAASCAAECBAAIIAAAAAIQmA=</HashCode>
+      <FileName>AssistiveComponents\AlbumViewerComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="View.BirthdayViewerComponent" Collapsed="true">
+    <Position X="3.5" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>iAhgAAQACiAAgAAwAACEAACCAhRAAAACCAWhQBhKQBA=</HashCode>
+      <FileName>AssistiveComponents\BirthdayViewerComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="View.MovingUpAnimationPlayer" Collapsed="true">
+    <Position X="6.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAABCAAgAIAAAAAQAAAAAIAAAACAgAAAAAAAAAA=</HashCode>
+      <FileName>AssistiveComponents\MovingUpAnimationPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="View.ProfileViewerComponent" Collapsed="true">
+    <Position X="3.5" Y="3.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>gAAAQAAMASoAABAAgAPACBACgAABARAAUQAAABwABDo=</HashCode>
+      <FileName>AssistiveComponents\ProfileViewerComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="View.DesktopFacebook" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>M2L1EEBwDGLQq7CQGSKoFkQzCIVYEAECQS4kQKKCESE=</HashCode>
+      <FileName>DesktopFacebook.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Windows.Forms.UserControl" Collapsed="true">
+    <Position X="2.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Model.Control" Collapsed="true">
+    <Position X="8.5" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Model.DesktopFacebookSettings" Collapsed="true">
+    <Position X="10.25" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Model.FacebookAuthentication" Collapsed="true">
+    <Position X="12" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Model.OfficeManager" Collapsed="true">
+    <Position X="8.5" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Model.UserAlbumsManager" Collapsed="true">
+    <Position X="10.25" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Model.Utils" Collapsed="true">
+    <Position X="12" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="View.ActivityAutomationComponent" Collapsed="true">
+    <Position X="3.5" Y="1.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>DUABIBMQAiQTgBEQVACBKAoKAAJAAoACABAAgDBIoQA=</HashCode>
+      <FileName>AssistiveComponents\ActivityAutomationComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
