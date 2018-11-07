@@ -1,6 +1,6 @@
 ﻿namespace View
 {
-    partial class BirthdayViewerComponent
+    public partial class BirthdayViewerComponent
     {
         /// <summary> 
         /// Required designer variable.
@@ -17,6 +17,7 @@
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 

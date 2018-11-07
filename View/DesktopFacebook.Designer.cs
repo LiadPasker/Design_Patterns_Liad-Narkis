@@ -1,6 +1,6 @@
 ﻿namespace View
 {
-    partial class DesktopFacebook
+    public partial class DesktopFacebook
     {
         /// <summary>
         /// Required designer variable.
@@ -17,6 +17,7 @@
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -574,7 +575,7 @@
             this.m_TextBoxExportFilePath.Name = "m_TextBoxExportFilePath";
             this.m_TextBoxExportFilePath.Size = new System.Drawing.Size(430, 26);
             this.m_TextBoxExportFilePath.TabIndex = 2;
-            this.m_TextBoxExportFilePath.Tag = "";
+            this.m_TextBoxExportFilePath.Tag = string.Empty;
             // 
             // m_ButtonExport
             // 
@@ -771,4 +772,3 @@
         private ActivityAutomationComponent m_ActivityAutomation;
     }
 }
-

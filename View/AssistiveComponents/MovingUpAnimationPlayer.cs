@@ -14,8 +14,8 @@ namespace View
         private Timer m_PaceMaker;
         private Point m_StartLocation;
         private ControlCollection m_ControllerToBeShowedOn;
-        public PictureBox m_MovingPicture { get; set; }
 
+        public PictureBox m_MovingPicture { get; set; }
 
         public MovingUpAnimationPlayer()
         {
@@ -27,10 +27,11 @@ namespace View
 
         private void animatePicture(object sender, EventArgs e)
         {
-            if(m_MovingPicture.Bottom==0)
+            if (m_MovingPicture.Bottom == 0)
             {
                 m_MovingPicture.Top = m_StartLocation.Y;
             }
+
             moveUp();
         }
 
@@ -51,15 +52,12 @@ namespace View
 
         public void Play()
         {
-            if(m_MovingPicture.Image == null)
+            if (m_MovingPicture.Image == null)
             {
                 throw new Exception("Animation Error");
             }
 
             m_PaceMaker.Start();
         }
-
-        
-
     }
 }

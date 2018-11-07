@@ -15,8 +15,9 @@ namespace Model
         private readonly int r_LastSheetRow = 11;
         private readonly int r_FirstSheetColumn = 1;
         private readonly int r_LastSheetColumn = 8;
-        private readonly int r_RowsHeight=60;
+        private readonly int r_RowsHeight = 60;
         private readonly int r_ColumnWidth = 15;
+
         public Application ExcelFile { get; private set; } = null;
 
         public bool ExportToExcel(System.Data.DataTable i_Data, string i_ExcelFilePath = null)
@@ -42,13 +43,14 @@ namespace Model
                 isSuccessfulExportaion = DecideFileVisibilityByFilePathGiven(workSheet, i_ExcelFilePath);
                 insertTotalEventsFormula(workSheet);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception("Error Occured");
             }
 
             return isSuccessfulExportaion;
         }
+
         private void fillExcelWorksheetWithData(_Worksheet i_WorkSheet, System.Data.DataTable i_Data)
         {
             for (int i = 0; i < i_Data.Columns.Count; i++)
@@ -64,17 +66,20 @@ namespace Model
                 }
             }
         }
+
         private void setSheetBorders(_Worksheet i_WorkSheet)
         {
-            i_WorkSheet.get_Range(excelRangeGenerator(r_FirstSheetColumn, r_FirstSheetRow, r_LastSheetColumn,r_LastSheetRow)).Cells.Borders.LineStyle = XlLineStyle.xlContinuous;
+            i_WorkSheet.get_Range(excelRangeGenerator(r_FirstSheetColumn, r_FirstSheetRow, r_LastSheetColumn, r_LastSheetRow)).Cells.Borders.LineStyle = XlLineStyle.xlContinuous;
         }
+
         private void setColumnsHeight(_Worksheet i_WorkSheet)
         {
             for (int i = 2; i < r_LastSheetRow; i += 2)
             {
-                i_WorkSheet.get_Range(excelRangeGenerator(r_FirstSheetColumn, r_FirstSheetRow+i, r_LastSheetColumn, r_FirstSheetRow + i)).RowHeight = r_RowsHeight;
+                i_WorkSheet.get_Range(excelRangeGenerator(r_FirstSheetColumn, r_FirstSheetRow + i, r_LastSheetColumn, r_FirstSheetRow + i)).RowHeight = r_RowsHeight;
             }
         }
+
         private void changeHeadlineColor(_Worksheet i_Worksheet)
         {
             Range heading = i_Worksheet.Range[excelRangeGenerator(r_FirstSheetColumn, r_FirstSheetRow, r_LastSheetColumn, r_FirstSheetRow)];
@@ -85,11 +90,13 @@ namespace Model
                 MonthDays.Interior.Color = XlRgbColor.rgbLightSkyBlue;
             }
         }
+
         private string excelRangeGenerator(int i_ColumnsFrom, int i_RowFrom, int i_ColumnTo, int i_RowTo)
         {
             return string.Format("{0}{1}:{2}{3}", (char)('A' + i_ColumnsFrom - 1), i_RowFrom, (char)('A' + i_ColumnTo - 1), i_RowTo);
         }
-        private bool DecideFileVisibilityByFilePathGiven(Microsoft.Office.Interop.Excel._Worksheet i_CurrentWorkSheet,string i_FilePath)
+
+        private bool DecideFileVisibilityByFilePathGiven(Microsoft.Office.Interop.Excel._Worksheet i_CurrentWorkSheet, string i_FilePath)
         {
             bool isSaved = false;
 
@@ -101,7 +108,7 @@ namespace Model
                     ExcelFile.Quit();
                     isSaved = true;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw new Exception("Excel file could not be saved! Check filepath\n");
                 }
@@ -113,6 +120,7 @@ namespace Model
 
             return isSaved;
         }
+
         private void insertTotalEventsFormula(_Worksheet i_Worksheet)
         {
             Range formulaHolder;
@@ -120,7 +128,8 @@ namespace Model
             for (int i = 2; i < r_LastSheetRow; i += 2)
             {
                 formulaHolder = i_Worksheet.get_Range(excelRangeGenerator(r_FirstSheetColumn, r_FirstSheetRow + i, r_FirstSheetColumn, r_FirstSheetRow + i));
-                formulaHolder.Formula = string.Format(@"=COUNTIF({0},""*"")",
+                formulaHolder.Formula = string.Format(
+                    @"=COUNTIF({0},""*"")",
                     excelRangeGenerator(r_FirstSheetColumn + 1, r_FirstSheetRow + i, r_LastSheetColumn, r_FirstSheetRow + i));
                 formulaHolder.Interior.Color = XlRgbColor.rgbLightGoldenrodYellow;
             }

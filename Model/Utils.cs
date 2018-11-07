@@ -20,7 +20,7 @@ namespace Model
 
         public enum eMonths
         {
-            JANUARY=1,
+            JANUARY = 1,
             FEBRUARY,
             MARCH,
             APRIL,

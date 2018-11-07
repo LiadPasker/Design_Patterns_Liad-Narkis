@@ -13,14 +13,16 @@ namespace View
     public partial class ProfileViewerComponent : UserControl
     {
         private Model.Control m_AppControl;
-        public string ShowedUserProfilePictureURL { get; set; } = null;
         private Utils.eUserProfile eUserType;
+
+        public string ShowedUserProfilePictureURL { get; set; } = null;
 
         public ProfileViewerComponent()
         {
             InitializeComponent();
         }
-        public void populate(Model.Control i_AppControl, Utils.eUserProfile i_UserType)
+
+        public void Populate(Model.Control i_AppControl, Utils.eUserProfile i_UserType)
         {
             eUserType = i_UserType;
             m_AppControl = i_AppControl;
@@ -28,8 +30,10 @@ namespace View
             {
                 m_ComponentPictureBoxProfilePic.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.user.png", 165, 165);
             }
-            DesktopFacebook.initializeButtonTextBoxRelationship(m_ComponentTextBoxPostOnWall, m_ComponentButtonPostOnWall);
+
+            DesktopFacebook.InitializeButtonTextBoxRelationship(m_ComponentTextBoxPostOnWall, m_ComponentButtonPostOnWall);
         }
+
         public void ShowProfilePicture()
         {
             if (ShowedUserProfilePictureURL != null)
@@ -37,6 +41,7 @@ namespace View
                 m_ComponentPictureBoxProfilePic.LoadAsync(ShowedUserProfilePictureURL);
             }
         }
+
         public void InitializeProfileViewer()
         {
             m_ComponentTextBoxUserInfo.Enabled = true;
@@ -47,37 +52,42 @@ namespace View
             m_ComponentDataGridViewUpcomingEvents.Invoke(new Action(initializeUserUpcomingEvents));
             TextBoxFeedAge_TextChanged(m_ComponentTextBoxFeedAge, null);
         }
+
         private void initializeUserUpcomingEvents()
         {
             try
             {
                 m_ComponentBindingSourceUpcomingEvents.DataSource = m_AppControl.GetUserUpcomingEvents(eUserType);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 DesktopFacebook.showFacebookServerErrorMessege();
             }
         }
+
         private void initializeUserRecentFeed()
         {
             try
             {
                 m_ComponentBindingSourceFeed.DataSource = m_AppControl.getFeed(eUserType, DesktopFacebook.PostsAgeInMonths);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 DesktopFacebook.showFacebookServerErrorMessege();
             }
         }
+
         private void TextBoxFeedAge_TextChanged(object sender, EventArgs e)
         {
             if (m_ComponentTextBoxFeedAge.Text == string.Empty)
             {
                 m_ComponentTextBoxFeedAge.Text = DesktopFacebook.PostsAgeInMonths.ToString();
             }
+
             DesktopFacebook.ValidatePostsAgeCheckBoxAndExecute(m_ComponentTextBoxFeedAge);
             m_ComponentDataGridViewRecentFeed.Invoke(new Action(initializeUserRecentFeed));
         }
+
         private void ButtonPostOnWall_Click(object sender, EventArgs e)
         {
             try
@@ -89,12 +99,10 @@ namespace View
                 MessageBox.Show(exception.Message);
             }
         }
+
         private void TextBoxPostOnWall_Click(object sender, EventArgs e)
         {
-
             DesktopFacebook.ChangeButtonByTextBoxClick(m_ComponentTextBoxPostOnWall, m_ComponentButtonPostOnWall);
-
-
         }
     }
 }

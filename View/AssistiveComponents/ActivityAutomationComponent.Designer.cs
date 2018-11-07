@@ -2,7 +2,7 @@
 
 namespace View
 {
-    partial class ActivityAutomationComponent
+    public partial class ActivityAutomationComponent
     {
         /// <summary> 
         /// Required designer variable.
@@ -19,6 +19,7 @@ namespace View
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
