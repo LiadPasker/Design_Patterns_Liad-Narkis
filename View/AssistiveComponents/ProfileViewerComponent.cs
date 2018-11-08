@@ -59,9 +59,9 @@ namespace View
             {
                 m_ComponentBindingSourceUpcomingEvents.DataSource = m_AppControl.GetUserUpcomingEvents(eUserType);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                DesktopFacebook.showFacebookServerErrorMessege();
+                MessageBox.Show(e.Message);
             }
         }
 

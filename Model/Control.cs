@@ -217,7 +217,7 @@ currUser?.About);
             }
             catch (Exception)
             {
-                throw;
+                throw new Exception("Facebook Error: Couldn't fetch events");
             }
 
             return userEvents;
@@ -324,7 +324,7 @@ currUser?.About);
                     }
                     catch (Exception)
                     {
-                        throw;
+                        throw new Exception("Excel Loading Failed!");
                     }
 
                     break;
@@ -333,14 +333,37 @@ currUser?.About);
 
         private DataTable initializeCalenderTable(string i_TableName)
         {
+            int numOfDaysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+            string[] events;
+            string[] birthdays;
+            try
+            {
+                events = getEventsCalendarically(numOfDaysInCurrentMonth);
+            }
+            catch (Exception)
+            {
+                events = null;
+            }
+
+            try
+            {
+                birthdays = getBirthdaysCalendarically(numOfDaysInCurrentMonth);
+            }
+            catch (Exception)
+            {
+                birthdays = null;
+            }
+
+            return buildDataTable(i_TableName, numOfDaysInCurrentMonth, birthdays, events);
+        }
+
+        private DataTable buildDataTable(string i_TableName, int numOfDaysInCurrentMonth, string[] birthdays, string[] events)
+        {
             DataTable userHighLights = new DataTable(i_TableName);
             DateTime monthDay = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1); // initializes to the first day of the current month
             DataRow dayRow = userHighLights.NewRow();
             DataRow occasionRow = userHighLights.NewRow();
-            int numOfDaysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
             string day = monthDay.DayOfWeek.ToString();
-            string[] birthdays = getBirthdaysCalendarically(numOfDaysInCurrentMonth);
-            string[] events = getEventsCalendarically(numOfDaysInCurrentMonth);
 
             for (int days = (int)DayOfWeek.Sunday; days <= (int)DayOfWeek.Saturday; days++)
             {
@@ -350,9 +373,9 @@ currUser?.About);
             for (int i = 1; i <= numOfDaysInCurrentMonth; i++)
             {
                 dayRow[day] = i;
-                if (birthdays[i - 1] != null || events[i - 1] != null)
+                if (birthdays?[i - 1] != null || events?[i - 1] != null)
                 {
-                    occasionRow[day] = string.Format("{0}\n{1}", birthdays[i - 1], events[i - 1]);
+                    occasionRow[day] = string.Format("{0}\n{1}", birthdays?[i - 1], events?[i - 1]);
                 }
 
                 if (day == DayOfWeek.Saturday.ToString() || i == DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month))
