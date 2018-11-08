@@ -686,8 +686,10 @@
             this.Controls.Add(this.m_TabsControl);
             this.Controls.Add(this.m_Button_LogOut);
             this.Cursor = System.Windows.Forms.Cursors.Default;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "DesktopFacebook";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Shown += new System.EventHandler(this.DesktopFacebook_Shown);
             this.m_TabPageMyAlbums.ResumeLayout(false);
