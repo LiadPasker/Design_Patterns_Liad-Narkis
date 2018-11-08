@@ -7,9 +7,13 @@ using System.Text;
 using Microsoft.Office.Interop;
 using Microsoft.Office.Interop.Excel;
 
+/*
+ IMPORTANT NOTICE:
+ This class requires 'Microsoft.Office.Interop' reference which is under 'Office Developer Tools For Visual Studio' package.
+*/
 namespace Model
 {
-    public class OfficeManager
+    public class OfficeManager 
     {
         private readonly int r_FirstSheetRow = 1;
         private readonly int r_LastSheetRow = 11;

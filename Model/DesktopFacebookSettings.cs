@@ -8,8 +8,6 @@ namespace Model
 {
     public class DesktopFacebookSettings
 	{
-        // private AppSettings() {}
-        // private DesktopFacebookSettings FormSettings { get; set; } = null;
         public string LastAccessToken { get; set; } = string.Empty;
 
         public Point Location { get; set; } = new Point(10, 10);
