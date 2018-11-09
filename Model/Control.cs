@@ -13,10 +13,11 @@ namespace Model
     public class Control
     {
         private readonly int r_WishesNumber = 5;
-        private DesktopFacebookSettings m_DFSetting;
         private UserAlbumsManager m_UserAlbumManager;
         private User m_CurrentUserFriend = null;
         private List<string> m_WishList;
+
+        public DesktopFacebookSettings DFSetting { get; private set; }
 
         public FacebookAuthentication FacebookAuth { get; private set; }
 
@@ -29,30 +30,36 @@ namespace Model
 
         public Control()
         {
-            m_DFSetting = new DesktopFacebookSettings();
+            DFSetting = new DesktopFacebookSettings();
             FacebookAuth = new FacebookAuthentication();
             m_UserAlbumManager = new UserAlbumsManager();
         }
 
         public void Login()
         {
-            if (CheckIfLoggedIn())
+            if (CheckIfLoggedIn() && DFSetting.KeepSignedIn)
             {
-                FacebookAuth.AutoLogin(m_DFSetting.LastAccessToken);
+                FacebookAuth.AutoLogin(DFSetting.LastAccessToken);
             }
             else
             {
-                m_DFSetting.LastAccessToken = FacebookAuth.Login();
-                if (m_DFSetting.KeepSignedIn)
+                DFSetting.LastAccessToken = FacebookAuth.Login();
+                if (DFSetting.KeepSignedIn)
                 {
-                    m_DFSetting.SaveAppSettings();
+                    DFSetting.SaveAppSettings();
                 }
             }
         }
 
+        public void SaveCurrentState()
+        {
+            DFSetting.SaveAppSettings();
+        }
+
         public bool CheckIfLoggedIn()
         {
-            return m_DFSetting.LoadAppSettings() != null && m_DFSetting.LoadAppSettings().LastAccessToken != string.Empty;
+            DFSetting = DFSetting.LoadAppSettings();
+            return DFSetting != null && DFSetting.LastAccessToken != string.Empty;
         }
 
         public void PostStatus(Utils.eUserProfile i_UserType, string i_TextToPost, List<TagInfo> i_UserTags = null, Checkin i_CheckIn = null) // not finished: tags, checkin

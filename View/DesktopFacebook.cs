@@ -51,6 +51,7 @@ namespace View
         public DesktopFacebook()
         {
             InitializeComponent();
+            Text = "DesktopFacebook";
             r_AppControl = new Model.Control();
             m_TemporaryViewController = new System.Windows.Forms.Timer();
             m_TemporaryViewController.Interval = r_ViewControllerInterval;
@@ -71,7 +72,7 @@ namespace View
             initializeUserProfilePicture();
         }
 
-        private void DesktopFacebook_Shown(object sender, EventArgs e) // not finished
+        private void DesktopFacebook_Shown(object sender, EventArgs e)
         {
             try
             {
@@ -99,6 +100,7 @@ namespace View
         private void ButtonLogOut_Click(object sender, EventArgs e) // needs to be changed
         {
             FacebookService.Logout(null);
+            r_AppControl.DFSetting.KeepSignedIn = false;
             Close();
         }
 
@@ -180,6 +182,12 @@ namespace View
                 m_LabelFeaturesAd.Visible = false;
                 m_LabelHomeButtonAd.Visible = false;
             }
+        }
+
+        private void ButtonQuit_Click(object sender, EventArgs e)
+        {
+            r_AppControl.SaveCurrentState();
+            Close();
         }
 
         /////////////////////////////// MyAlbum Tab //////////////////////////////

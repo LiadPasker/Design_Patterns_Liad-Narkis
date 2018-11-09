@@ -81,7 +81,7 @@
             this.m_PictureBoxGoToMainTab = new System.Windows.Forms.PictureBox();
             this.m_BindingSourceFriendFeed = new System.Windows.Forms.BindingSource(this.components);
             this.m_BindingSourceUpcomingEvents = new System.Windows.Forms.BindingSource(this.components);
-            this.button1 = new System.Windows.Forms.Button();
+            this.m_ButtonQuit = new System.Windows.Forms.Button();
             this.m_LabelHomeButtonAd = new System.Windows.Forms.Label();
             this.m_TabPageMyAlbums.SuspendLayout();
             this.m_TabsControl.SuspendLayout();
@@ -654,14 +654,15 @@
             // 
             this.m_BindingSourceUpcomingEvents.DataSource = typeof(FacebookWrapper.ObjectModel.Event);
             // 
-            // button1
+            // m_ButtonQuit
             // 
-            this.button1.Location = new System.Drawing.Point(757, 630);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 36);
-            this.button1.TabIndex = 21;
-            this.button1.Text = "Quit";
-            this.button1.UseVisualStyleBackColor = true;
+            this.m_ButtonQuit.Location = new System.Drawing.Point(757, 630);
+            this.m_ButtonQuit.Name = "m_ButtonQuit";
+            this.m_ButtonQuit.Size = new System.Drawing.Size(94, 36);
+            this.m_ButtonQuit.TabIndex = 21;
+            this.m_ButtonQuit.Text = "Quit";
+            this.m_ButtonQuit.UseVisualStyleBackColor = true;
+            this.m_ButtonQuit.Click += new System.EventHandler(this.ButtonQuit_Click);
             // 
             // m_LabelHomeButtonAd
             // 
@@ -681,7 +682,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(959, 670);
             this.Controls.Add(this.m_LabelHomeButtonAd);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.m_ButtonQuit);
             this.Controls.Add(this.m_PictureBoxGoToMainTab);
             this.Controls.Add(this.m_TabsControl);
             this.Controls.Add(this.m_Button_LogOut);
@@ -766,7 +767,7 @@
         private System.Windows.Forms.PictureBox m_PictureBoxExcelExport;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button m_ButtonQuit;
         private System.Windows.Forms.Label m_LabelFeaturesAd;
         private System.Windows.Forms.Button m_ButtonAutomateYourActivity;
         private System.Windows.Forms.Label m_LabelHomeButtonAd;

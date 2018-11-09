@@ -100,7 +100,7 @@ namespace Model
             return string.Format("{0}{1}:{2}{3}", (char)('A' + i_ColumnsFrom - 1), i_RowFrom, (char)('A' + i_ColumnTo - 1), i_RowTo);
         }
 
-        private bool DecideFileVisibilityByFilePathGiven(Microsoft.Office.Interop.Excel._Worksheet i_CurrentWorkSheet, string i_FilePath)
+        private bool DecideFileVisibilityByFilePathGiven(_Worksheet i_CurrentWorkSheet, string i_FilePath)
         {
             bool isSaved = false;
 

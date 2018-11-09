@@ -8,11 +8,13 @@ namespace Model
 {
     public class DesktopFacebookSettings
 	{
+        public static DesktopFacebookSettings Settings { get; private set; }
+
         public string LastAccessToken { get; set; } = string.Empty;
 
         public Point Location { get; set; } = new Point(10, 10);
 
-        public bool KeepSignedIn { get; set; } = false;
+        public bool KeepSignedIn { get; set; } = true;
 
         // export old settings
         public DesktopFacebookSettings LoadAppSettings()
