@@ -398,5 +398,15 @@ namespace View
             m_TabsControl.SelectTab(m_TabPageAutomateActivity);
             m_ActivityAutomation.Populate(r_AppControl);
         }
+
+        private void m_ButtonQuit_MouseEnter(object sender, EventArgs e)
+        {
+            m_LabelQuitMessage.Visible = true;
+        }
+
+        private void m_ButtonQuit_MouseLeave(object sender, EventArgs e)
+        {
+            m_LabelQuitMessage.Visible = false;
+        }
     }
 }
