@@ -336,7 +336,7 @@ currUser?.About);
             m_WishList.Add("May you be gifted with life’s biggest joys and never-ending bliss. \nAfter all, you yourself are a gift to earth, so you deserve the best. \nHappy birthday");
         }
 
-        public void ExportData(Utils.eFileType i_FileType, string i_FilePath = null)
+        public void ExportData(Utils.eFileType i_FileType, string i_FilePath = null) // at the moment, only excel export allowed
         {
             if (OfficeManager == null)
             {
