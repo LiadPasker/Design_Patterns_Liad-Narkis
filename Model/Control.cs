@@ -298,6 +298,16 @@ currUser?.About);
             return m_WishList[rand.Next(r_WishesNumber)];
         }
 
+        public bool isValidHour(string i_StrHourToCheck)
+        {
+            return Regex.IsMatch(i_StrHourToCheck, @"^([0-1][0-9]|[2][0-3])$");
+        }
+
+        public bool isValidMinute(string i_MinuteToCheck)
+        {
+            return Regex.IsMatch(i_MinuteToCheck, @"^([0-5][0-9])$");
+        }
+
         private void initializeWishList()
         {
             m_WishList.Add("Count your life by smiles, not tears. \nCount your age by friends, not years.\nHappy birthday!");

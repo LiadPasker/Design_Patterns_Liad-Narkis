@@ -47,6 +47,7 @@ namespace View
             this.m_CheckBoxActionPageCheckIn = new System.Windows.Forms.CheckBox();
             this.m_CheckBoxActionPagePost = new System.Windows.Forms.CheckBox();
             this.m_TabPageSummary = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
             this.m_PictureBoxPost = new System.Windows.Forms.PictureBox();
             this.m_PictureBoxCheckIn = new System.Windows.Forms.PictureBox();
             this.m_TextBoxSummaryCheckIn = new System.Windows.Forms.TextBox();
@@ -60,7 +61,6 @@ namespace View
             this.label6 = new System.Windows.Forms.Label();
             this.m_TextBoxScheduleStatus = new System.Windows.Forms.TextBox();
             this.m_ButtonAbort = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
             this.m_TabControlAutomationActivity.SuspendLayout();
             this.m_TabPagePickTime.SuspendLayout();
             this.m_TabPageActions.SuspendLayout();
@@ -125,7 +125,7 @@ namespace View
             this.m_ComboBoxPickHour.Name = "m_ComboBoxPickHour";
             this.m_ComboBoxPickHour.Size = new System.Drawing.Size(78, 28);
             this.m_ComboBoxPickHour.TabIndex = 3;
-            this.m_ComboBoxPickHour.SelectedIndexChanged += new System.EventHandler(this.ComboBoxPickHour_SelectedIndexChanged);
+            this.m_ComboBoxPickHour.TextChanged += new System.EventHandler(this.m_ComboBoxPickHour_TextChanged);
             // 
             // m_ComboBoxPickMinute
             // 
@@ -135,7 +135,7 @@ namespace View
             this.m_ComboBoxPickMinute.Name = "m_ComboBoxPickMinute";
             this.m_ComboBoxPickMinute.Size = new System.Drawing.Size(78, 28);
             this.m_ComboBoxPickMinute.TabIndex = 3;
-            this.m_ComboBoxPickMinute.SelectedIndexChanged += new System.EventHandler(this.ComboBoxPickMinute_SelectedIndexChanged);
+            this.m_ComboBoxPickMinute.TextChanged += new System.EventHandler(this.m_ComboBoxPickMinute_TextChanged);
             // 
             // label3
             // 
@@ -252,6 +252,17 @@ namespace View
             this.m_TabPageSummary.Size = new System.Drawing.Size(718, 475);
             this.m_TabPageSummary.TabIndex = 2;
             this.m_TabPageSummary.Text = "Summary";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label7.Location = new System.Drawing.Point(17, 401);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(430, 60);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "Notice:\r\nAny changes you\'ll make followed with setting another timer,\r\nwill cause" +
+    " a complete loss of the old one (if was).";
             // 
             // m_PictureBoxPost
             // 
@@ -384,18 +395,7 @@ namespace View
             this.m_ButtonAbort.UseVisualStyleBackColor = false;
             this.m_ButtonAbort.Click += new System.EventHandler(this.ButtonAbort_Click);
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label7.Location = new System.Drawing.Point(17, 401);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(430, 60);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "Notice:\r\nAny changes you\'ll make followed with setting another timer,\r\nwill cause" +
-    " a complete loss of the old one (if was).";
-            // 
-            // ActivityAutomation
+            // ActivityAutomationComponent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -409,7 +409,7 @@ namespace View
             this.Controls.Add(this.label1);
             this.Controls.Add(this.m_TextBoxScheduleStatus);
             this.Controls.Add(this.m_TextBoxScheduledTime);
-            this.Name = "ActivityAutomation";
+            this.Name = "ActivityAutomationComponent";
             this.Size = new System.Drawing.Size(729, 570);
             this.m_TabControlAutomationActivity.ResumeLayout(false);
             this.m_TabPagePickTime.ResumeLayout(false);

@@ -38,12 +38,16 @@ namespace View
             try
             {
                 postData();
-                m_ButtonAbort.Enabled = false;
-                m_ButtonSummaryPagePost.Enabled = true;
             }
             catch (Exception)
             {
                 DesktopFacebook.showFacebookServerErrorMessege();
+            }
+            finally
+            {
+                m_ButtonAbort.Enabled = false;
+                m_ButtonSummaryPagePost.Enabled = true;
+                ButtonAbort_Click(null, null);
             }
         }
 
@@ -92,23 +96,21 @@ namespace View
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
-            m_SchduledTo = e.Start;
-        }
-
-        private void ComboBoxPickHour_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            m_SchduledTo = m_SchduledTo.AddHours(m_ComboBoxPickHour.SelectedIndex - m_SchduledTo.Hour);
-        }
-
-        private void ComboBoxPickMinute_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            m_SchduledTo = m_SchduledTo.AddMinutes(m_ComboBoxPickMinute.SelectedIndex - m_SchduledTo.Minute);
+            if (e.Start.Day < DateTime.Now.Day)
+            {
+                MessageBox.Show("Invalid Day. Picked Day Will Be Set For Today!");
+                m_SchduledTo = DateTime.Today;
+            }
+            else
+            {
+                m_SchduledTo = e.Start;
+            }
         }
 
         private void ButtonGoToActionsTabPage_Click(object sender, EventArgs e)
         {
-            ComboBoxPickHour_SelectedIndexChanged(null, null);
-            ComboBoxPickMinute_SelectedIndexChanged(null, null);
+            m_ComboBoxPickHour_TextChanged(null, null);
+            m_ComboBoxPickMinute_TextChanged(null, null);
             m_TextBoxScheduledTime.Text = m_SchduledTo.ToString();
             m_TabControlAutomationActivity.SelectTab(m_TabPageActions);
         }
@@ -197,6 +199,7 @@ namespace View
             if (DateTime.Now > m_SchduledTo) 
             {
                 m_SchduledTo = m_SchduledTo.AddDays(1);
+                MessageBox.Show("Notice That The Time Your Picked Is For Tommorow!");
             }
 
             int TimeToExecuteInMilliSeconds = (int)(m_SchduledTo - DateTime.Now).TotalMilliseconds;
@@ -228,10 +231,38 @@ namespace View
 
         private void zeroizeControllers()
         {
-            m_CheckBoxScheduleCheckIn.Checked = m_CheckBoxSchedulePost.Checked = m_ButtonAbort.Enabled = false;
-            m_TextBoxScheduledTime.Text = string.Empty;
+            m_CheckBoxActionPagePost.Checked = m_CheckBoxScheduleCheckIn.Checked = m_CheckBoxSchedulePost.Checked = m_ButtonAbort.Enabled = false;
+            m_ButtonSummaryPagePost.Enabled = m_ButtonGoToSummaryTabPage.Enabled = false;
+            m_TextBoxScheduledTime.Text = m_TextBoxSummaryPost.Text = string.Empty;
+            m_TextBoxActionPagePost.Text = m_TextBoxActionPagePost.Tag.ToString();
             SetScheduledStatus(false);
             m_PostTimer = null;
+        }
+
+        private void m_ComboBoxPickHour_TextChanged(object sender, EventArgs e)
+        {
+            if (m_AppControl.isValidHour(m_ComboBoxPickHour.Text))
+            {
+                m_SchduledTo = m_SchduledTo.AddHours(m_ComboBoxPickHour.SelectedIndex - m_SchduledTo.Hour);
+            }
+            else
+            {
+                MessageBox.Show("Invalid Hour");
+                m_ComboBoxPickHour.SelectedIndex = 0;
+            }
+        }
+
+        private void m_ComboBoxPickMinute_TextChanged(object sender, EventArgs e)
+        {
+            if (m_AppControl.isValidMinute(m_ComboBoxPickMinute.Text))
+            {
+                m_SchduledTo = m_SchduledTo.AddMinutes(m_ComboBoxPickMinute.SelectedIndex - m_SchduledTo.Minute);
+            }
+            else
+            {
+                MessageBox.Show("Invalid Minute");
+                m_ComboBoxPickMinute.SelectedIndex = 0;
+            }
         }
     }
 }
