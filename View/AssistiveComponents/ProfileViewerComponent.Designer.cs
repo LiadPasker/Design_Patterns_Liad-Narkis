@@ -257,8 +257,8 @@
             this.m_ComponentTextBoxPostOnWall.Name = "m_ComponentTextBoxPostOnWall";
             this.m_ComponentTextBoxPostOnWall.Size = new System.Drawing.Size(232, 134);
             this.m_ComponentTextBoxPostOnWall.TabIndex = 12;
-            this.m_ComponentTextBoxPostOnWall.Tag = "It\'s rude not to say anything...";
-            this.m_ComponentTextBoxPostOnWall.Text = "It\'s rude not to say anything...";
+            this.m_ComponentTextBoxPostOnWall.Tag = "Don\'t you want to say anything?";
+            this.m_ComponentTextBoxPostOnWall.Text = "Don\'t you want to say anything?";
             this.m_ComponentTextBoxPostOnWall.Click += new System.EventHandler(this.TextBoxPostOnWall_Click);
             // 
             // m_ComponentTextBoxUserInfo

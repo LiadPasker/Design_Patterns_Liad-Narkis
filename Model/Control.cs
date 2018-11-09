@@ -259,10 +259,16 @@ currUser?.About);
             List<User> birthdaysList = new List<User>();
             foreach (User friend in i_SortedByBirthdayFriendsList)
             {
-                DateTime userBirthday = DateTime.ParseExact(friend.Birthday, "MM/dd/yyyy", null);
-                if (userBirthday > now)
+                try
                 {
-                    birthdaysList.Add(friend);
+                    DateTime userBirthday = DateTime.ParseExact(friend?.Birthday, "MM/dd/yyyy", null);
+                    if (userBirthday.AddYears(DateTime.Now.Year - userBirthday.Year) > now)
+                    { // checks only by month & day
+                        birthdaysList.Add(friend);
+                    }
+                }
+                catch (Exception)
+                {
                 }
             }
 
@@ -271,11 +277,24 @@ currUser?.About);
 
         public bool isOccasionSoon(string i_Occasion, int i_HowFarInMonths, bool isBirthday = false)
         {
+            DateTime occasion;
             bool isSoon = false;
-            DateTime occasion = DateTime.ParseExact(i_Occasion, "MM/dd/yyyy", null);
+            try
+            {
+                occasion = DateTime.ParseExact(i_Occasion, "MM/dd/yyyy", null);
+            }
+            catch(Exception)
+            {
+                throw new Exception("Couldn't Find The Exact Date");
+            }
+
             if (isBirthday)
             {
-                occasion = occasion.AddYears(DateTime.Now.Year - occasion.Year + 1);
+                occasion = occasion.AddYears(DateTime.Now.Year - occasion.Year);
+                if (occasion < DateTime.Now)
+                {
+                    occasion = occasion.AddYears(1);
+                }
             }
 
             if (occasion <= DateTime.Now.AddMonths(Math.Abs(i_HowFarInMonths)) && occasion >= DateTime.Now)

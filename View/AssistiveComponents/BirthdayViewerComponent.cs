@@ -68,9 +68,9 @@ namespace View
                     FriendsToShow = m_AppControl.RemoveFriendsThatAlreadyHadBirthdays(FriendsToShow);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                DesktopFacebook.showFacebookServerErrorMessege();
+                MessageBox.Show(e.Message);
             }
 
             m_DataGridViewBirthdays.MultiSelect = false;
@@ -87,7 +87,7 @@ namespace View
             if (m_DataGridViewBirthdays.RowCount != 0)
             {
                 m_PictureBoxProfilePicture.Visible = true;
-                m_PictureBoxProfilePicture.LoadAsync(FriendsToShow[m_CurrentShowFriendIndex].PictureLargeURL);
+                m_PictureBoxProfilePicture.LoadAsync(FriendsToShow?[m_CurrentShowFriendIndex]?.PictureLargeURL);
             }
         }
 
@@ -104,8 +104,6 @@ namespace View
                 m_CurrentShowFriendIndex = m_DataGridViewBirthdays.SelectedRows[0].Index;
                 handleBirthdays(m_DataGridViewBirthdays.SelectedRows[0]);
             }
-
-            showBirthdaySoonGraphics();
         }
 
         private void zeroizeControllers()
@@ -120,9 +118,17 @@ namespace View
             m_TextBoxPost.Enabled = true;
             showFriendProfilePicture();
             DesktopFacebook.InitializeButtonTextBoxRelationship(m_TextBoxPost, m_ButtonPost);
-            if (m_AppControl.isOccasionSoon((string)i_Row.Cells[r_BirthdayCoulmnNumber].Value, r_HowFarInMonths, true))
+            try
             {
-                m_ButtonGenerateWish.Enabled = true;
+                if (m_AppControl.isOccasionSoon((string)i_Row.Cells[r_BirthdayCoulmnNumber].Value, r_HowFarInMonths, true))
+                {
+                    showBirthdaySoonGraphics(); // Show graphics For Any Birthday For Demonstration
+                    m_ButtonGenerateWish.Enabled = true;
+                }
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
 
