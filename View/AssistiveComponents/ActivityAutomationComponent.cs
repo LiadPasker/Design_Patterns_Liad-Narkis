@@ -94,7 +94,7 @@ namespace View
             m_ComboBoxPickHour.SelectedIndex = 0;
         }
 
-        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        private void monthCalendar_DateChanged(object sender, DateRangeEventArgs e)
         {
             if (e.Start.Day < DateTime.Now.Day)
             {

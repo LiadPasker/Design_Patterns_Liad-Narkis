@@ -163,7 +163,7 @@ namespace View
             this.m_MonthCalendarScheduleDatePicker.Location = new System.Drawing.Point(197, 83);
             this.m_MonthCalendarScheduleDatePicker.Name = "m_MonthCalendarScheduleDatePicker";
             this.m_MonthCalendarScheduleDatePicker.TabIndex = 0;
-            this.m_MonthCalendarScheduleDatePicker.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
+            this.m_MonthCalendarScheduleDatePicker.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar_DateChanged);
             // 
             // m_TabPageActions
             // 
