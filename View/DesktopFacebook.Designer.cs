@@ -61,10 +61,13 @@
             this.m_TextBoxPostMonthOld = new System.Windows.Forms.TextBox();
             this.m_FeedTextBox = new System.Windows.Forms.TextBox();
             this.m_TabPageFriendsInfo = new System.Windows.Forms.TabPage();
+            this.m_FriendProfileViewComponent = new View.ProfileViewerComponent();
             this.m_ButtonSearchFriend = new System.Windows.Forms.Button();
             this.m_TextBoxSearchFriend = new System.Windows.Forms.TextBox();
             this.m_TabPageMyProfile = new System.Windows.Forms.TabPage();
+            this.m_MyProfileViewComponent = new View.ProfileViewerComponent();
             this.m_TabPageBirthdayTracker = new System.Windows.Forms.TabPage();
+            this.m_BirthdayViewerComponent = new View.BirthdayViewerComponent();
             this.m_TabPageExport = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -74,17 +77,14 @@
             this.m_ButtonCancelExport = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.m_TabPageAutomateActivity = new System.Windows.Forms.TabPage();
-            this.m_Button_LogOut = new System.Windows.Forms.Button();
+            this.m_ActivityAutomation = new View.ActivityAutomationComponent();
+            this.m_Button_Logout = new System.Windows.Forms.Button();
             this.m_PictureBoxGoToMainTab = new System.Windows.Forms.PictureBox();
             this.m_BindingSourceFriendFeed = new System.Windows.Forms.BindingSource(this.components);
             this.m_BindingSourceUpcomingEvents = new System.Windows.Forms.BindingSource(this.components);
             this.m_ButtonQuit = new System.Windows.Forms.Button();
             this.m_LabelHomeButtonAd = new System.Windows.Forms.Label();
             this.m_CheckBoxRememberUser = new System.Windows.Forms.CheckBox();
-            this.m_FriendProfileViewComponent = new View.ProfileViewerComponent();
-            this.m_MyProfileViewComponent = new View.ProfileViewerComponent();
-            this.m_BirthdayViewerComponent = new View.BirthdayViewerComponent();
-            this.m_ActivityAutomation = new View.ActivityAutomationComponent();
             this.m_TabPageMyAlbums.SuspendLayout();
             this.m_TabsControl.SuspendLayout();
             this.m_TabPageMainWindow.SuspendLayout();
@@ -259,7 +259,7 @@
             this.m_LabelQuitMessage.AutoSize = true;
             this.m_LabelQuitMessage.BackColor = System.Drawing.Color.Gray;
             this.m_LabelQuitMessage.ForeColor = System.Drawing.Color.White;
-            this.m_LabelQuitMessage.Location = new System.Drawing.Point(634, 543);
+            this.m_LabelQuitMessage.Location = new System.Drawing.Point(634, 570);
             this.m_LabelQuitMessage.Name = "m_LabelQuitMessage";
             this.m_LabelQuitMessage.Size = new System.Drawing.Size(307, 40);
             this.m_LabelQuitMessage.TabIndex = 26;
@@ -469,6 +469,14 @@
             this.m_TabPageFriendsInfo.Text = "Friends";
             this.m_TabPageFriendsInfo.UseVisualStyleBackColor = true;
             // 
+            // m_FriendProfileViewComponent
+            // 
+            this.m_FriendProfileViewComponent.Location = new System.Drawing.Point(44, 86);
+            this.m_FriendProfileViewComponent.Name = "m_FriendProfileViewComponent";
+            this.m_FriendProfileViewComponent.ShowedUserProfilePictureURL = null;
+            this.m_FriendProfileViewComponent.Size = new System.Drawing.Size(870, 463);
+            this.m_FriendProfileViewComponent.TabIndex = 3;
+            // 
             // m_ButtonSearchFriend
             // 
             this.m_ButtonSearchFriend.BackColor = System.Drawing.Color.DarkBlue;
@@ -503,6 +511,14 @@
             this.m_TabPageMyProfile.Text = "My Profile";
             this.m_TabPageMyProfile.UseVisualStyleBackColor = true;
             // 
+            // m_MyProfileViewComponent
+            // 
+            this.m_MyProfileViewComponent.Location = new System.Drawing.Point(39, 62);
+            this.m_MyProfileViewComponent.Name = "m_MyProfileViewComponent";
+            this.m_MyProfileViewComponent.ShowedUserProfilePictureURL = null;
+            this.m_MyProfileViewComponent.Size = new System.Drawing.Size(870, 463);
+            this.m_MyProfileViewComponent.TabIndex = 0;
+            // 
             // m_TabPageBirthdayTracker
             // 
             this.m_TabPageBirthdayTracker.Controls.Add(this.m_BirthdayViewerComponent);
@@ -512,6 +528,14 @@
             this.m_TabPageBirthdayTracker.TabIndex = 5;
             this.m_TabPageBirthdayTracker.Text = "Birthdays";
             this.m_TabPageBirthdayTracker.UseVisualStyleBackColor = true;
+            // 
+            // m_BirthdayViewerComponent
+            // 
+            this.m_BirthdayViewerComponent.FriendsToShow = null;
+            this.m_BirthdayViewerComponent.Location = new System.Drawing.Point(201, 88);
+            this.m_BirthdayViewerComponent.Name = "m_BirthdayViewerComponent";
+            this.m_BirthdayViewerComponent.Size = new System.Drawing.Size(580, 376);
+            this.m_BirthdayViewerComponent.TabIndex = 0;
             // 
             // m_TabPageExport
             // 
@@ -567,7 +591,7 @@
             this.m_TextBoxExportFilePath.Name = "m_TextBoxExportFilePath";
             this.m_TextBoxExportFilePath.Size = new System.Drawing.Size(430, 26);
             this.m_TextBoxExportFilePath.TabIndex = 2;
-            this.m_TextBoxExportFilePath.Tag = string.Empty;
+            this.m_TextBoxExportFilePath.Tag = "";
             // 
             // m_ButtonExport
             // 
@@ -610,15 +634,23 @@
             this.m_TabPageAutomateActivity.Text = "AutomationActivity";
             this.m_TabPageAutomateActivity.UseVisualStyleBackColor = true;
             // 
-            // m_Button_LogOut
+            // m_ActivityAutomation
             // 
-            this.m_Button_LogOut.Location = new System.Drawing.Point(857, 629);
-            this.m_Button_LogOut.Name = "m_Button_LogOut";
-            this.m_Button_LogOut.Size = new System.Drawing.Size(94, 37);
-            this.m_Button_LogOut.TabIndex = 19;
-            this.m_Button_LogOut.Text = "Log Out";
-            this.m_Button_LogOut.UseVisualStyleBackColor = true;
-            this.m_Button_LogOut.Click += new System.EventHandler(this.ButtonLogOut_Click);
+            this.m_ActivityAutomation.BackColor = System.Drawing.Color.PowderBlue;
+            this.m_ActivityAutomation.Location = new System.Drawing.Point(108, 7);
+            this.m_ActivityAutomation.Name = "m_ActivityAutomation";
+            this.m_ActivityAutomation.Size = new System.Drawing.Size(729, 570);
+            this.m_ActivityAutomation.TabIndex = 0;
+            // 
+            // m_Button_Logout
+            // 
+            this.m_Button_Logout.Location = new System.Drawing.Point(857, 629);
+            this.m_Button_Logout.Name = "m_Button_Logout";
+            this.m_Button_Logout.Size = new System.Drawing.Size(94, 37);
+            this.m_Button_Logout.TabIndex = 19;
+            this.m_Button_Logout.Text = "Log Out";
+            this.m_Button_Logout.UseVisualStyleBackColor = true;
+            this.m_Button_Logout.Click += new System.EventHandler(this.ButtonLogOut_Click);
             // 
             // m_PictureBoxGoToMainTab
             // 
@@ -673,38 +705,6 @@
             this.m_CheckBoxRememberUser.UseVisualStyleBackColor = true;
             this.m_CheckBoxRememberUser.CheckedChanged += new System.EventHandler(this.CheckBoxRememberUser_CheckedChanged);
             // 
-            // m_FriendProfileViewComponent
-            // 
-            this.m_FriendProfileViewComponent.Location = new System.Drawing.Point(44, 86);
-            this.m_FriendProfileViewComponent.Name = "m_FriendProfileViewComponent";
-            this.m_FriendProfileViewComponent.ShowedUserProfilePictureURL = null;
-            this.m_FriendProfileViewComponent.Size = new System.Drawing.Size(870, 463);
-            this.m_FriendProfileViewComponent.TabIndex = 3;
-            // 
-            // m_MyProfileViewComponent
-            // 
-            this.m_MyProfileViewComponent.Location = new System.Drawing.Point(39, 62);
-            this.m_MyProfileViewComponent.Name = "m_MyProfileViewComponent";
-            this.m_MyProfileViewComponent.ShowedUserProfilePictureURL = null;
-            this.m_MyProfileViewComponent.Size = new System.Drawing.Size(870, 463);
-            this.m_MyProfileViewComponent.TabIndex = 0;
-            // 
-            // m_BirthdayViewerComponent
-            // 
-            this.m_BirthdayViewerComponent.FriendsToShow = null;
-            this.m_BirthdayViewerComponent.Location = new System.Drawing.Point(201, 88);
-            this.m_BirthdayViewerComponent.Name = "m_BirthdayViewerComponent";
-            this.m_BirthdayViewerComponent.Size = new System.Drawing.Size(580, 376);
-            this.m_BirthdayViewerComponent.TabIndex = 0;
-            // 
-            // m_ActivityAutomation
-            // 
-            this.m_ActivityAutomation.BackColor = System.Drawing.Color.PowderBlue;
-            this.m_ActivityAutomation.Location = new System.Drawing.Point(108, 7);
-            this.m_ActivityAutomation.Name = "m_ActivityAutomation";
-            this.m_ActivityAutomation.Size = new System.Drawing.Size(729, 570);
-            this.m_ActivityAutomation.TabIndex = 0;
-            // 
             // DesktopFacebook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -715,7 +715,7 @@
             this.Controls.Add(this.m_ButtonQuit);
             this.Controls.Add(this.m_PictureBoxGoToMainTab);
             this.Controls.Add(this.m_TabsControl);
-            this.Controls.Add(this.m_Button_LogOut);
+            this.Controls.Add(this.m_Button_Logout);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -723,6 +723,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DesktopFacebook_FormClosing);
+            this.Load += new System.EventHandler(this.DesktopFacebook_Load);
             this.Shown += new System.EventHandler(this.DesktopFacebook_Shown);
             this.m_TabPageMyAlbums.ResumeLayout(false);
             this.m_TabPageMyAlbums.PerformLayout();
@@ -757,7 +758,7 @@
         private System.Windows.Forms.Button m_ButtonPostStatus;
         private System.Windows.Forms.Button m_ButtonFeed;
         private System.Windows.Forms.Button m_Button_MyAlbums;
-        private System.Windows.Forms.Button m_Button_LogOut;
+        private System.Windows.Forms.Button m_Button_Logout;
         private System.Windows.Forms.PictureBox m_PictureBox_ProfilePicture;
         private System.Windows.Forms.TabPage m_TabPageMyAlbums;
         private System.Windows.Forms.ComboBox m_ComboBoxAlbums;

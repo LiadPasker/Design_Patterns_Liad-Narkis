@@ -84,11 +84,17 @@ namespace View
                 showFacebookServerErrorMessege("Login Failed");
             }
 
-            this.Location = r_AppControl.GetApplicationSettings().Location;
+            Location = r_AppControl.GetApplicationSettings().Location;
             initializeComponents();
             m_TemporaryViewController.Start();
             m_LogoPictureBox.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.desktop_facebook.png", 380, 150);
             m_PictureBoxGoToMainTab.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.home.png", 25, 25);
+        }
+
+        private void DesktopFacebook_Load(object sender, EventArgs e)
+        {
+            m_TabsControl.ItemSize = new Size(0, 1);
+            m_TabsControl.SizeMode = TabSizeMode.Fixed;
         }
 
         private void DesktopFacebook_FormClosing(object sender, FormClosingEventArgs e)
@@ -109,10 +115,13 @@ namespace View
 
         private void ButtonLogOut_Click(object sender, EventArgs e)
         {
-            FacebookService.Logout(null);
-            r_AppControl.GetApplicationSettings().KeepSignedIn = false;
-
-            Close();
+            DialogResult logout = MessageBox.Show("Are you sure you want to log out of your account?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (logout == DialogResult.Yes)
+            {
+                FacebookService.Logout(null);
+                r_AppControl.GetApplicationSettings().KeepSignedIn = false;
+                Close();
+            }
         }
 
         private void initializeButtonPictures()
@@ -197,7 +206,11 @@ namespace View
 
         private void ButtonQuit_Click(object sender, EventArgs e)
         {
-            Close();
+            DialogResult logout = MessageBox.Show("Are you sure you want to quit Desktop Facebook?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (logout == DialogResult.Yes)
+            {
+                Close();
+            }
         }
 
         private void CheckBoxRememberUser_CheckedChanged(object sender, EventArgs e)
