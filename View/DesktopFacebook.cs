@@ -70,6 +70,7 @@ namespace View
             initializeTabsBackground();
             initializeButtonPictures();
             initializeUserProfilePicture();
+            m_CheckBoxRememberUser.Checked = r_AppControl.GetApplicationSettings().KeepSignedIn ? true : false;
         }
 
         private void DesktopFacebook_Shown(object sender, EventArgs e)
@@ -83,10 +84,19 @@ namespace View
                 showFacebookServerErrorMessege("Login Failed");
             }
 
+            this.Location = r_AppControl.GetApplicationSettings().Location;
             initializeComponents();
             m_TemporaryViewController.Start();
             m_LogoPictureBox.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.desktop_facebook.png", 380, 150);
             m_PictureBoxGoToMainTab.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.home.png", 25, 25);
+        }
+
+        private void DesktopFacebook_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DesktopFacebookSettings settings = r_AppControl.GetApplicationSettings();
+            settings.Location = Location;
+            settings.LastAccessToken = settings.KeepSignedIn ? settings.LastAccessToken : string.Empty;
+            settings.SaveAppSettings();
         }
 
         private void initializeTabsBackground()
@@ -97,14 +107,15 @@ namespace View
             }
         }
 
-        private void ButtonLogOut_Click(object sender, EventArgs e) // needs to be changed
+        private void ButtonLogOut_Click(object sender, EventArgs e)
         {
             FacebookService.Logout(null);
-            r_AppControl.DFSetting.KeepSignedIn = false;
+            r_AppControl.GetApplicationSettings().KeepSignedIn = false;
+
             Close();
         }
 
-        private void initializeButtonPictures() // not finished
+        private void initializeButtonPictures()
         {
             m_ButtonPostStatus.BackgroundImage = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.postStatus.png", 40, 40);
             m_ButtonNextPage.BackgroundImage = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.next.png", 40, 40);
@@ -146,7 +157,7 @@ namespace View
             InitializeButtonTextBoxRelationship(m_TextBoxPostToMyWall, m_ButtonPostStatus);
         }
 
-        private void ButtonPostStatus_Click(object sender, EventArgs e)// tags? checkins?
+        private void ButtonPostStatus_Click(object sender, EventArgs e)
         {
             try
             {
@@ -186,8 +197,12 @@ namespace View
 
         private void ButtonQuit_Click(object sender, EventArgs e)
         {
-            r_AppControl.SaveCurrentState();
             Close();
+        }
+
+        private void CheckBoxRememberUser_CheckedChanged(object sender, EventArgs e)
+        {
+            r_AppControl.GetApplicationSettings().KeepSignedIn = m_CheckBoxRememberUser.Checked;
         }
 
         /////////////////////////////// MyAlbum Tab //////////////////////////////

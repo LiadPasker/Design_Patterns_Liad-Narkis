@@ -10,32 +10,35 @@ namespace Model
 	{
         public static DesktopFacebookSettings Settings { get; private set; }
 
+        private DesktopFacebookSettings()
+        {
+        }
+
         public string LastAccessToken { get; set; } = string.Empty;
 
-        public Point Location { get; set; } = new Point(10, 10);
+        public Point Location { get; set; } = new Point(100, 100);
 
-        public bool KeepSignedIn { get; set; } = true;
+        public bool KeepSignedIn { get; set; } = false;
 
         // export old settings
-        public DesktopFacebookSettings LoadAppSettings()
+        public static DesktopFacebookSettings LoadAppSettings()
         {
-            DesktopFacebookSettings formSettings;
-            string currentLocation = Environment.CurrentDirectory;
-            currentLocation += "\\appSettings.xml";
-            if (File.Exists(currentLocation) && new FileInfo(currentLocation).Length > 0)
+            if (Settings == null)
             {
-                using (Stream stream = new FileStream(currentLocation, FileMode.Open))
+                Settings = new DesktopFacebookSettings();
+                string currentLocation = Environment.CurrentDirectory;
+                currentLocation += "\\appSettings.xml";
+                if (File.Exists(currentLocation) && new FileInfo(currentLocation).Length > 0)
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(DesktopFacebookSettings));
-                    formSettings = serializer.Deserialize(stream) as DesktopFacebookSettings;
+                    using (Stream stream = new FileStream(currentLocation, FileMode.Open))
+                    {
+                        XmlSerializer serializer = new XmlSerializer(typeof(DesktopFacebookSettings));
+                        Settings = serializer.Deserialize(stream) as DesktopFacebookSettings;
+                    }
                 }
             }
-            else
-            {
-                formSettings = null;
-            }
 
-            return formSettings;
+            return Settings;
         }
 
         // import new settings

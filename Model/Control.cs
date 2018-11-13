@@ -17,8 +17,6 @@ namespace Model
         private User m_CurrentUserFriend = null;
         private List<string> m_WishList;
 
-        public DesktopFacebookSettings DFSetting { get; private set; }
-
         public FacebookAuthentication FacebookAuth { get; private set; }
 
         public OfficeManager OfficeManager { get; private set; } = null;
@@ -30,36 +28,27 @@ namespace Model
 
         public Control()
         {
-            DFSetting = new DesktopFacebookSettings();
             FacebookAuth = new FacebookAuthentication();
             m_UserAlbumManager = new UserAlbumsManager();
         }
 
         public void Login()
         {
-            if (CheckIfLoggedIn() && DFSetting.KeepSignedIn)
+            DesktopFacebookSettings appSettings = DesktopFacebookSettings.LoadAppSettings();
+
+            if (appSettings.KeepSignedIn == false)
             {
-                FacebookAuth.AutoLogin(DFSetting.LastAccessToken);
+                DesktopFacebookSettings.Settings.LastAccessToken = FacebookAuth.Login();
             }
             else
             {
-                DFSetting.LastAccessToken = FacebookAuth.Login();
-                if (DFSetting.KeepSignedIn)
-                {
-                    DFSetting.SaveAppSettings();
-                }
+                FacebookAuth.AutoLogin(appSettings.LastAccessToken);
             }
         }
 
-        public void SaveCurrentState()
+        public DesktopFacebookSettings GetApplicationSettings()
         {
-            DFSetting.SaveAppSettings();
-        }
-
-        public bool CheckIfLoggedIn()
-        {
-            DFSetting = DFSetting.LoadAppSettings();
-            return DFSetting != null && DFSetting.LastAccessToken != string.Empty;
+            return DesktopFacebookSettings.Settings;
         }
 
         public void PostStatus(Utils.eUserProfile i_UserType, string i_TextToPost, List<TagInfo> i_UserTags = null, Checkin i_CheckIn = null) // not finished: tags, checkin
