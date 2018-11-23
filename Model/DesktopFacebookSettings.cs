@@ -10,6 +10,8 @@ namespace Model
 	{
         public static DesktopFacebookSettings Settings { get; private set; }
 
+        private static readonly object rs_ThreadContext = new object();
+
         private DesktopFacebookSettings()
         {
         }
@@ -24,16 +26,22 @@ namespace Model
         public static DesktopFacebookSettings LoadAppSettings()
         {
             if (Settings == null)
-            {
-                Settings = new DesktopFacebookSettings();
-                string currentLocation = Environment.CurrentDirectory;
-                currentLocation += "\\appSettings.xml";
-                if (File.Exists(currentLocation) && new FileInfo(currentLocation).Length > 0)
+            { // double check lock
+                lock (rs_ThreadContext)
                 {
-                    using (Stream stream = new FileStream(currentLocation, FileMode.Open))
+                    if (Settings == null)
                     {
-                        XmlSerializer serializer = new XmlSerializer(typeof(DesktopFacebookSettings));
-                        Settings = serializer.Deserialize(stream) as DesktopFacebookSettings;
+                        Settings = new DesktopFacebookSettings();
+                        string currentLocation = Environment.CurrentDirectory;
+                        currentLocation += "\\appSettings.xml";
+                        if (File.Exists(currentLocation) && new FileInfo(currentLocation).Length > 0)
+                        {
+                            using (Stream stream = new FileStream(currentLocation, FileMode.Open))
+                            {
+                                XmlSerializer serializer = new XmlSerializer(typeof(DesktopFacebookSettings));
+                                Settings = serializer.Deserialize(stream) as DesktopFacebookSettings;
+                            }
+                        }
                     }
                 }
             }

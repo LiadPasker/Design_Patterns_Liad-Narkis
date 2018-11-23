@@ -67,28 +67,33 @@ namespace View
 
         private void initializeComponents()
         {
+            m_LogoPictureBox.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.desktop_facebook.png", 380, 150);
+            m_PictureBoxGoToMainTab.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.home.png", 25, 25);
             initializeTabsBackground();
             initializeButtonPictures();
-            initializeUserProfilePicture();
-            m_CheckBoxRememberUser.Checked = r_AppControl.GetApplicationSettings().KeepSignedIn ? true : false;
         }
 
         private void DesktopFacebook_Shown(object sender, EventArgs e)
         {
             try
             {
-                r_AppControl.Login();
+                new Thread(handleFirstFacebookInteraction).Start();
             }
             catch (Exception)
             {
                 showFacebookServerErrorMessege("Login Failed");
             }
 
-            Location = r_AppControl.GetApplicationSettings().Location;
-            initializeComponents();
             m_TemporaryViewController.Start();
-            m_LogoPictureBox.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.desktop_facebook.png", 380, 150);
-            m_PictureBoxGoToMainTab.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.home.png", 25, 25);
+            new Thread(initializeComponents).Start();
+        }
+
+        private void handleFirstFacebookInteraction()
+        {
+            r_AppControl.Login();
+            this.Invoke(new Action(() => this.Location = r_AppControl.GetApplicationSettings().Location));
+            m_CheckBoxRememberUser.Invoke(new Action(() => m_CheckBoxRememberUser.Checked = r_AppControl.GetApplicationSettings().KeepSignedIn ? true : false));
+            initializeUserProfilePicture();
         }
 
         private void DesktopFacebook_Load(object sender, EventArgs e)
@@ -102,14 +107,14 @@ namespace View
             DesktopFacebookSettings settings = r_AppControl.GetApplicationSettings();
             settings.Location = Location;
             settings.LastAccessToken = settings.KeepSignedIn ? settings.LastAccessToken : string.Empty;
-            settings.SaveAppSettings();
+            new Thread(settings.SaveAppSettings).Start();
         }
 
         private void initializeTabsBackground()
         {
             foreach (TabPage tab in m_TabsControl.TabPages)
             {
-                tab.BackColor = Color.Lavender;
+                tab.Invoke(new Action(() => tab.BackColor = Color.Lavender));
             }
         }
 
@@ -126,9 +131,9 @@ namespace View
 
         private void initializeButtonPictures()
         {
-            m_ButtonPostStatus.BackgroundImage = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.postStatus.png", 40, 40);
-            m_ButtonNextPage.BackgroundImage = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.next.png", 40, 40);
-            m_ButtonPreviousPage.BackgroundImage = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.back.png", 40, 40);
+            m_ButtonPostStatus.Invoke(new Action(() => m_ButtonPostStatus.BackgroundImage = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.postStatus.png", 40, 40)));
+            m_ButtonNextPage.Invoke(new Action(() => m_ButtonNextPage.BackgroundImage = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.next.png", 40, 40)));
+            m_ButtonPreviousPage.Invoke(new Action(() => m_ButtonPreviousPage.BackgroundImage = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.back.png", 40, 40)));
         }
 
         public static void showFacebookServerErrorMessege(string i_AdditionalMessege = "")
@@ -141,7 +146,7 @@ namespace View
             m_ConnectedUserProfilePictureURL = getUserProfilePictureURL();
             if (m_ConnectedUserProfilePictureURL != null)
             {
-                m_PictureBox_ProfilePicture.LoadAsync(m_ConnectedUserProfilePictureURL);
+                m_PictureBox_ProfilePicture.Invoke(new Action(() => m_PictureBox_ProfilePicture.LoadAsync(m_ConnectedUserProfilePictureURL)));
             }
         }
 
@@ -222,6 +227,7 @@ namespace View
         private void Button_MyAlbums_Click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageMyAlbums);
+            
             if (m_AlbumDisplay == null)
             {
                 initializeMyAlbumsTabView();
@@ -234,13 +240,12 @@ namespace View
             try
             {
                 r_AppControl.InitializeMyAlbums();
+                initializeMyAlbumsComboBoxes(r_AppControl.GetAlbumsNames());
             }
             catch (Exception)
             {
                 showFacebookServerErrorMessege("Albums Load Failed");
             }
-
-            initializeMyAlbumsComboBoxes(r_AppControl.GetAlbumsNames());
         }
 
         private void initializeMyAlbumsComboBoxes(List<string> i_AlbumNames)
@@ -285,7 +290,7 @@ namespace View
             }
             else
             {
-                m_AlbumDisplay.Show();
+                new Thread(m_AlbumDisplay.Show).Start();
             }
         }
 

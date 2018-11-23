@@ -139,11 +139,15 @@ namespace View
                 else
                 {
                     AlbumPictures[i].Name = m_CurrentPagePhotos[i].PictureNormalURL;
-                    AlbumPictures[i].Image = Model.UserAlbumsManager.CreateCustomedImageFromURL(m_CurrentPagePhotos[i].PictureNormalURL, PicturesSizeToshow);
+                    Image image = Model.UserAlbumsManager.CreateCustomedImageFromURL(m_CurrentPagePhotos[i].PictureNormalURL, PicturesSizeToshow);
+                    AlbumPictures[i].Invoke(new Action(() => { AlbumPictures[i].Image = image; AlbumPictures[i].Visible = true; }));
                 }
-
-                AlbumPictures[i].Visible = true;
             }
+        }
+
+        private void a(Image obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }
