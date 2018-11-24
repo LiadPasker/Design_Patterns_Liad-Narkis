@@ -237,15 +237,18 @@ namespace View
         private void initializeMyAlbumsTabView()
         {
             m_AlbumDisplay = new AlbumViewerComponent(m_TabPageMyAlbums);
+            Thread albumsThread = new Thread(r_AppControl.InitializeMyAlbums);
             try
             {
-                r_AppControl.InitializeMyAlbums();
-                initializeMyAlbumsComboBoxes(r_AppControl.GetAlbumsNames());
+                albumsThread.Start();
             }
             catch (Exception)
             {
                 showFacebookServerErrorMessege("Albums Load Failed");
             }
+
+            albumsThread.Join();
+            initializeMyAlbumsComboBoxes(r_AppControl.GetAlbumsNames());
         }
 
         private void initializeMyAlbumsComboBoxes(List<string> i_AlbumNames)
@@ -318,21 +321,20 @@ namespace View
             try
             {
                 m_RecentPosts = r_AppControl.getFeed(Utils.eUserProfile.MY_PROFILE, PostsAgeInMonths);
+                new Thread(showMyFeed).Start();
             }
             catch (Exception)
             {
                 showFacebookServerErrorMessege("Feed Load Failed");
             }
-
-            showMyFeed();
         }
 
         private void showMyFeed()
         {
-            m_FeedTextBox.Text = string.Empty;
+            m_FeedTextBox.Invoke(new Action(()=> m_FeedTextBox.Text = string.Empty));
             foreach (Post post in m_RecentPosts)
             {
-                m_FeedTextBox.Text += r_AppControl.DerivePostTextFormat(post);
+                m_FeedTextBox.Invoke(new Action(()=> m_FeedTextBox.Text += r_AppControl.DerivePostTextFormat(post)));
             }
         }
 
