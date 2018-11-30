@@ -331,10 +331,10 @@ namespace View
 
         private void showMyFeed()
         {
-            m_FeedTextBox.Invoke(new Action(()=> m_FeedTextBox.Text = string.Empty));
+            m_FeedTextBox.Invoke(new Action(() => m_FeedTextBox.Text = string.Empty));
             foreach (Post post in m_RecentPosts)
             {
-                m_FeedTextBox.Invoke(new Action(()=> m_FeedTextBox.Text += r_AppControl.DerivePostTextFormat(post)));
+                m_FeedTextBox.Invoke(new Action(() => m_FeedTextBox.Text += r_AppControl.DerivePostTextFormat(post)));
             }
         }
 

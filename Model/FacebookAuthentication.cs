@@ -9,13 +9,8 @@ namespace Model
 {
     public sealed class FacebookAuthentication
     {
-        private FacebookAuthentication()
-        {
-        }
-
         private static readonly object rs_ThreadContext = new object();
         private static FacebookAuthentication m_FAuthInstance = null;
-        public User LoggedInUser = null;
 
         public static FacebookAuthentication FAuthInstance
         {
@@ -32,6 +27,12 @@ namespace Model
             set => FAuthInstance = value;
         }
 
+        public User LoggedInUser { get; set; } = null;
+
+        private FacebookAuthentication()
+        {
+        }
+
         private string FacebookLogin()
         {
             lock (rs_ThreadContext)
@@ -44,8 +45,11 @@ namespace Model
 
         private void AutoLogin(string i_LastAccessToken)
         {
-            LoginResult loginResult = FacebookService.Connect(i_LastAccessToken);
-            LoggedInUser = loginResult.LoggedInUser;
+            lock (rs_ThreadContext)
+            {
+                LoginResult loginResult = FacebookService.Connect(i_LastAccessToken);
+                LoggedInUser = loginResult.LoggedInUser;
+            }
         }
 
         public void Login()
