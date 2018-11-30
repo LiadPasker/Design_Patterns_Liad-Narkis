@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Model
 {
-    public class DesktopFacebookSettings
+    public sealed class DesktopFacebookSettings
 	{
         public static DesktopFacebookSettings Settings { get; private set; }
 

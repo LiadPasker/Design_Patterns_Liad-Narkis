@@ -77,7 +77,7 @@ namespace View
         {
             try
             {
-                new Thread(handleFirstFacebookInteraction).Start();
+                handleFirstFacebookInteraction();
             }
             catch (Exception)
             {
@@ -91,8 +91,8 @@ namespace View
         private void handleFirstFacebookInteraction()
         {
             r_AppControl.Login();
-            this.Invoke(new Action(() => this.Location = r_AppControl.GetApplicationSettings().Location));
-            m_CheckBoxRememberUser.Invoke(new Action(() => m_CheckBoxRememberUser.Checked = r_AppControl.GetApplicationSettings().KeepSignedIn ? true : false));
+            this.Location = r_AppControl.GetApplicationSettings().Location;
+            m_CheckBoxRememberUser.Checked = r_AppControl.GetApplicationSettings().KeepSignedIn ? true : false;
             initializeUserProfilePicture();
         }
 
@@ -155,7 +155,7 @@ namespace View
             string profilePictureURL = null;
             try
             {
-                profilePictureURL = r_AppControl.FacebookAuth.LoggedInUser.PictureLargeURL;
+                profilePictureURL = FacebookAuthentication.FAuthInstance.LoggedInUser.PictureLargeURL;
             }
             catch (Exception)
             {

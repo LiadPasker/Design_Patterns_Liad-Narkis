@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Model;
 
 namespace View
 {
@@ -55,15 +56,15 @@ namespace View
         {
             if (m_CheckBoxSchedulePost.Checked && m_CheckBoxScheduleCheckIn.Checked)
             {
-                m_AppControl.FacebookAuth.LoggedInUser.PostStatus(m_TextBoxSummaryPost.Text, m_TextBoxSummaryCheckIn.Text);
+                FacebookAuthentication.FAuthInstance.LoggedInUser.PostStatus(m_TextBoxSummaryPost.Text, m_TextBoxSummaryCheckIn.Text);
             }
             else if (m_CheckBoxSchedulePost.Checked)
             {
-                m_AppControl.FacebookAuth.LoggedInUser.PostStatus(m_TextBoxSummaryPost.Text);
+                FacebookAuthentication.FAuthInstance.LoggedInUser.PostStatus(m_TextBoxSummaryPost.Text);
             }
             else
             {
-                m_AppControl.FacebookAuth.LoggedInUser.Checkin(m_TextBoxSummaryCheckIn.Text);
+                FacebookAuthentication.FAuthInstance.LoggedInUser.Checkin(m_TextBoxSummaryCheckIn.Text);
             }
         }
 

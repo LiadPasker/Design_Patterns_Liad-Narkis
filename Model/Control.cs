@@ -17,8 +17,6 @@ namespace Model
         private User m_CurrentUserFriend = null;
         private List<string> m_WishList;
 
-        public FacebookAuthentication FacebookAuth { get; private set; }
-
         public OfficeManager OfficeManager { get; private set; } = null;
 
         public static bool IsValidPostEnteredValue(string i_TextToCheck)
@@ -28,22 +26,13 @@ namespace Model
 
         public Control()
         {
-            FacebookAuth = new FacebookAuthentication();
             m_UserAlbumManager = new UserAlbumsManager();
         }
 
         public void Login()
         {
             DesktopFacebookSettings appSettings = DesktopFacebookSettings.LoadAppSettings();
-
-            if (appSettings.KeepSignedIn == false)
-            {
-                DesktopFacebookSettings.Settings.LastAccessToken = FacebookAuth.Login();
-            }
-            else
-            {
-                FacebookAuth.AutoLogin(appSettings.LastAccessToken);
-            }
+            FacebookAuthentication.FAuthInstance.Login();
         }
 
         public DesktopFacebookSettings GetApplicationSettings()
@@ -81,7 +70,7 @@ namespace Model
 
         public void InitializeMyAlbums()
         {
-            m_UserAlbumManager.ImportUserAlbumsList(FacebookAuth.LoggedInUser.Albums);
+            m_UserAlbumManager.ImportUserAlbumsList(FacebookAuthentication.FAuthInstance.LoggedInUser.Albums);
         }
 
         public Album GetAlbum(string i_AlbumName)
@@ -143,7 +132,7 @@ divider);
         {
             try
             {
-                m_CurrentUserFriend = FacebookAuth.LoggedInUser.Friends.Find(x => x.Name == i_FriendNameToSearch);
+                m_CurrentUserFriend = FacebookAuthentication.FAuthInstance.LoggedInUser.Friends.Find(x => x.Name == i_FriendNameToSearch);
                 if (m_CurrentUserFriend == null)
                 {
                     throw new Exception();
@@ -238,7 +227,7 @@ currUser?.About);
             List<User> sortedFriendsList;
             try
             {
-                FacebookObjectCollection<User> friends = FacebookAuth.LoggedInUser.Friends;
+                FacebookObjectCollection<User> friends = FacebookAuthentication.FAuthInstance.LoggedInUser.Friends;
                 sortedFriendsList = friends.OrderBy(x => DateTime.ParseExact(x.Birthday.Substring(0, 5), "MM/dd", null)).ToList();
             }
             catch (Exception)
@@ -448,7 +437,7 @@ currUser?.About);
 
             try
             {
-                FacebookObjectCollection<Event> ConnectedUserEvents = FacebookAuth.LoggedInUser.Events;
+                FacebookObjectCollection<Event> ConnectedUserEvents = FacebookAuthentication.FAuthInstance.LoggedInUser.Events;
                 foreach (Event currentEvent in ConnectedUserEvents)
                 {
                     DateTime? eventDate = currentEvent.StartTime;
@@ -474,7 +463,7 @@ currUser?.About);
                 switch (i_UserType)
                 {
                     case Utils.eUserProfile.MY_PROFILE:
-                        currUser = FacebookAuth.LoggedInUser;
+                        currUser = FacebookAuthentication.FAuthInstance.LoggedInUser;
                         break;
 
                     case Utils.eUserProfile.FRIEND_PROFILE:
