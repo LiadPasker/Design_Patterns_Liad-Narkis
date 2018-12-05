@@ -342,26 +342,22 @@ namespace View
         private void ButtonFriendInfo_click(object sender, EventArgs e)
         {
             m_TabsControl.SelectTab(m_TabPageFriendsInfo);
+            m_BindingSourceFriendList.DataSource = FacebookAuthentication.FAuthInstance.LoggedInUser.Friends;
             m_FriendProfileViewComponent.Populate(r_AppControl, Utils.eUserProfile.FRIEND_PROFILE);
+            ComboBoxFriendList_SelectedIndexChanged(null, null);
         }
 
-        private void TextBoxSearchFriend_Click(object sender, EventArgs e)
-        {
-            ChangeButtonByTextBoxClick(m_TextBoxSearchFriend, m_ButtonSearchFriend);
-        }
-
-        private void TextBoxSearchFriend_TextChanged(object sender, EventArgs e)
-        {
-            TextBoxSearchFriend_Click(sender, e);
-        }
-
-        private void ButtonSearchFriend_Click(object sender, EventArgs e)
+        private void ComboBoxFriendList_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                r_AppControl.verifyFriendSearchAndImportInfo(m_TextBoxSearchFriend.Text); // throws exeption if searched failed or facebook server failed
-                m_FriendProfileViewComponent.ShowedUserProfilePictureURL = r_AppControl.getCurrentShowedFriendProfilePictureURL();
-                m_FriendProfileViewComponent.InitializeProfileViewer();
+                string friendName = m_ComboBoxFriendList.Text;
+                if (!string.IsNullOrEmpty(friendName))
+                {
+                    r_AppControl.verifyFriendSearchAndImportInfo(friendName); // throws exeption if searched failed or facebook server failed
+                    m_FriendProfileViewComponent.ShowedUserProfilePictureURL = r_AppControl.getCurrentShowedFriendProfilePictureURL();
+                    m_FriendProfileViewComponent.InitializeProfileViewer();
+                }
             }
             catch (Exception exception)
             {

@@ -61,9 +61,9 @@
             this.m_TextBoxPostMonthOld = new System.Windows.Forms.TextBox();
             this.m_FeedTextBox = new System.Windows.Forms.TextBox();
             this.m_TabPageFriendsInfo = new System.Windows.Forms.TabPage();
+            this.m_ComboBoxFriendList = new System.Windows.Forms.ComboBox();
+            this.m_BindingSourceFriendList = new System.Windows.Forms.BindingSource(this.components);
             this.m_FriendProfileViewComponent = new View.ProfileViewerComponent();
-            this.m_ButtonSearchFriend = new System.Windows.Forms.Button();
-            this.m_TextBoxSearchFriend = new System.Windows.Forms.TextBox();
             this.m_TabPageMyProfile = new System.Windows.Forms.TabPage();
             this.m_MyProfileViewComponent = new View.ProfileViewerComponent();
             this.m_TabPageBirthdayTracker = new System.Windows.Forms.TabPage();
@@ -85,6 +85,7 @@
             this.m_ButtonQuit = new System.Windows.Forms.Button();
             this.m_LabelHomeButtonAd = new System.Windows.Forms.Label();
             this.m_CheckBoxRememberUser = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.m_TabPageMyAlbums.SuspendLayout();
             this.m_TabsControl.SuspendLayout();
             this.m_TabPageMainWindow.SuspendLayout();
@@ -92,6 +93,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBox_ProfilePicture)).BeginInit();
             this.m_TabPageFeed.SuspendLayout();
             this.m_TabPageFriendsInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendList)).BeginInit();
             this.m_TabPageMyProfile.SuspendLayout();
             this.m_TabPageBirthdayTracker.SuspendLayout();
             this.m_TabPageExport.SuspendLayout();
@@ -459,15 +461,31 @@
             // 
             // m_TabPageFriendsInfo
             // 
+            this.m_TabPageFriendsInfo.Controls.Add(this.label7);
+            this.m_TabPageFriendsInfo.Controls.Add(this.m_ComboBoxFriendList);
             this.m_TabPageFriendsInfo.Controls.Add(this.m_FriendProfileViewComponent);
-            this.m_TabPageFriendsInfo.Controls.Add(this.m_ButtonSearchFriend);
-            this.m_TabPageFriendsInfo.Controls.Add(this.m_TextBoxSearchFriend);
             this.m_TabPageFriendsInfo.Location = new System.Drawing.Point(4, 29);
             this.m_TabPageFriendsInfo.Name = "m_TabPageFriendsInfo";
             this.m_TabPageFriendsInfo.Size = new System.Drawing.Size(945, 592);
             this.m_TabPageFriendsInfo.TabIndex = 3;
             this.m_TabPageFriendsInfo.Text = "Friends";
             this.m_TabPageFriendsInfo.UseVisualStyleBackColor = true;
+            // 
+            // m_ComboBoxFriendList
+            // 
+            this.m_ComboBoxFriendList.DataSource = this.m_BindingSourceFriendList;
+            this.m_ComboBoxFriendList.DisplayMember = "Name";
+            this.m_ComboBoxFriendList.FormattingEnabled = true;
+            this.m_ComboBoxFriendList.Location = new System.Drawing.Point(184, 37);
+            this.m_ComboBoxFriendList.Name = "m_ComboBoxFriendList";
+            this.m_ComboBoxFriendList.Size = new System.Drawing.Size(250, 28);
+            this.m_ComboBoxFriendList.TabIndex = 4;
+            this.m_ComboBoxFriendList.ValueMember = "Name";
+            this.m_ComboBoxFriendList.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFriendList_SelectedIndexChanged);
+            // 
+            // m_BindingSourceFriendList
+            // 
+            this.m_BindingSourceFriendList.DataSource = typeof(FacebookWrapper.ObjectModel.FriendList);
             // 
             // m_FriendProfileViewComponent
             // 
@@ -476,30 +494,6 @@
             this.m_FriendProfileViewComponent.ShowedUserProfilePictureURL = null;
             this.m_FriendProfileViewComponent.Size = new System.Drawing.Size(870, 463);
             this.m_FriendProfileViewComponent.TabIndex = 3;
-            // 
-            // m_ButtonSearchFriend
-            // 
-            this.m_ButtonSearchFriend.BackColor = System.Drawing.Color.DarkBlue;
-            this.m_ButtonSearchFriend.Enabled = false;
-            this.m_ButtonSearchFriend.ForeColor = System.Drawing.Color.White;
-            this.m_ButtonSearchFriend.Location = new System.Drawing.Point(371, 32);
-            this.m_ButtonSearchFriend.Name = "m_ButtonSearchFriend";
-            this.m_ButtonSearchFriend.Size = new System.Drawing.Size(86, 32);
-            this.m_ButtonSearchFriend.TabIndex = 2;
-            this.m_ButtonSearchFriend.Text = "Search";
-            this.m_ButtonSearchFriend.UseVisualStyleBackColor = false;
-            this.m_ButtonSearchFriend.Click += new System.EventHandler(this.ButtonSearchFriend_Click);
-            // 
-            // m_TextBoxSearchFriend
-            // 
-            this.m_TextBoxSearchFriend.Location = new System.Drawing.Point(44, 35);
-            this.m_TextBoxSearchFriend.Name = "m_TextBoxSearchFriend";
-            this.m_TextBoxSearchFriend.Size = new System.Drawing.Size(320, 26);
-            this.m_TextBoxSearchFriend.TabIndex = 1;
-            this.m_TextBoxSearchFriend.Tag = "What is your friend\'s name?";
-            this.m_TextBoxSearchFriend.Text = "What is your friend\'s name?";
-            this.m_TextBoxSearchFriend.Click += new System.EventHandler(this.TextBoxSearchFriend_Click);
-            this.m_TextBoxSearchFriend.TextChanged += new System.EventHandler(this.TextBoxSearchFriend_TextChanged);
             // 
             // m_TabPageMyProfile
             // 
@@ -591,7 +585,7 @@
             this.m_TextBoxExportFilePath.Name = "m_TextBoxExportFilePath";
             this.m_TextBoxExportFilePath.Size = new System.Drawing.Size(430, 26);
             this.m_TextBoxExportFilePath.TabIndex = 2;
-            this.m_TextBoxExportFilePath.Tag =  string.Empty;
+            this.m_TextBoxExportFilePath.Tag = string.Empty;
             // 
             // m_ButtonExport
             // 
@@ -705,6 +699,16 @@
             this.m_CheckBoxRememberUser.UseVisualStyleBackColor = true;
             this.m_CheckBoxRememberUser.CheckedChanged += new System.EventHandler(this.CheckBoxRememberUser_CheckedChanged);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label7.Location = new System.Drawing.Point(47, 39);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(131, 26);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Friend List:";
+            // 
             // DesktopFacebook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -736,6 +740,7 @@
             this.m_TabPageFeed.PerformLayout();
             this.m_TabPageFriendsInfo.ResumeLayout(false);
             this.m_TabPageFriendsInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendList)).EndInit();
             this.m_TabPageMyProfile.ResumeLayout(false);
             this.m_TabPageBirthdayTracker.ResumeLayout(false);
             this.m_TabPageExport.ResumeLayout(false);
@@ -778,8 +783,6 @@
         private System.Windows.Forms.PictureBox m_LogoPictureBox;
         private System.Windows.Forms.Button m_ButtonFriendInfo;
         private System.Windows.Forms.TabPage m_TabPageFriendsInfo;
-        private System.Windows.Forms.Button m_ButtonSearchFriend;
-        private System.Windows.Forms.TextBox m_TextBoxSearchFriend;
         private System.Windows.Forms.PictureBox m_PictureBoxGoToMainTab;
         private System.Windows.Forms.Button m_ButtonBirthdayTracker;
         private System.Windows.Forms.Button m_ButtonMyProfile;
@@ -807,5 +810,8 @@
         private ActivityAutomationComponent m_ActivityAutomation;
         private System.Windows.Forms.Label m_LabelQuitMessage;
         private System.Windows.Forms.CheckBox m_CheckBoxRememberUser;
+        private System.Windows.Forms.ComboBox m_ComboBoxFriendList;
+        private System.Windows.Forms.BindingSource m_BindingSourceFriendList;
+        private System.Windows.Forms.Label label7;
     }
 }
