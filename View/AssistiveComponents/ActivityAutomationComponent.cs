@@ -10,20 +10,31 @@ using Model;
 
 namespace View
 {
-    public partial class ActivityAutomationComponent : UserControl
+    public partial class ActivityAutomationComponent : UserControl, IAppComponent
     {
         private DateTime m_SchduledTo;
-        private Model.Control m_AppControl;
+        private Model.AppFacade m_AppControl;
         private System.Threading.Timer m_PostTimer;
+        private TabPage m_TabController = null;
 
         public ActivityAutomationComponent()
         {
             InitializeComponent();
         }
 
-        public void Populate(Model.Control i_AppControl)
+        public void Initialize(TabPage i_TabPage)
         {
+            i_TabPage.Controls.Add(this);
+            BackColor = Color.PowderBlue;
+            this.Location = new Point((i_TabPage.ClientSize.Width - this.ClientSize.Width) / 2, (i_TabPage.ClientSize.Height - this.ClientSize.Height) / 2);
+            this.TabIndex = 0;
             m_TabControlAutomationActivity.SelectTab(m_TabPagePickTime);
+        }
+
+        public void Populate(Model.AppFacade i_AppControl, TabPage i_TabPage)
+        {
+            m_TabController = i_TabPage;
+            Initialize(m_TabController);
             m_AppControl = i_AppControl;
             m_SchduledTo = DateTime.Now;
             initializePickTimeCumboBoxes();
@@ -222,7 +233,7 @@ namespace View
                 m_PostTimer.Change(System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
                 MessageBox.Show("Automatic Activity Timer Stopped");
                 zeroizeControllers();
-                Populate(m_AppControl);
+                Populate(m_AppControl, m_TabController);
             }
             catch (Exception)
             {

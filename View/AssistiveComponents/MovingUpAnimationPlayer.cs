@@ -59,5 +59,11 @@ namespace View
 
             m_PaceMaker.Start();
         }
+
+        public void Stop()
+        {
+            m_PaceMaker.Stop();
+            m_MovingPicture.Visible = false;
+        }
     }
 }

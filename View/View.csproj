@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssistiveComponents\AppComponentFactory.cs" />
     <Compile Include="AssistiveComponents\ActivityAutomationComponent.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -80,6 +81,7 @@
     <Compile Include="AssistiveComponents\ProfileViewerComponent.Designer.cs">
       <DependentUpon>ProfileViewerComponent.cs</DependentUpon>
     </Compile>
+    <Compile Include="AssistiveComponents\IAppComponent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AssistiveComponents\ActivityAutomationComponent.resx">

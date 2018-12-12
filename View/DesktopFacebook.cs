@@ -18,12 +18,12 @@ namespace View
     public partial class DesktopFacebook : Form
     {
         private readonly int r_ViewControllerInterval = 400;
-        private readonly Model.Control r_AppControl;
+        private readonly Model.AppFacade r_AppFacade;
         private AlbumViewerComponent m_AlbumDisplay = null; // manages albums and images display in 'MyAlbums' tab
         private FacebookObjectCollection<Post> m_RecentPosts = null;
         private string m_ConnectedUserProfilePictureURL = null;
-        private MovingUpAnimationPlayer m_Animation = null;
         private System.Windows.Forms.Timer m_TemporaryViewController;
+        private List<IAppComponent> m_AppComponents = new List<IAppComponent>();
 
         public static int PostsAgeInMonths { get; set; } = 6;
 
@@ -37,7 +37,7 @@ namespace View
 
         public static void ValidatePostsAgeCheckBoxAndExecute(TextBox i_TextBox)
         {
-            if (Model.Control.IsValidPostEnteredValue(i_TextBox.Text))
+            if (Model.AppFacade.IsValidPostEnteredValue(i_TextBox.Text))
             {
                 PostsAgeInMonths = int.Parse(i_TextBox.Text);
             }
@@ -52,7 +52,7 @@ namespace View
         {
             InitializeComponent();
             Text = "DesktopFacebook";
-            r_AppControl = new Model.Control();
+            r_AppFacade = new Model.AppFacade();
             m_TemporaryViewController = new System.Windows.Forms.Timer();
             m_TemporaryViewController.Interval = r_ViewControllerInterval;
             m_TemporaryViewController.Tick += ShowAdLabels;
@@ -90,9 +90,9 @@ namespace View
 
         private void handleFirstFacebookInteraction()
         {
-            r_AppControl.Login();
-            this.Location = r_AppControl.GetApplicationSettings().Location;
-            m_CheckBoxRememberUser.Checked = r_AppControl.GetApplicationSettings().KeepSignedIn ? true : false;
+            r_AppFacade.Login();
+            this.Location = r_AppFacade.GetApplicationSettings().Location;
+            m_CheckBoxRememberUser.Checked = r_AppFacade.GetApplicationSettings().KeepSignedIn ? true : false;
             initializeUserProfilePicture();
         }
 
@@ -104,7 +104,7 @@ namespace View
 
         private void DesktopFacebook_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DesktopFacebookSettings settings = r_AppControl.GetApplicationSettings();
+            DesktopFacebookSettings settings = r_AppFacade.GetApplicationSettings();
             settings.Location = Location;
             settings.LastAccessToken = settings.KeepSignedIn ? settings.LastAccessToken : string.Empty;
             new Thread(settings.SaveAppSettings).Start();
@@ -124,7 +124,7 @@ namespace View
             if (logout == DialogResult.Yes)
             {
                 FacebookService.Logout(null);
-                r_AppControl.GetApplicationSettings().KeepSignedIn = false;
+                r_AppFacade.GetApplicationSettings().KeepSignedIn = false;
                 Close();
             }
         }
@@ -175,7 +175,7 @@ namespace View
         {
             try
             {
-                r_AppControl.PostStatus(Utils.eUserProfile.MY_PROFILE, m_TextBoxPostToMyWall.Text);
+                r_AppFacade.PostStatus(Utils.eAppComponent.UserProfileViewer, m_TextBoxPostToMyWall.Text);
             }
             catch (Exception exception)
             {
@@ -220,7 +220,17 @@ namespace View
 
         private void CheckBoxRememberUser_CheckedChanged(object sender, EventArgs e)
         {
-            r_AppControl.GetApplicationSettings().KeepSignedIn = m_CheckBoxRememberUser.Checked;
+            r_AppFacade.GetApplicationSettings().KeepSignedIn = m_CheckBoxRememberUser.Checked;
+        }
+
+        private void m_ButtonQuit_MouseEnter(object sender, EventArgs e)
+        {
+            m_LabelQuitMessage.Visible = true;
+        }
+
+        private void m_ButtonQuit_MouseLeave(object sender, EventArgs e)
+        {
+            m_LabelQuitMessage.Visible = false;
         }
 
         /////////////////////////////// MyAlbum Tab //////////////////////////////
@@ -237,7 +247,7 @@ namespace View
         private void initializeMyAlbumsTabView()
         {
             m_AlbumDisplay = new AlbumViewerComponent(m_TabPageMyAlbums);
-            Thread albumsThread = new Thread(r_AppControl.InitializeMyAlbums);
+            Thread albumsThread = new Thread(r_AppFacade.InitializeMyAlbums);
             try
             {
                 albumsThread.Start();
@@ -248,7 +258,7 @@ namespace View
             }
 
             albumsThread.Join();
-            initializeMyAlbumsComboBoxes(r_AppControl.GetAlbumsNames());
+            initializeMyAlbumsComboBoxes(r_AppFacade.GetAlbumsNames());
         }
 
         private void initializeMyAlbumsComboBoxes(List<string> i_AlbumNames)
@@ -283,8 +293,8 @@ namespace View
 
         private void ComboBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Album albumToShow = r_AppControl.GetAlbum(m_ComboBoxAlbums.SelectedItem.ToString());
-            List<string> AlbumURLsToShow = r_AppControl.GetAlbumURLs(albumToShow);
+            Album albumToShow = r_AppFacade.GetAlbum(m_ComboBoxAlbums.SelectedItem.ToString());
+            List<string> AlbumURLsToShow = r_AppFacade.GetAlbumURLs(albumToShow);
             m_AlbumDisplay.SetAlbumToShow(albumToShow, AlbumURLsToShow);
             displayAlbumLabels(m_AlbumDisplay.NumberOfPacturePerPage.ToString(), albumToShow.Count.ToString());
             if (m_ComboBoxZoom.SelectedIndex != 0)
@@ -320,7 +330,7 @@ namespace View
             ValidatePostsAgeCheckBoxAndExecute(m_TextBoxPostMonthOld);
             try
             {
-                m_RecentPosts = r_AppControl.getFeed(Utils.eUserProfile.MY_PROFILE, PostsAgeInMonths);
+                m_RecentPosts = r_AppFacade.getFeed(Utils.eAppComponent.UserProfileViewer, PostsAgeInMonths);
                 new Thread(showMyFeed).Start();
             }
             catch (Exception)
@@ -334,64 +344,8 @@ namespace View
             m_FeedTextBox.Invoke(new Action(() => m_FeedTextBox.Text = string.Empty));
             foreach (Post post in m_RecentPosts)
             {
-                m_FeedTextBox.Invoke(new Action(() => m_FeedTextBox.Text += r_AppControl.DerivePostTextFormat(post)));
+                m_FeedTextBox.Invoke(new Action(() => m_FeedTextBox.Text += r_AppFacade.DerivePostTextFormat(post)));
             }
-        }
-
-        ///////////////////////////// Friend Info Tab ////////////////////////////
-        private void ButtonFriendInfo_click(object sender, EventArgs e)
-        {
-            m_TabsControl.SelectTab(m_TabPageFriendsInfo);
-            m_BindingSourceFriendList.DataSource = FacebookAuthentication.FAuthInstance.LoggedInUser.Friends;
-            m_FriendProfileViewComponent.Populate(r_AppControl, Utils.eUserProfile.FRIEND_PROFILE);
-            ComboBoxFriendList_SelectedIndexChanged(null, null);
-        }
-
-        private void ComboBoxFriendList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                string friendName = m_ComboBoxFriendList.Text;
-                if (!string.IsNullOrEmpty(friendName))
-                {
-                    r_AppControl.verifyFriendSearchAndImportInfo(friendName); // throws exeption if searched failed or facebook server failed
-                    m_FriendProfileViewComponent.ShowedUserProfilePictureURL = r_AppControl.getCurrentShowedFriendProfilePictureURL();
-                    m_FriendProfileViewComponent.InitializeProfileViewer();
-                }
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
-        }
-
-        ///////////////////////////// My Profile Tab ////////////////////////////
-        private void ButtonMyProfile_Click(object sender, EventArgs e)
-        {
-            m_TabsControl.SelectTab(m_TabPageMyProfile);
-            m_MyProfileViewComponent.Populate(r_AppControl, Utils.eUserProfile.MY_PROFILE);
-            m_MyProfileViewComponent.ShowedUserProfilePictureURL = m_ConnectedUserProfilePictureURL;
-            m_MyProfileViewComponent.InitializeProfileViewer();
-        }
-
-        ///////////////////////////// Birthday Tracker Tab ////////////////////////////
-        private void ButtonBirthdayTracker_Click(object sender, EventArgs e)
-        {
-            m_TabsControl.SelectTab(m_TabPageBirthdayTracker);
-            if (m_Animation == null)
-            {
-                m_Animation = new MovingUpAnimationPlayer();
-            }
-
-            m_BirthdayViewerComponent.Populate(r_AppControl, m_TabPageBirthdayTracker);
-            PlayAnimation(m_TabPageBirthdayTracker, Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.balloons.png", 100, 100));
-        }
-
-        private void PlayAnimation(TabPage i_CurrentTab, Image i_Picture)
-        {
-            Point startLocation = new Point(0, i_CurrentTab.Height);
-            m_Animation.InitializeAnimatedImage(startLocation, i_CurrentTab.Controls, i_Picture);
-            m_Animation.Play();
         }
 
         ///////////////////////// Export Tab - feature 1 ////////////////////////
@@ -410,7 +364,7 @@ namespace View
         {
             try
             {
-                r_AppControl.ExportData(Utils.eFileType.XLS, m_TextBoxExportFilePath.Text);
+                r_AppFacade.ExportData(Utils.eFileType.XLS, m_TextBoxExportFilePath.Text);
             }
             catch (Exception exception)
             {
@@ -423,21 +377,85 @@ namespace View
             PictureBoxGoToMainTab_Click(null, null);
         }
 
-        ///////////////////// Automation Activity - feature 2 ////////////////////
-        private void ButtonAutomateUserActivity_Click(object sender, EventArgs e)
+        /////////////////////////////// Generic Component Handling Implementation ///////////////////////////
+
+        /*
+         * --------- using polimorphic family 'IComponent' - created by 'AppComponentFactory' ---------
+         */
+
+        private void ButtonComponent_Click(object sender, EventArgs e)
         {
-            m_TabsControl.SelectTab(m_TabPageAutomateActivity);
-            m_ActivityAutomation.Populate(r_AppControl);
+            int tagNum = int.Parse((sender as Button).Tag.ToString());
+            Model.Utils.eAppComponent eAppComponent = (Model.Utils.eAppComponent)tagNum;
+            IAppComponent appComponent = AppComponentFactory.CreateAppComponent(eAppComponent, m_AppComponents, m_TabPageComponentViewer);
+            invisibleListComponents(appComponent, m_AppComponents);
+            m_TabsControl.SelectTab(m_TabPageComponentViewer);
+            appComponent.Populate(r_AppFacade, m_TabPageComponentViewer);
+            m_LabelFriendList.Visible = m_ComboBoxFriends.Visible = false;
+
+            if (eAppComponent == Model.Utils.eAppComponent.FriendProfileViewer || eAppComponent == Model.Utils.eAppComponent.UserProfileViewer)
+            {
+                setProfileViewerSettings(eAppComponent, appComponent);
+            }
         }
 
-        private void m_ButtonQuit_MouseEnter(object sender, EventArgs e)
+        private void setProfileViewerSettings(Utils.eAppComponent eAppComponent, IAppComponent i_CurrentComponent)
         {
-            m_LabelQuitMessage.Visible = true;
+            switch (eAppComponent)
+            {
+                case Utils.eAppComponent.UserProfileViewer:
+                    (i_CurrentComponent as ProfileViewerComponent).InitializeProfileViewer();
+                    break;
+
+                case Utils.eAppComponent.FriendProfileViewer:
+                    m_LabelFriendList.Visible = m_ComboBoxFriends.Visible = true;
+                    m_BindingSourceFriendList.DataSource = FacebookAuthentication.FAuthInstance.LoggedInUser.Friends;
+                    ComboBoxFriendList_SelectedIndexChanged(null, null);
+                    break;
+            }
         }
 
-        private void m_ButtonQuit_MouseLeave(object sender, EventArgs e)
+        private void invisibleListComponents(IAppComponent i_AppComponent, List<IAppComponent> i_ComponentList)
         {
-            m_LabelQuitMessage.Visible = false;
+            (i_AppComponent as UserControl).Visible = true;
+            foreach (IAppComponent comp in i_ComponentList)
+            {
+                if (comp != i_AppComponent)
+                {
+                    (comp as UserControl).Visible = false;
+                }
+            }
+        }
+
+        private void ComboBoxFriendList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string friendName = m_ComboBoxFriends.Text;
+                if (!string.IsNullOrEmpty(friendName))
+                {
+                    r_AppFacade.verifyFriendSearchAndImportInfo(friendName); // throws exeption if searched failed or facebook server failed
+                    (findVisibleComponent(m_AppComponents) as ProfileViewerComponent).InitializeProfileViewer();
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
+
+        private IAppComponent findVisibleComponent(List<IAppComponent> m_AppComponents)
+        {
+            IAppComponent appComponent = null;
+            foreach (IAppComponent comp in m_AppComponents)
+            {
+                if ((comp as UserControl).Visible == true)
+                {
+                    appComponent = comp;
+                }
+            }
+
+            return appComponent;
         }
     }
 }

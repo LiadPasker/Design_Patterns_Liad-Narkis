@@ -10,7 +10,7 @@ using FacebookWrapper.ObjectModel;
 
 namespace View
 {
-    public partial class BirthdayViewerComponent : UserControl
+    public partial class BirthdayViewerComponent : UserControl, IAppComponent
     {
         private readonly int r_GraphicSpeed = 150;
         private readonly int r_ColorAlpha = 100;
@@ -18,10 +18,11 @@ namespace View
         private readonly int r_NameCoulmnNumber = 0;
         private readonly int r_BirthdayCoulmnNumber = 1;
         private readonly int r_HowFarInMonths = 12; // initializes to 12 months for demonsration reasons only.
-        private Model.Control m_AppControl;
+        private Model.AppFacade m_AppControl;
         private TabPage m_TabPageControl;
         private int m_CurrentShowFriendIndex;
         private Timer m_BirthdayGraphicController;
+        private MovingUpAnimationPlayer m_Animation = null;
 
         public List<User> FriendsToShow { get; set; } = null;
 
@@ -51,11 +52,32 @@ namespace View
             drawer.DrawString(messege, font, new SolidBrush(color), new Point(this.Left, 10));
         }
 
-        public void Populate(Model.Control i_AppControl, TabPage i_TabPageControl)
+        public void Initialize(TabPage i_TabPage)
         {
-            m_TabPageControl = i_TabPageControl;
+            i_TabPage.Controls.Add(this);
+            this.Location = new Point((i_TabPage.ClientSize.Width - this.ClientSize.Width) / 2, (i_TabPage.ClientSize.Height - this.ClientSize.Height) / 2);
+            FriendsToShow = null;
+        }
+
+        public void Populate(Model.AppFacade i_AppControl, TabPage i_TabPage)
+        {
+            Initialize(i_TabPage);
+            m_TabPageControl = i_TabPage;
             m_AppControl = i_AppControl;
             handleView();
+            if (m_Animation == null)
+            {
+                m_Animation = new MovingUpAnimationPlayer();
+            }
+
+            PlayAnimation(m_TabPageControl, Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.balloons.png", 100, 100));
+        }
+
+        private void PlayAnimation(TabPage i_CurrentTab, Image i_Picture)
+        {
+            Point startLocation = new Point(0, i_CurrentTab.Height);
+            m_Animation.InitializeAnimatedImage(startLocation, i_CurrentTab.Controls, i_Picture);
+            m_Animation.Play();
         }
 
         private void handleView()
@@ -106,13 +128,6 @@ namespace View
             }
         }
 
-        private void zeroizeControllers()
-        {
-            m_TabPageControl.Invalidate();
-            m_BirthdayGraphicController.Stop();
-            m_ButtonGenerateWish.Enabled = m_TextBoxPost.Enabled = m_PictureBoxProfilePicture.Visible = false;
-        }
-
         private void handleBirthdays(DataGridViewRow i_Row)
         {
             m_TextBoxPost.Enabled = true;
@@ -141,7 +156,7 @@ namespace View
         {
             try
             {
-                m_AppControl.PostStatus(Model.Utils.eUserProfile.FRIEND_PROFILE, m_TextBoxPost.Text);
+                m_AppControl.PostStatus(Model.Utils.eAppComponent.FriendProfileViewer, m_TextBoxPost.Text);
             }
             catch (Exception exception)
             {
@@ -167,6 +182,19 @@ namespace View
         private void CheckBoxRemoveFriendsThatHadBirthday_CheckedChanged(object sender, EventArgs e)
         {
             handleView();
+        }
+
+        private void zeroizeControllers()
+        {
+            m_TabPageControl.Invalidate();
+            m_BirthdayGraphicController.Stop();
+            m_ButtonGenerateWish.Enabled = m_TextBoxPost.Enabled = m_PictureBoxProfilePicture.Visible = false;
+        }
+
+        private void BirthdayViewerComponent_Leave(object sender, EventArgs e)
+        {
+            m_Animation.Stop();
+            zeroizeControllers();
         }
     }
 }

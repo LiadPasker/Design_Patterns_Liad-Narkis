@@ -145,6 +145,7 @@
             this.Controls.Add(this.m_PictureBoxProfilePicture);
             this.Name = "BirthdayViewerComponent";
             this.Size = new System.Drawing.Size(582, 376);
+            this.Leave += new System.EventHandler(this.BirthdayViewerComponent_Leave);
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxProfilePicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_DataGridViewBirthdays)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceBirthday)).EndInit();

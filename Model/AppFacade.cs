@@ -10,7 +10,7 @@ using FacebookWrapper.ObjectModel;
 
 namespace Model
 {
-    public class Control
+    public class AppFacade
     {
         private readonly int r_WishesNumber = 5;
         private UserAlbumsManager m_UserAlbumManager;
@@ -24,7 +24,7 @@ namespace Model
             return Regex.IsMatch(i_TextToCheck, @"^([1-9]|[1-2][0-9]|3[0-6])$");
         }
 
-        public Control()
+        public AppFacade()
         {
             m_UserAlbumManager = new UserAlbumsManager();
         }
@@ -40,7 +40,7 @@ namespace Model
             return DesktopFacebookSettings.Settings;
         }
 
-        public void PostStatus(Utils.eUserProfile i_UserType, string i_TextToPost, List<TagInfo> i_UserTags = null, Checkin i_CheckIn = null) // not finished: tags, checkin
+        public void PostStatus(Utils.eAppComponent i_UserType, string i_TextToPost, List<TagInfo> i_UserTags = null, Checkin i_CheckIn = null) // not finished: tags, checkin
         {
             validateInputString(i_TextToPost);
             User user = null;
@@ -53,6 +53,21 @@ namespace Model
             {
                 throw new Exception("Facebook Server Error");
             }
+        }
+
+        public string GetProfilePicForViewer(Utils.eAppComponent eUserType)
+        {
+            string picURL = null;
+            if (eUserType == Model.Utils.eAppComponent.FriendProfileViewer)
+            {
+                picURL = getCurrentShowedFriendProfilePictureURL();
+            }
+            else
+            {
+                picURL = FacebookAuthentication.FAuthInstance.LoggedInUser.PictureLargeURL;
+            }
+
+            return picURL;
         }
 
         private void validateInputString(string i_TextToPost)
@@ -83,7 +98,7 @@ namespace Model
             return m_UserAlbumManager.GetAlbumURLs(i_Album);
         }
 
-        public FacebookObjectCollection<Post> getFeed(Utils.eUserProfile i_UserType, int i_PostsMonthsOld)
+        public FacebookObjectCollection<Post> getFeed(Utils.eAppComponent i_UserType, int i_PostsMonthsOld)
         {
             FacebookObjectCollection<Post> recentWallPosts = new FacebookObjectCollection<Post>();
             FacebookObjectCollection<Post> allUserPosts = getAllUserPosts(i_UserType);
@@ -98,7 +113,7 @@ namespace Model
             return recentWallPosts;
         }
 
-        private FacebookObjectCollection<Post> getAllUserPosts(Utils.eUserProfile i_UserType)
+        private FacebookObjectCollection<Post> getAllUserPosts(Utils.eAppComponent i_UserType)
         {
             User user = null;
             try
@@ -156,7 +171,7 @@ divider);
             }
         }
 
-        public string GetcurrentShowedUserInfo(Utils.eUserProfile i_UserType)
+        public string GetcurrentShowedUserInfo(Utils.eAppComponent i_UserType)
         {
             User currUser = null;
             try
@@ -190,7 +205,7 @@ currUser?.RelationshipStatus,
 currUser?.About);
         }
 
-        public FacebookObjectCollection<Event> GetUserUpcomingEvents(Utils.eUserProfile i_UserType)
+        public FacebookObjectCollection<Event> GetUserUpcomingEvents(Utils.eAppComponent i_UserType)
         {
             User user = null;
             FacebookObjectCollection<Event> userEvents = null;
@@ -455,18 +470,18 @@ currUser?.About);
             return events;
         }
 
-        private User getUser(Utils.eUserProfile i_UserType)
+        private User getUser(Utils.eAppComponent i_UserType)
         {
             User currUser = null;
             try
             {
                 switch (i_UserType)
                 {
-                    case Utils.eUserProfile.MY_PROFILE:
+                    case Utils.eAppComponent.UserProfileViewer:
                         currUser = FacebookAuthentication.FAuthInstance.LoggedInUser;
                         break;
 
-                    case Utils.eUserProfile.FRIEND_PROFILE:
+                    case Utils.eAppComponent.FriendProfileViewer:
                         currUser = m_CurrentUserFriend;
                         if (currUser == null)
                         {

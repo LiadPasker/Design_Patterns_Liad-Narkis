@@ -10,10 +10,10 @@ using Model;
 
 namespace View
 {
-    public partial class ProfileViewerComponent : UserControl
+    public partial class ProfileViewerComponent : UserControl, IAppComponent
     {
-        private Model.Control m_AppControl;
-        private Utils.eUserProfile eUserType;
+        private Model.AppFacade m_AppFacade;
+        private Utils.eAppComponent eUserType;
 
         public string ShowedUserProfilePictureURL { get; set; } = null;
 
@@ -22,10 +22,18 @@ namespace View
             InitializeComponent();
         }
 
-        public void Populate(Model.Control i_AppControl, Utils.eUserProfile i_UserType)
+        public void Initialize(TabPage i_TabPage)
         {
-            eUserType = i_UserType;
-            m_AppControl = i_AppControl;
+            i_TabPage.Controls.Add(this);
+            this.Location = new Point((i_TabPage.ClientSize.Width - this.ClientSize.Width) / 2, (i_TabPage.ClientSize.Height - this.ClientSize.Height) / 2);
+        }
+
+        public void Populate(Model.AppFacade i_AppControl, TabPage i_TabPage)
+        {
+            Initialize(i_TabPage);
+            int tabTag = int.Parse(i_TabPage.Tag.ToString());
+            eUserType = (Model.Utils.eAppComponent)tabTag;
+            m_AppFacade = i_AppControl;
             if (m_ComponentPictureBoxProfilePic.Image == null)
             {
                 m_ComponentPictureBoxProfilePic.Image = Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.user.png", 165, 165);
@@ -33,9 +41,10 @@ namespace View
 
             DesktopFacebook.InitializeButtonTextBoxRelationship(m_ComponentTextBoxPostOnWall, m_ComponentButtonPostOnWall);
         }
-
+        
         public void ShowProfilePicture()
         {
+            ShowedUserProfilePictureURL = m_AppFacade.GetProfilePicForViewer(eUserType);
             if (ShowedUserProfilePictureURL != null)
             {
                 m_ComponentPictureBoxProfilePic.LoadAsync(ShowedUserProfilePictureURL);
@@ -48,8 +57,8 @@ namespace View
             m_ComponentTextBoxPostOnWall.Enabled = true;
             m_ComponentTextBoxFeedAge.Enabled = true;
             ShowProfilePicture();
-            m_ComponentTextBoxUserInfo.Text = m_AppControl.GetcurrentShowedUserInfo(eUserType);
-            m_ComponentDataGridViewUpcomingEvents.Invoke(new Action(initializeUserUpcomingEvents));
+            m_ComponentTextBoxUserInfo.Text = m_AppFacade.GetcurrentShowedUserInfo(eUserType);
+            initializeUserUpcomingEvents();
             TextBoxFeedAge_TextChanged(m_ComponentTextBoxFeedAge, null);
         }
 
@@ -57,7 +66,7 @@ namespace View
         {
             try
             {
-                m_ComponentBindingSourceUpcomingEvents.DataSource = m_AppControl.GetUserUpcomingEvents(eUserType);
+                m_ComponentBindingSourceUpcomingEvents.DataSource = m_AppFacade.GetUserUpcomingEvents(eUserType);
             }
             catch (Exception e)
             {
@@ -69,7 +78,7 @@ namespace View
         {
             try
             {
-                m_ComponentBindingSourceFeed.DataSource = m_AppControl.getFeed(eUserType, DesktopFacebook.PostsAgeInMonths);
+                m_ComponentBindingSourceFeed.DataSource = m_AppFacade.getFeed(eUserType, DesktopFacebook.PostsAgeInMonths);
             }
             catch (Exception)
             {
@@ -85,14 +94,14 @@ namespace View
             }
 
             DesktopFacebook.ValidatePostsAgeCheckBoxAndExecute(m_ComponentTextBoxFeedAge);
-            m_ComponentDataGridViewRecentFeed.Invoke(new Action(initializeUserRecentFeed));
+            initializeUserRecentFeed();
         }
 
         private void ButtonPostOnWall_Click(object sender, EventArgs e)
         {
             try
             {
-                m_AppControl.PostStatus(eUserType, m_ComponentTextBoxPostOnWall.Text);
+                m_AppFacade.PostStatus(eUserType, m_ComponentTextBoxPostOnWall.Text);
             }
             catch (Exception exception)
             {

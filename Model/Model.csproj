@@ -50,7 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Control.cs" />
+    <Compile Include="AppFacade.cs" />
     <Compile Include="FacebookAuthentication.cs" />
     <Compile Include="DesktopFacebookSettings.cs" />
     <Compile Include="OfficeManager.cs" />

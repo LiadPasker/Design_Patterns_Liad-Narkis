@@ -7,10 +7,12 @@ namespace Model
 {
     public static class Utils
     {
-        public enum eUserProfile
+        public enum eAppComponent
         {
-            MY_PROFILE,
-            FRIEND_PROFILE
+            ActivityAutomation = 0,
+            BirthdayViewer,
+            UserProfileViewer,
+            FriendProfileViewer
         }
 
         public enum eFileType
