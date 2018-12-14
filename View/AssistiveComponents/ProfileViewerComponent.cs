@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Threading;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -47,18 +48,18 @@ namespace View
             ShowedUserProfilePictureURL = m_AppFacade.GetProfilePicForViewer(eUserType);
             if (ShowedUserProfilePictureURL != null)
             {
-                m_ComponentPictureBoxProfilePic.LoadAsync(ShowedUserProfilePictureURL);
+                m_ComponentPictureBoxProfilePic.Invoke(new Action(() => { m_ComponentPictureBoxProfilePic.LoadAsync(ShowedUserProfilePictureURL); }));
             }
         }
 
-        public void InitializeProfileViewer()
+        public void InitializeViewer()
         {
             m_ComponentTextBoxUserInfo.Enabled = true;
             m_ComponentTextBoxPostOnWall.Enabled = true;
             m_ComponentTextBoxFeedAge.Enabled = true;
-            ShowProfilePicture();
+            new Thread(ShowProfilePicture).Start();
             m_ComponentTextBoxUserInfo.Text = m_AppFacade.GetcurrentShowedUserInfo(eUserType);
-            initializeUserUpcomingEvents();
+            new Thread(initializeUserUpcomingEvents).Start();
             TextBoxFeedAge_TextChanged(m_ComponentTextBoxFeedAge, null);
         }
 
@@ -79,6 +80,7 @@ namespace View
             try
             {
                 m_ComponentBindingSourceFeed.DataSource = m_AppFacade.getFeed(eUserType, DesktopFacebook.PostsAgeInMonths);
+                m_ComponentTextBoxFeedAge.Text = DesktopFacebook.PostsAgeInMonths.ToString();
             }
             catch (Exception)
             {
@@ -90,11 +92,11 @@ namespace View
         {
             if (m_ComponentTextBoxFeedAge.Text == string.Empty)
             {
-                m_ComponentTextBoxFeedAge.Text = DesktopFacebook.PostsAgeInMonths.ToString();
+                m_ComponentTextBoxFeedAge.Invoke(new Action(() => { m_ComponentTextBoxFeedAge.Text = DesktopFacebook.PostsAgeInMonths.ToString(); }));
             }
 
             DesktopFacebook.ValidatePostsAgeCheckBoxAndExecute(m_ComponentTextBoxFeedAge);
-            initializeUserRecentFeed();
+            new Thread(initializeUserRecentFeed).Start();
         }
 
         private void ButtonPostOnWall_Click(object sender, EventArgs e)

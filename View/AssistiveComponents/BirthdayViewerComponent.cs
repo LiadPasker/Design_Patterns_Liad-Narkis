@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Threading;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,7 @@ namespace View
         private Model.AppFacade m_AppControl;
         private TabPage m_TabPageControl;
         private int m_CurrentShowFriendIndex;
-        private Timer m_BirthdayGraphicController;
+        private System.Windows.Forms.Timer m_BirthdayGraphicController;
         private MovingUpAnimationPlayer m_Animation = null;
 
         public List<User> FriendsToShow { get; set; } = null;
@@ -29,7 +30,7 @@ namespace View
         public BirthdayViewerComponent()
         {
             InitializeComponent();
-            m_BirthdayGraphicController = new Timer();
+            m_BirthdayGraphicController = new System.Windows.Forms.Timer();
             m_BirthdayGraphicController.Interval = r_GraphicSpeed;
             m_BirthdayGraphicController.Tick += handleGraphics;
         }
@@ -64,19 +65,19 @@ namespace View
             Initialize(i_TabPage);
             m_TabPageControl = i_TabPage;
             m_AppControl = i_AppControl;
-            handleView();
+            new Thread(handleView).Start();
             if (m_Animation == null)
             {
                 m_Animation = new MovingUpAnimationPlayer();
             }
 
-            PlayAnimation(m_TabPageControl, Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.balloons.png", 100, 100));
+            PlayAnimation(Model.UserAlbumsManager.GetCustomedImageFromEmbeddedResource("Model.pictureSources.balloons.png", 100, 100));
         }
 
-        private void PlayAnimation(TabPage i_CurrentTab, Image i_Picture)
+        private void PlayAnimation(Image i_Picture)
         {
-            Point startLocation = new Point(0, i_CurrentTab.Height);
-            m_Animation.InitializeAnimatedImage(startLocation, i_CurrentTab.Controls, i_Picture);
+            Point startLocation = new Point(0, m_TabPageControl.Height);
+            m_Animation.InitializeAnimatedImage(startLocation, m_TabPageControl.Controls, i_Picture);
             m_Animation.Play();
         }
 
@@ -95,7 +96,7 @@ namespace View
                 MessageBox.Show(e.Message);
             }
 
-            m_DataGridViewBirthdays.MultiSelect = false;
+            m_DataGridViewBirthdays.Invoke(new Action(() => { m_DataGridViewBirthdays.MultiSelect = false; }));
             m_DataGridViewBirthdays.Invoke(new Action(initializeUserFriendsBirthdays));
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Threading;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -37,7 +38,7 @@ namespace View
             Initialize(m_TabController);
             m_AppControl = i_AppControl;
             m_SchduledTo = DateTime.Now;
-            initializePickTimeCumboBoxes();
+            new Thread(initializePickTimeCumboBoxes).Start();
             if (m_PostTimer == null)
             {
                 m_PostTimer = new System.Threading.Timer(HandlePost);
@@ -87,23 +88,23 @@ namespace View
                 {
                     if (i < 10)
                     {
-                        m_ComboBoxPickHour.Items.Add(string.Format("0{0}", i));
-                        m_ComboBoxPickMinute.Items.Add(string.Format("0{0}", i));
+                        m_ComboBoxPickHour.Invoke(new Action(() => { m_ComboBoxPickHour.Items.Add(string.Format("0{0}", i)); }));
+                        m_ComboBoxPickMinute.Invoke(new Action(() => { m_ComboBoxPickMinute.Items.Add(string.Format("0{0}", i)); }));
                     }
                     else
                     {
-                        m_ComboBoxPickHour.Items.Add(i);
-                        m_ComboBoxPickMinute.Items.Add(i);
+                        m_ComboBoxPickHour.Invoke(new Action(() => { m_ComboBoxPickHour.Items.Add(i); }));
+                        m_ComboBoxPickMinute.Invoke(new Action(() => { m_ComboBoxPickMinute.Items.Add(i); }));
                     }
                 }
                 else
                 {
-                    m_ComboBoxPickMinute.Items.Add(i);
+                    m_ComboBoxPickMinute.Invoke(new Action(() => { m_ComboBoxPickMinute.Items.Add(i); }));
                 }
             }
 
-            m_ComboBoxPickMinute.SelectedIndex = 0;
-            m_ComboBoxPickHour.SelectedIndex = 0;
+            m_ComboBoxPickMinute.Invoke(new Action(() => { m_ComboBoxPickMinute.SelectedIndex = 0; }));
+            m_ComboBoxPickHour.Invoke(new Action(() => { m_ComboBoxPickHour.SelectedIndex = 0; }));
         }
 
         private void monthCalendar_DateChanged(object sender, DateRangeEventArgs e)
@@ -163,16 +164,16 @@ namespace View
             else
             {
                 m_TabControlAutomationActivity.SelectTab(m_TabPageSummary);
-                initializeSummaryTab();
+                new Thread(initializeSummaryTab).Start();
             }
         }
 
         private void initializeSummaryTab()
         {
             initializeSummaryPageImages();
-            m_TextBoxSummaryPost.Text = m_CheckBoxSchedulePost.Checked == true ? m_TextBoxActionPagePost.Text : string.Empty;
-            m_TextBoxSummaryCheckIn.Text = m_CheckBoxScheduleCheckIn.Checked == true ? m_TextBoxActionPageCheckIn.Text : string.Empty;
-            m_ButtonSummaryPagePost.Enabled = m_CheckBoxScheduleCheckIn.Checked || m_CheckBoxSchedulePost.Checked;
+            m_TextBoxSummaryPost.Invoke(new Action(() => { m_TextBoxSummaryPost.Text = m_CheckBoxSchedulePost.Checked == true ? m_TextBoxActionPagePost.Text : string.Empty; }));
+            m_TextBoxSummaryCheckIn.Invoke(new Action(() => { m_TextBoxSummaryCheckIn.Text = m_CheckBoxScheduleCheckIn.Checked == true ? m_TextBoxActionPageCheckIn.Text : string.Empty; }));
+            m_ButtonSummaryPagePost.Invoke(new Action(() => { m_ButtonSummaryPagePost.Enabled = m_CheckBoxScheduleCheckIn.Checked || m_CheckBoxSchedulePost.Checked; }));
         }
 
         private void initializeSummaryPageImages()

@@ -43,7 +43,7 @@ namespace View
             }
             else
             {
-                i_TextBox.Text = PostsAgeInMonths.ToString();
+                i_TextBox.Invoke(new Action(() => { i_TextBox.Text = PostsAgeInMonths.ToString(); }));
                 MessageBox.Show("Invalid Input");
             }
         }
@@ -382,14 +382,18 @@ namespace View
         /*
          * --------- using polimorphic family 'IComponent' - created by 'AppComponentFactory' ---------
          */
-
-        private void ButtonComponent_Click(object sender, EventArgs e)
+        private void ButtonUserControlHandler_Click(object sender, EventArgs e)
         {
             int tagNum = int.Parse((sender as Button).Tag.ToString());
-            Model.Utils.eAppComponent eAppComponent = (Model.Utils.eAppComponent)tagNum;
-            IAppComponent appComponent = AppComponentFactory.CreateAppComponent(eAppComponent, m_AppComponents, m_TabPageComponentViewer);
-            invisibleListComponents(appComponent, m_AppComponents);
             m_TabsControl.SelectTab(m_TabPageComponentViewer);
+            HandleUserControls(tagNum);
+        }
+
+        private void HandleUserControls(int i_TagNum)
+        {
+            Model.Utils.eAppComponent eAppComponent = (Model.Utils.eAppComponent)i_TagNum;
+            IAppComponent appComponent = AppComponentFactory.CreateAppComponent(eAppComponent, m_AppComponents, m_TabPageComponentViewer);
+            invisibleListComponents(appComponent);
             appComponent.Populate(r_AppFacade, m_TabPageComponentViewer);
             m_LabelFriendList.Visible = m_ComboBoxFriends.Visible = false;
 
@@ -404,7 +408,7 @@ namespace View
             switch (eAppComponent)
             {
                 case Utils.eAppComponent.UserProfileViewer:
-                    (i_CurrentComponent as ProfileViewerComponent).InitializeProfileViewer();
+                    (i_CurrentComponent as ProfileViewerComponent).InitializeViewer();
                     break;
 
                 case Utils.eAppComponent.FriendProfileViewer:
@@ -415,10 +419,10 @@ namespace View
             }
         }
 
-        private void invisibleListComponents(IAppComponent i_AppComponent, List<IAppComponent> i_ComponentList)
+        private void invisibleListComponents(IAppComponent i_AppComponent)
         {
             (i_AppComponent as UserControl).Visible = true;
-            foreach (IAppComponent comp in i_ComponentList)
+            foreach (IAppComponent comp in m_AppComponents)
             {
                 if (comp != i_AppComponent)
                 {
@@ -429,13 +433,18 @@ namespace View
 
         private void ComboBoxFriendList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            handleFriendsListPick();
+        }
+
+        private void handleFriendsListPick()
+        {
             try
             {
                 string friendName = m_ComboBoxFriends.Text;
                 if (!string.IsNullOrEmpty(friendName))
                 {
                     r_AppFacade.verifyFriendSearchAndImportInfo(friendName); // throws exeption if searched failed or facebook server failed
-                    (findVisibleComponent(m_AppComponents) as ProfileViewerComponent).InitializeProfileViewer();
+                    (findVisibleComponent() as ProfileViewerComponent).InitializeViewer();
                 }
             }
             catch (Exception exception)
@@ -444,7 +453,7 @@ namespace View
             }
         }
 
-        private IAppComponent findVisibleComponent(List<IAppComponent> m_AppComponents)
+        private IAppComponent findVisibleComponent()
         {
             IAppComponent appComponent = null;
             foreach (IAppComponent comp in m_AppComponents)

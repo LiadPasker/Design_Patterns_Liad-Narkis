@@ -280,7 +280,7 @@
             this.m_ButtonAutomateYourActivity.Tag = "0";
             this.m_ButtonAutomateYourActivity.Text = "Automate Your Activity";
             this.m_ButtonAutomateYourActivity.UseVisualStyleBackColor = false;
-            this.m_ButtonAutomateYourActivity.Click += new System.EventHandler(this.ButtonComponent_Click);
+            this.m_ButtonAutomateYourActivity.Click += new System.EventHandler(this.ButtonUserControlHandler_Click);
             // 
             // m_ButtonExportCurrentMonthToExcel
             // 
@@ -305,7 +305,7 @@
             this.m_ButtonBirthdayTracker.Tag = "1";
             this.m_ButtonBirthdayTracker.Text = "Birthday Tracker";
             this.m_ButtonBirthdayTracker.UseVisualStyleBackColor = false;
-            this.m_ButtonBirthdayTracker.Click += new System.EventHandler(this.ButtonComponent_Click);
+            this.m_ButtonBirthdayTracker.Click += new System.EventHandler(this.ButtonUserControlHandler_Click);
             // 
             // m_ButtonMyProfile
             // 
@@ -318,7 +318,7 @@
             this.m_ButtonMyProfile.Tag = "2";
             this.m_ButtonMyProfile.Text = "My Profile";
             this.m_ButtonMyProfile.UseVisualStyleBackColor = false;
-            this.m_ButtonMyProfile.Click += new System.EventHandler(this.ButtonComponent_Click);
+            this.m_ButtonMyProfile.Click += new System.EventHandler(this.ButtonUserControlHandler_Click);
             // 
             // m_ButtonFriendInfo
             // 
@@ -331,7 +331,7 @@
             this.m_ButtonFriendInfo.Tag = "3";
             this.m_ButtonFriendInfo.Text = "friend Info";
             this.m_ButtonFriendInfo.UseVisualStyleBackColor = false;
-            this.m_ButtonFriendInfo.Click += new System.EventHandler(this.ButtonComponent_Click);
+            this.m_ButtonFriendInfo.Click += new System.EventHandler(this.ButtonUserControlHandler_Click);
             // 
             // m_LogoPictureBox
             // 
