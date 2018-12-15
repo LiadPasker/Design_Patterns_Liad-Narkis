@@ -254,7 +254,7 @@ namespace View
 
         private void m_ComboBoxPickHour_TextChanged(object sender, EventArgs e)
         {
-            if (m_AppControl.isValidHour(m_ComboBoxPickHour.Text))
+            if (m_AppControl.IsValidHour(m_ComboBoxPickHour.Text))
             {
                 m_SchduledTo = m_SchduledTo.AddHours(m_ComboBoxPickHour.SelectedIndex - m_SchduledTo.Hour);
             }
@@ -267,7 +267,7 @@ namespace View
 
         private void m_ComboBoxPickMinute_TextChanged(object sender, EventArgs e)
         {
-            if (m_AppControl.isValidMinute(m_ComboBoxPickMinute.Text))
+            if (m_AppControl.IsValidMinute(m_ComboBoxPickMinute.Text))
             {
                 m_SchduledTo = m_SchduledTo.AddMinutes(m_ComboBoxPickMinute.SelectedIndex - m_SchduledTo.Minute);
             }

@@ -67,7 +67,7 @@ namespace View
         {
             try
             {
-                m_ComponentBindingSourceUpcomingEvents.DataSource = m_AppFacade.GetUserUpcomingEvents(eUserType);
+                m_ComponentDataGridViewUpcomingEvents.Invoke(new Action(() => { m_ComponentBindingSourceUpcomingEvents.DataSource = m_AppFacade.GetUserUpcomingEvents(eUserType); }));
             }
             catch (Exception e)
             {
@@ -79,8 +79,8 @@ namespace View
         {
             try
             {
-                m_ComponentBindingSourceFeed.DataSource = m_AppFacade.getFeed(eUserType, DesktopFacebook.PostsAgeInMonths);
-                m_ComponentTextBoxFeedAge.Text = DesktopFacebook.PostsAgeInMonths.ToString();
+                m_ComponentDataGridViewRecentFeed.Invoke(new Action(() => { m_ComponentBindingSourceFeed.DataSource = m_AppFacade.getFeed(eUserType, DesktopFacebook.PostsAgeInMonths); }));
+                m_ComponentTextBoxFeedAge.Invoke(new Action(() => { m_ComponentTextBoxFeedAge.Text = DesktopFacebook.PostsAgeInMonths.ToString(); }));
             }
             catch (Exception)
             {

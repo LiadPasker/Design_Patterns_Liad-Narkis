@@ -546,7 +546,7 @@
             this.m_TabPageComponentViewer.Name = "m_TabPageComponentViewer";
             this.m_TabPageComponentViewer.Size = new System.Drawing.Size(945, 592);
             this.m_TabPageComponentViewer.TabIndex = 8;
-            this.m_TabPageComponentViewer.Text = "Component";
+            this.m_TabPageComponentViewer.Text = "UserControl";
             this.m_TabPageComponentViewer.UseVisualStyleBackColor = true;
             // 
             // m_LabelFriendList

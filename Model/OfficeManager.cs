@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using FacebookWrapper.ObjectModel;
 using Microsoft.Office.Interop;
 using Microsoft.Office.Interop.Excel;
 
@@ -24,13 +25,14 @@ namespace Model
 
         public Application ExcelFile { get; private set; } = null;
 
-        public bool ExportToExcel(System.Data.DataTable i_Data, string i_ExcelFilePath = null)
+        public bool ExportToExcel(string i_SheetName, UserManager i_UserManager, string i_ExcelFilePath = null)
         {
+            System.Data.DataTable dataTable = initializeCalenderTable(i_SheetName, i_UserManager);
             bool isSuccessfulExportaion = false;
 
             try
             {
-                if (i_Data == null || i_Data.Columns.Count == 0)
+                if (dataTable == null || dataTable.Columns.Count == 0)
                 {
                     throw new Exception("Exporting Failed!");
                 }
@@ -39,11 +41,11 @@ namespace Model
                 ExcelFile.Workbooks.Add();
                 _Worksheet workSheet = ExcelFile.ActiveSheet;
                 workSheet.Columns.ColumnWidth = r_ColumnWidth;
-                workSheet.Name = i_Data.TableName;
+                workSheet.Name = dataTable.TableName;
                 changeHeadlineColor(workSheet);
                 setColumnsHeight(workSheet);
                 setSheetBorders(workSheet);
-                fillExcelWorksheetWithData(workSheet, i_Data);
+                fillExcelWorksheetWithData(workSheet, dataTable);
                 isSuccessfulExportaion = DecideFileVisibilityByFilePathGiven(workSheet, i_ExcelFilePath);
                 insertTotalEventsFormula(workSheet);
             }
@@ -137,6 +139,116 @@ namespace Model
                     excelRangeGenerator(r_FirstSheetColumn + 1, r_FirstSheetRow + i, r_LastSheetColumn, r_FirstSheetRow + i));
                 formulaHolder.Interior.Color = XlRgbColor.rgbLightGoldenrodYellow;
             }
+        }
+
+        private System.Data.DataTable initializeCalenderTable(string i_TableName, UserManager i_UserManager)
+        {
+            int numOfDaysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+            string[] events;
+            string[] birthdays;
+            try
+            {
+                events = getEventsCalendarically(numOfDaysInCurrentMonth);
+            }
+            catch (Exception)
+            {
+                events = null;
+            }
+
+            try
+            {
+                birthdays = getBirthdaysCalendarically(numOfDaysInCurrentMonth, i_UserManager);
+            }
+            catch (Exception)
+            {
+                birthdays = null;
+            }
+
+            return buildDataTable(i_TableName, numOfDaysInCurrentMonth, birthdays, events);
+        }
+
+        private System.Data.DataTable buildDataTable(string i_TableName, int numOfDaysInCurrentMonth, string[] birthdays, string[] events)
+        {
+            System.Data.DataTable userHighLights = new System.Data.DataTable(i_TableName);
+            DateTime monthDay = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1); // initializes to the first day of the current month
+            DataRow dayRow = userHighLights.NewRow();
+            DataRow occasionRow = userHighLights.NewRow();
+            string day = monthDay.DayOfWeek.ToString();
+
+            for (int days = (int)DayOfWeek.Sunday; days <= (int)DayOfWeek.Saturday; days++)
+            {
+                userHighLights.Columns.Add(((DayOfWeek)days).ToString());
+            }
+
+            for (int i = 1; i <= numOfDaysInCurrentMonth; i++)
+            {
+                dayRow[day] = i;
+                if (birthdays?[i - 1] != null || events?[i - 1] != null)
+                {
+                    occasionRow[day] = string.Format("{0}\n{1}", birthdays?[i - 1], events?[i - 1]);
+                }
+
+                if (day == DayOfWeek.Saturday.ToString() || i == DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month))
+                {
+                    userHighLights.Rows.Add(dayRow);
+                    userHighLights.Rows.Add(occasionRow);
+                    dayRow = userHighLights.NewRow();
+                    occasionRow = userHighLights.NewRow();
+                }
+
+                monthDay = monthDay.AddDays(1);
+                day = monthDay.DayOfWeek.ToString();
+            }
+
+            return userHighLights;
+        }
+
+        private string[] getBirthdaysCalendarically(int i_numOfDaysInCurrentMonth, UserManager i_UserManager)
+        {
+            string[] birthdays = new string[i_numOfDaysInCurrentMonth];
+
+            try
+            {
+                List<User> friends = i_UserManager.GetConnectedUserFriendsSortedByBirthdays();
+                foreach (User friend in friends)
+                {
+                    DateTime birthdayDate = DateTime.ParseExact(friend.Birthday, "MM/dd/yyyy", null);
+                    if (OccasionHandler.IsOccasionSoon(friend.Birthday, 0, true))
+                    {
+                        birthdays[birthdayDate.Day - 1] += string.Format("{0} have a Birthday\n", friend.Name);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return birthdays;
+        }
+
+        private string[] getEventsCalendarically(int i_numOfDaysInCurrentMonth)
+        {
+            string[] events = new string[i_numOfDaysInCurrentMonth];
+
+            try
+            {
+                FacebookObjectCollection<Event> ConnectedUserEvents = FacebookAuthentication.FAuthInstance.LoggedInUser.Events;
+                foreach (Event currentEvent in ConnectedUserEvents)
+                {
+                    DateTime? eventDate = currentEvent.StartTime;
+                    if (OccasionHandler.IsOccasionSoon(eventDate.ToString(), 0))
+                    {
+                        events[eventDate.Value.Day - 1] += string.Format("{0}\n", currentEvent.Name);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return events;
         }
     }
 }

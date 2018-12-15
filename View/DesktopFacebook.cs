@@ -395,6 +395,7 @@ namespace View
             IAppComponent appComponent = AppComponentFactory.CreateAppComponent(eAppComponent, m_AppComponents, m_TabPageComponentViewer);
             invisibleListComponents(appComponent);
             appComponent.Populate(r_AppFacade, m_TabPageComponentViewer);
+
             m_LabelFriendList.Visible = m_ComboBoxFriends.Visible = false;
 
             if (eAppComponent == Model.Utils.eAppComponent.FriendProfileViewer || eAppComponent == Model.Utils.eAppComponent.UserProfileViewer)
@@ -443,7 +444,7 @@ namespace View
                 string friendName = m_ComboBoxFriends.Text;
                 if (!string.IsNullOrEmpty(friendName))
                 {
-                    r_AppFacade.verifyFriendSearchAndImportInfo(friendName); // throws exeption if searched failed or facebook server failed
+                    r_AppFacade.VerifyFriendSearchAndImportInfo(friendName); // throws exeption if searched failed or facebook server failed
                     (findVisibleComponent() as ProfileViewerComponent).InitializeViewer();
                 }
             }

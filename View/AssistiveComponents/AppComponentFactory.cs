@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Model;
 
 namespace View
 {
@@ -15,13 +16,11 @@ namespace View
             switch (eAppComponent)
             {
                 case Model.Utils.eAppComponent.ActivityAutomation:
-                    i_TabShowedOn.Tag = 0;
                     appComponent = new ActivityAutomationComponent();
                     AllreadyExists(typeof(ActivityAutomationComponent), i_ComponentList, ref appComponent);
                     break;
 
                 case Model.Utils.eAppComponent.BirthdayViewer:
-                    i_TabShowedOn.Tag = 1;
                     appComponent = new BirthdayViewerComponent();
                     AllreadyExists(typeof(BirthdayViewerComponent), i_ComponentList, ref appComponent);
                     break;

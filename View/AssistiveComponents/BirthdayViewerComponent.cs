@@ -85,7 +85,7 @@ namespace View
         {
             try
             {
-                FriendsToShow = m_AppControl.getConnectedUserFriendsSortedByBirthdays();
+                FriendsToShow = m_AppControl.GetConnectedUserFriendsSortedByBirthdays();
                 if (m_CheckBoxRemoveFriendsThatHadBirthday.Checked == true)
                 {
                     FriendsToShow = m_AppControl.RemoveFriendsThatAlreadyHadBirthdays(FriendsToShow);
@@ -136,7 +136,7 @@ namespace View
             DesktopFacebook.InitializeButtonTextBoxRelationship(m_TextBoxPost, m_ButtonPost);
             try
             {
-                if (m_AppControl.isOccasionSoon((string)i_Row.Cells[r_BirthdayCoulmnNumber].Value, r_HowFarInMonths, true))
+                if (m_AppControl.IsOccasionSoon((string)i_Row.Cells[r_BirthdayCoulmnNumber].Value, r_HowFarInMonths, true))
                 {
                     showBirthdaySoonGraphics(); // Show graphics For Any Birthday For Demonstration
                     m_ButtonGenerateWish.Enabled = true;
