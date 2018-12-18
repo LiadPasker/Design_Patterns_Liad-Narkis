@@ -69,8 +69,6 @@
             this.m_ButtonCancelExport = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.m_TabPageComponentViewer = new System.Windows.Forms.TabPage();
-            this.m_LabelFriendList = new System.Windows.Forms.Label();
-            this.m_ComboBoxFriends = new System.Windows.Forms.ComboBox();
             this.m_BindingSourceFriendList = new System.Windows.Forms.BindingSource(this.components);
             this.m_Button_Logout = new System.Windows.Forms.Button();
             this.m_PictureBoxGoToMainTab = new System.Windows.Forms.PictureBox();
@@ -87,7 +85,6 @@
             this.m_TabPageFeed.SuspendLayout();
             this.m_TabPageExport.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxExcelExport)).BeginInit();
-            this.m_TabPageComponentViewer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxGoToMainTab)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendFeed)).BeginInit();
@@ -217,7 +214,7 @@
             this.m_TabsControl.SelectedIndex = 0;
             this.m_TabsControl.Size = new System.Drawing.Size(953, 625);
             this.m_TabsControl.TabIndex = 2;
-            this.m_TabsControl.Tag = string.Empty;
+            this.m_TabsControl.Tag = "";
             this.m_TabsControl.SelectedIndexChanged += new System.EventHandler(this.TabsControl_SelectedIndexChanged);
             // 
             // m_TabPageMainWindow
@@ -505,7 +502,7 @@
             this.m_TextBoxExportFilePath.Name = "m_TextBoxExportFilePath";
             this.m_TextBoxExportFilePath.Size = new System.Drawing.Size(430, 26);
             this.m_TextBoxExportFilePath.TabIndex = 2;
-            this.m_TextBoxExportFilePath.Tag = string.Empty;
+            this.m_TextBoxExportFilePath.Tag = "";
             // 
             // m_ButtonExport
             // 
@@ -540,36 +537,12 @@
             // 
             // m_TabPageComponentViewer
             // 
-            this.m_TabPageComponentViewer.Controls.Add(this.m_LabelFriendList);
-            this.m_TabPageComponentViewer.Controls.Add(this.m_ComboBoxFriends);
             this.m_TabPageComponentViewer.Location = new System.Drawing.Point(4, 29);
             this.m_TabPageComponentViewer.Name = "m_TabPageComponentViewer";
             this.m_TabPageComponentViewer.Size = new System.Drawing.Size(945, 592);
             this.m_TabPageComponentViewer.TabIndex = 8;
             this.m_TabPageComponentViewer.Text = "UserControl";
             this.m_TabPageComponentViewer.UseVisualStyleBackColor = true;
-            // 
-            // m_LabelFriendList
-            // 
-            this.m_LabelFriendList.AutoSize = true;
-            this.m_LabelFriendList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.m_LabelFriendList.Location = new System.Drawing.Point(42, 11);
-            this.m_LabelFriendList.Name = "m_LabelFriendList";
-            this.m_LabelFriendList.Size = new System.Drawing.Size(131, 26);
-            this.m_LabelFriendList.TabIndex = 7;
-            this.m_LabelFriendList.Text = "Friend List:";
-            // 
-            // m_ComboBoxFriends
-            // 
-            this.m_ComboBoxFriends.DataSource = this.m_BindingSourceFriendList;
-            this.m_ComboBoxFriends.DisplayMember = "Name";
-            this.m_ComboBoxFriends.FormattingEnabled = true;
-            this.m_ComboBoxFriends.Location = new System.Drawing.Point(189, 9);
-            this.m_ComboBoxFriends.Name = "m_ComboBoxFriends";
-            this.m_ComboBoxFriends.Size = new System.Drawing.Size(250, 28);
-            this.m_ComboBoxFriends.TabIndex = 6;
-            this.m_ComboBoxFriends.ValueMember = "Name";
-            this.m_ComboBoxFriends.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFriendList_SelectedIndexChanged);
             // 
             // m_BindingSourceFriendList
             // 
@@ -670,8 +643,6 @@
             this.m_TabPageExport.ResumeLayout(false);
             this.m_TabPageExport.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxExcelExport)).EndInit();
-            this.m_TabPageComponentViewer.ResumeLayout(false);
-            this.m_TabPageComponentViewer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_PictureBoxGoToMainTab)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendFeed)).EndInit();
@@ -730,7 +701,5 @@
         private System.Windows.Forms.CheckBox m_CheckBoxRememberUser;
         private System.Windows.Forms.BindingSource m_BindingSourceFriendList;
         private System.Windows.Forms.TabPage m_TabPageComponentViewer;
-        private System.Windows.Forms.Label m_LabelFriendList;
-        private System.Windows.Forms.ComboBox m_ComboBoxFriends;
     }
 }

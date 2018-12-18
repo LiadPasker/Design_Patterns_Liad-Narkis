@@ -54,17 +54,21 @@
             this.m_ComponentTextBoxPostOnWall = new System.Windows.Forms.TextBox();
             this.m_ComponentTextBoxUserInfo = new System.Windows.Forms.TextBox();
             this.m_ComponentPictureBoxProfilePic = new System.Windows.Forms.PictureBox();
+            this.m_LabelShowedProfile = new System.Windows.Forms.Label();
+            this.m_ComboBoxProfiles = new System.Windows.Forms.ComboBox();
+            this.m_BindingSourceFriendList = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.m_ComponentDataGridViewRecentFeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_ComponentBindingSourceFeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_ComponentDataGridViewUpcomingEvents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_ComponentBindingSourceUpcomingEvents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_ComponentPictureBoxProfilePic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendList)).BeginInit();
             this.SuspendLayout();
             // 
             // m_ComponentTextBoxFeedAge
             // 
             this.m_ComponentTextBoxFeedAge.Enabled = false;
-            this.m_ComponentTextBoxFeedAge.Location = new System.Drawing.Point(768, 5);
+            this.m_ComponentTextBoxFeedAge.Location = new System.Drawing.Point(769, 43);
             this.m_ComponentTextBoxFeedAge.Name = "m_ComponentTextBoxFeedAge";
             this.m_ComponentTextBoxFeedAge.Size = new System.Drawing.Size(38, 26);
             this.m_ComponentTextBoxFeedAge.TabIndex = 19;
@@ -84,7 +88,7 @@
             this.fromDataGridViewTextBoxColumn,
             this.createdTimeDataGridViewTextBoxColumn});
             this.m_ComponentDataGridViewRecentFeed.DataSource = this.m_ComponentBindingSourceFeed;
-            this.m_ComponentDataGridViewRecentFeed.Location = new System.Drawing.Point(496, 38);
+            this.m_ComponentDataGridViewRecentFeed.Location = new System.Drawing.Point(497, 76);
             this.m_ComponentDataGridViewRecentFeed.Name = "m_ComponentDataGridViewRecentFeed";
             this.m_ComponentDataGridViewRecentFeed.ReadOnly = true;
             this.m_ComponentDataGridViewRecentFeed.RowTemplate.Height = 28;
@@ -145,7 +149,7 @@
             this.linkToFacebookDataGridViewTextBoxColumn,
             this.timeStringDataGridViewTextBoxColumn});
             this.m_ComponentDataGridViewUpcomingEvents.DataSource = this.m_ComponentBindingSourceUpcomingEvents;
-            this.m_ComponentDataGridViewUpcomingEvents.Location = new System.Drawing.Point(252, 296);
+            this.m_ComponentDataGridViewUpcomingEvents.Location = new System.Drawing.Point(253, 334);
             this.m_ComponentDataGridViewUpcomingEvents.Name = "m_ComponentDataGridViewUpcomingEvents";
             this.m_ComponentDataGridViewUpcomingEvents.ReadOnly = true;
             this.m_ComponentDataGridViewUpcomingEvents.RowTemplate.Height = 28;
@@ -209,7 +213,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label5.Location = new System.Drawing.Point(247, 268);
+            this.label5.Location = new System.Drawing.Point(248, 306);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(187, 25);
             this.label5.TabIndex = 14;
@@ -219,7 +223,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label6.Location = new System.Drawing.Point(491, 10);
+            this.label6.Location = new System.Drawing.Point(492, 48);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(256, 25);
             this.label6.TabIndex = 15;
@@ -229,7 +233,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label4.Location = new System.Drawing.Point(247, 10);
+            this.label4.Location = new System.Drawing.Point(248, 48);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(185, 25);
             this.label4.TabIndex = 16;
@@ -240,7 +244,7 @@
             this.m_ComponentButtonPostOnWall.BackColor = System.Drawing.Color.DarkBlue;
             this.m_ComponentButtonPostOnWall.Enabled = false;
             this.m_ComponentButtonPostOnWall.ForeColor = System.Drawing.Color.White;
-            this.m_ComponentButtonPostOnWall.Location = new System.Drawing.Point(2, 436);
+            this.m_ComponentButtonPostOnWall.Location = new System.Drawing.Point(3, 474);
             this.m_ComponentButtonPostOnWall.Name = "m_ComponentButtonPostOnWall";
             this.m_ComponentButtonPostOnWall.Size = new System.Drawing.Size(232, 32);
             this.m_ComponentButtonPostOnWall.TabIndex = 13;
@@ -252,7 +256,7 @@
             // 
             this.m_ComponentTextBoxPostOnWall.BackColor = System.Drawing.Color.AliceBlue;
             this.m_ComponentTextBoxPostOnWall.Enabled = false;
-            this.m_ComponentTextBoxPostOnWall.Location = new System.Drawing.Point(2, 296);
+            this.m_ComponentTextBoxPostOnWall.Location = new System.Drawing.Point(3, 334);
             this.m_ComponentTextBoxPostOnWall.Multiline = true;
             this.m_ComponentTextBoxPostOnWall.Name = "m_ComponentTextBoxPostOnWall";
             this.m_ComponentTextBoxPostOnWall.Size = new System.Drawing.Size(232, 134);
@@ -264,7 +268,7 @@
             // m_ComponentTextBoxUserInfo
             // 
             this.m_ComponentTextBoxUserInfo.Enabled = false;
-            this.m_ComponentTextBoxUserInfo.Location = new System.Drawing.Point(252, 38);
+            this.m_ComponentTextBoxUserInfo.Location = new System.Drawing.Point(253, 76);
             this.m_ComponentTextBoxUserInfo.Multiline = true;
             this.m_ComponentTextBoxUserInfo.Name = "m_ComponentTextBoxUserInfo";
             this.m_ComponentTextBoxUserInfo.ReadOnly = true;
@@ -275,16 +279,44 @@
             // 
             // m_ComponentPictureBoxProfilePic
             // 
-            this.m_ComponentPictureBoxProfilePic.Location = new System.Drawing.Point(2, 10);
+            this.m_ComponentPictureBoxProfilePic.Location = new System.Drawing.Point(3, 48);
             this.m_ComponentPictureBoxProfilePic.Name = "m_ComponentPictureBoxProfilePic";
             this.m_ComponentPictureBoxProfilePic.Size = new System.Drawing.Size(232, 265);
             this.m_ComponentPictureBoxProfilePic.TabIndex = 10;
             this.m_ComponentPictureBoxProfilePic.TabStop = false;
             // 
+            // m_LabelShowedProfile
+            // 
+            this.m_LabelShowedProfile.AutoSize = true;
+            this.m_LabelShowedProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.m_LabelShowedProfile.Location = new System.Drawing.Point(3, 9);
+            this.m_LabelShowedProfile.Name = "m_LabelShowedProfile";
+            this.m_LabelShowedProfile.Size = new System.Drawing.Size(180, 26);
+            this.m_LabelShowedProfile.TabIndex = 21;
+            this.m_LabelShowedProfile.Text = "Showed Profile:";
+            // 
+            // m_ComboBoxProfiles
+            // 
+            this.m_ComboBoxProfiles.DataSource = this.m_BindingSourceFriendList;
+            this.m_ComboBoxProfiles.DisplayMember = "Name";
+            this.m_ComboBoxProfiles.FormattingEnabled = true;
+            this.m_ComboBoxProfiles.Location = new System.Drawing.Point(199, 7);
+            this.m_ComboBoxProfiles.Name = "m_ComboBoxProfiles";
+            this.m_ComboBoxProfiles.Size = new System.Drawing.Size(250, 28);
+            this.m_ComboBoxProfiles.TabIndex = 20;
+            this.m_ComboBoxProfiles.ValueMember = "Name";
+            this.m_ComboBoxProfiles.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFriendList_SelectedIndexChanged);
+            // 
+            // m_BindingSourceFriendList
+            // 
+            this.m_BindingSourceFriendList.DataSource = typeof(FacebookWrapper.ObjectModel.FriendList);
+            // 
             // ProfileViewerComponent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.m_LabelShowedProfile);
+            this.Controls.Add(this.m_ComboBoxProfiles);
             this.Controls.Add(this.m_ComponentTextBoxFeedAge);
             this.Controls.Add(this.m_ComponentDataGridViewRecentFeed);
             this.Controls.Add(this.m_ComponentDataGridViewUpcomingEvents);
@@ -296,12 +328,13 @@
             this.Controls.Add(this.m_ComponentTextBoxUserInfo);
             this.Controls.Add(this.m_ComponentPictureBoxProfilePic);
             this.Name = "ProfileViewerComponent";
-            this.Size = new System.Drawing.Size(870, 473);
+            this.Size = new System.Drawing.Size(870, 512);
             ((System.ComponentModel.ISupportInitialize)(this.m_ComponentDataGridViewRecentFeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_ComponentBindingSourceFeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_ComponentDataGridViewUpcomingEvents)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_ComponentBindingSourceUpcomingEvents)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_ComponentPictureBoxProfilePic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_BindingSourceFriendList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -333,5 +366,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn locationDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn linkToFacebookDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn timeStringDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Label m_LabelShowedProfile;
+        private System.Windows.Forms.ComboBox m_ComboBoxProfiles;
+        private System.Windows.Forms.BindingSource m_BindingSourceFriendList;
     }
 }

@@ -16,6 +16,32 @@ namespace View
         private Model.AppFacade m_AppFacade;
         private Utils.eAppComponent eUserType;
 
+        public BindingSource BindingSourceFriendsList
+        {
+            get
+            {
+                return m_BindingSourceFriendList;
+            }
+
+            set
+            {
+                m_BindingSourceFriendList = value;
+            }
+        }
+
+        public ComboBox ComboBoxShowedProfile
+        {
+            get
+            {
+                return m_ComboBoxProfiles;
+            }
+
+            set
+            {
+                m_ComboBoxProfiles = value;
+            }
+        }
+
         public string ShowedUserProfilePictureURL { get; set; } = null;
 
         public ProfileViewerComponent()
@@ -34,6 +60,7 @@ namespace View
             Initialize(i_TabPage);
             int tabTag = int.Parse(i_TabPage.Tag.ToString());
             eUserType = (Model.Utils.eAppComponent)tabTag;
+            invisibleMultiProfileView();
             m_AppFacade = i_AppControl;
             if (m_ComponentPictureBoxProfilePic.Image == null)
             {
@@ -41,8 +68,28 @@ namespace View
             }
 
             DesktopFacebook.InitializeButtonTextBoxRelationship(m_ComponentTextBoxPostOnWall, m_ComponentButtonPostOnWall);
+            if (eUserType == Utils.eAppComponent.FriendProfileViewer)
+            {
+                ComboBoxFriendList_SelectedIndexChanged(null, null);
+            }
+            else
+            {
+                InitializeViewer();
+            }
         }
-        
+
+        private void invisibleMultiProfileView()
+        {
+            if(eUserType==Utils.eAppComponent.UserProfileViewer)
+            {
+                m_ComboBoxProfiles.Visible = m_LabelShowedProfile.Visible = false;
+            }
+            else
+            {
+                m_ComboBoxProfiles.Visible = m_LabelShowedProfile.Visible = true;
+            }
+        }
+
         public void ShowProfilePicture()
         {
             ShowedUserProfilePictureURL = m_AppFacade.GetProfilePicForViewer(eUserType);
@@ -114,6 +161,28 @@ namespace View
         private void TextBoxPostOnWall_Click(object sender, EventArgs e)
         {
             DesktopFacebook.ChangeButtonByTextBoxClick(m_ComponentTextBoxPostOnWall, m_ComponentButtonPostOnWall);
+        }
+
+        private void ComboBoxFriendList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            handleFriendsListPick();
+        }
+
+        private void handleFriendsListPick()
+        {
+            try
+            {
+                string friendName = m_ComboBoxProfiles.Text;
+                if (!string.IsNullOrEmpty(friendName))
+                {
+                    m_AppFacade.VerifyFriendSearchAndImportInfo(friendName); // throws exeption if searched failed or facebook server failed
+                    this.InitializeViewer();
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
     }
 }

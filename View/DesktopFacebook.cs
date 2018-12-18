@@ -23,7 +23,8 @@ namespace View
         private FacebookObjectCollection<Post> m_RecentPosts = null;
         private string m_ConnectedUserProfilePictureURL = null;
         private System.Windows.Forms.Timer m_TemporaryViewController;
-        private List<IAppComponent> m_AppComponents = new List<IAppComponent>();
+        private Dictionary<Model.Utils.eAppComponent, IAppComponent> m_AppComponents = new Dictionary<Model.Utils.eAppComponent, IAppComponent>();
+
 
         public static int PostsAgeInMonths { get; set; } = 6;
 
@@ -395,77 +396,18 @@ namespace View
             IAppComponent appComponent = AppComponentFactory.CreateAppComponent(eAppComponent, m_AppComponents, m_TabPageComponentViewer);
             invisibleListComponents(appComponent);
             appComponent.Populate(r_AppFacade, m_TabPageComponentViewer);
-
-            m_LabelFriendList.Visible = m_ComboBoxFriends.Visible = false;
-
-            if (eAppComponent == Model.Utils.eAppComponent.FriendProfileViewer || eAppComponent == Model.Utils.eAppComponent.UserProfileViewer)
-            {
-                setProfileViewerSettings(eAppComponent, appComponent);
-            }
-        }
-
-        private void setProfileViewerSettings(Utils.eAppComponent eAppComponent, IAppComponent i_CurrentComponent)
-        {
-            switch (eAppComponent)
-            {
-                case Utils.eAppComponent.UserProfileViewer:
-                    (i_CurrentComponent as ProfileViewerComponent).InitializeViewer();
-                    break;
-
-                case Utils.eAppComponent.FriendProfileViewer:
-                    m_LabelFriendList.Visible = m_ComboBoxFriends.Visible = true;
-                    m_BindingSourceFriendList.DataSource = FacebookAuthentication.FAuthInstance.LoggedInUser.Friends;
-                    ComboBoxFriendList_SelectedIndexChanged(null, null);
-                    break;
-            }
         }
 
         private void invisibleListComponents(IAppComponent i_AppComponent)
         {
             (i_AppComponent as UserControl).Visible = true;
-            foreach (IAppComponent comp in m_AppComponents)
+            foreach (IAppComponent comp in m_AppComponents.Values)
             {
                 if (comp != i_AppComponent)
                 {
                     (comp as UserControl).Visible = false;
                 }
             }
-        }
-
-        private void ComboBoxFriendList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            handleFriendsListPick();
-        }
-
-        private void handleFriendsListPick()
-        {
-            try
-            {
-                string friendName = m_ComboBoxFriends.Text;
-                if (!string.IsNullOrEmpty(friendName))
-                {
-                    r_AppFacade.VerifyFriendSearchAndImportInfo(friendName); // throws exeption if searched failed or facebook server failed
-                    (findVisibleComponent() as ProfileViewerComponent).InitializeViewer();
-                }
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
-        }
-
-        private IAppComponent findVisibleComponent()
-        {
-            IAppComponent appComponent = null;
-            foreach (IAppComponent comp in m_AppComponents)
-            {
-                if ((comp as UserControl).Visible == true)
-                {
-                    appComponent = comp;
-                }
-            }
-
-            return appComponent;
         }
     }
 }
