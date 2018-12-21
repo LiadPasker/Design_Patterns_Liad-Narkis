@@ -80,7 +80,7 @@ namespace View
 
         private void invisibleMultiProfileView()
         {
-            if(eUserType==Utils.eAppComponent.UserProfileViewer)
+            if (eUserType == Utils.eAppComponent.UserProfileViewer)
             {
                 m_ComboBoxProfiles.Visible = m_LabelShowedProfile.Visible = false;
             }

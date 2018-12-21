@@ -13,7 +13,7 @@ namespace View
 
     public class AlbumPage
     {
-        private readonly int r_FirstPictureLocation_X = 5;
+        private readonly int r_FirstPictureLocation_X = 15;
         private readonly int r_FirstPictureLocation_Y = 50;
         private readonly TabPage r_AlbumPageTab;
         private int m_NumberOfPicturesToShow;
@@ -76,7 +76,7 @@ namespace View
             InteractivePictureBox pic = sender as InteractivePictureBox;
             Photo photo = m_CurrentPagePhotos.Find(x => x.PictureNormalURL == pic.Name);
             pic.PopUp = getLikesAndCommentsTextFromPhoto(photo);
-            pic.PicURL = photo.PictureNormalURL;
+            pic.PicURL = photo?.PictureNormalURL;
         }
 
         public void DisappearAlbumPage()
@@ -126,9 +126,17 @@ namespace View
                 {
                     AlbumPictures[i].Name = m_CurrentPagePhotos[i].PictureNormalURL;
                     Image image = Model.UserAlbumsManager.CreateCustomedImageFromURL(m_CurrentPagePhotos[i].PictureNormalURL, PicturesSizeToshow);
-                    AlbumPictures[i].Invoke(new Action(() => { AlbumPictures[i].Image = image; AlbumPictures[i].Visible = true; }));
+                    AlbumPictures[i].Invoke(new Action(() => { initializeSinglePic(image, AlbumPictures[i]); }));
                 }
             }
+        }
+
+        private void initializeSinglePic(Image i_Img, InteractivePictureBox i_Pic)
+        {
+            i_Pic.Image = i_Img;
+            i_Pic.Visible = true;
+            i_Pic.PicURL = null;
+            i_Pic.PopUp = null;
         }
     }
 }

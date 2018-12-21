@@ -77,7 +77,10 @@
             this.m_ButtonQuit = new System.Windows.Forms.Button();
             this.m_LabelHomeButtonAd = new System.Windows.Forms.Label();
             this.m_CheckBoxRememberUser = new System.Windows.Forms.CheckBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.m_TabPageMyAlbums.SuspendLayout();
             this.m_TabsControl.SuspendLayout();
             this.m_TabPageMainWindow.SuspendLayout();
@@ -95,7 +98,10 @@
             // m_TabPageMyAlbums
             // 
             this.m_TabPageMyAlbums.CausesValidation = false;
-            this.m_TabPageMyAlbums.Controls.Add(this.label7);
+            this.m_TabPageMyAlbums.Controls.Add(this.label9);
+            this.m_TabPageMyAlbums.Controls.Add(this.label12);
+            this.m_TabPageMyAlbums.Controls.Add(this.label11);
+            this.m_TabPageMyAlbums.Controls.Add(this.label8);
             this.m_TabPageMyAlbums.Controls.Add(this.m_ComboBoxZoom);
             this.m_TabPageMyAlbums.Controls.Add(this.m_labelPicturesPerPage);
             this.m_TabPageMyAlbums.Controls.Add(this.m_labelNumOfPictures);
@@ -613,14 +619,46 @@
             this.m_CheckBoxRememberUser.UseVisualStyleBackColor = true;
             this.m_CheckBoxRememberUser.CheckedChanged += new System.EventHandler(this.CheckBoxRememberUser_CheckedChanged);
             // 
-            // label7
+            // label8
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(43, 62);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(306, 20);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "** Click on picture to watch it on browser **";
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(43, 556);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(395, 20);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "status: Picture data isn\'t ready (requested on demand) ";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(42, 578);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(600, 20);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "status: Picture data is ready (click to open in broser || Hover to view likes & c" +
+    "omments)";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Red;
+            this.label11.ForeColor = System.Drawing.Color.Red;
+            this.label11.Location = new System.Drawing.Point(12, 555);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(25, 20);
+            this.label11.TabIndex = 7;
+            this.label11.Text = "    ";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.Lime;
+            this.label12.ForeColor = System.Drawing.Color.Red;
+            this.label12.Location = new System.Drawing.Point(12, 578);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(25, 20);
+            this.label12.TabIndex = 7;
+            this.label12.Text = "    ";
             // 
             // DesktopFacebook
             // 
@@ -712,6 +750,9 @@
         private System.Windows.Forms.CheckBox m_CheckBoxRememberUser;
         private System.Windows.Forms.BindingSource m_BindingSourceFriendList;
         private System.Windows.Forms.TabPage m_TabPageComponentViewer;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label8;
     }
 }

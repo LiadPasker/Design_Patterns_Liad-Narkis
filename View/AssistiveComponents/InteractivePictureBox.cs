@@ -22,7 +22,7 @@ namespace View.AssistiveComponents
 
         protected override void OnMouseEnter(EventArgs e)
         {
-            draw(PopUp != null ? PopUp : r_LoadMsg);
+            drawString(PopUp != null ? PopUp : r_LoadMsg);
             base.OnMouseEnter(e);
         }
 
@@ -35,13 +35,20 @@ namespace View.AssistiveComponents
             else
             {
                 this.Invalidate();
-                draw("No URL");
+                drawString("No URL");
             }
 
             base.OnClick(e);
         }
 
-        private void draw(string i_PopUp)
+        protected override void OnPaint(PaintEventArgs pe)
+        {
+            base.OnPaint(pe);
+            m_PictureBoxLikesAndCommentsDrawer = pe.Graphics;
+            drawStatus(PopUp != null && PicURL != null ? Color.Green : Color.Red);
+        }
+
+        private void drawString(string i_PopUp)
         {
             if (this.Image != null)
             {
@@ -54,6 +61,14 @@ namespace View.AssistiveComponents
 
                 m_PictureBoxLikesAndCommentsDrawer.DrawString(i_PopUp, font, Brushes.Black, drawingLocation);
             }
+        }
+
+        private void drawStatus(Color i_StatusColor)
+        {
+            Point drawingLocation = new Point(5, this.ClientSize.Height - 5);
+            m_PictureBoxLikesAndCommentsDrawer.FillRectangle(
+                 new SolidBrush(Color.FromArgb(200, i_StatusColor)),
+                  new Rectangle(new Point(0, drawingLocation.Y), new Size(this.Size.Width, 5)));
         }
     }
 }
