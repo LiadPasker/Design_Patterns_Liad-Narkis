@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
+using View.AssistiveComponents;
 
 namespace View
 {
@@ -12,17 +13,15 @@ namespace View
 
     public class AlbumPage
     {
-        private readonly int r_LikesAndCommentsCoverAlpha = 150;
         private readonly int r_FirstPictureLocation_X = 5;
         private readonly int r_FirstPictureLocation_Y = 50;
         private readonly TabPage r_AlbumPageTab;
         private int m_NumberOfPicturesToShow;
         private List<Photo> m_CurrentPagePhotos = null;
-        private Graphics m_PictureBoxLikesAndCommentsDrawer;
 
         public Size PicturesSizeToshow { get; set; }
 
-        public List<PictureBox> AlbumPictures { get; set; }
+        public List<InteractivePictureBox> AlbumPictures { get; set; }
 
         public AlbumPage(int i_NumberOfPictures, TabPage i_TabConrol, int i_PictureHeight = 150, int i_PictureWidth = 150)
         {
@@ -38,13 +37,13 @@ namespace View
                 DisappearAlbumPage();
             }
 
-            AlbumPictures = new List<PictureBox>(m_NumberOfPicturesToShow);
+            AlbumPictures = new List<InteractivePictureBox>(m_NumberOfPicturesToShow);
             InitializeComponents();
         }
 
         private void InitializeComponents()
         {
-            AlbumPictures.Add(new PictureBox());
+            AlbumPictures.Add(new InteractivePictureBox());
             AlbumPictures[0].Size = PicturesSizeToshow;
             AlbumPictures[0].Location = new Point(r_FirstPictureLocation_X, r_FirstPictureLocation_Y);
             AlbumPictures[0].MouseEnter += PictureBox_MouseEnter;
@@ -53,7 +52,7 @@ namespace View
 
             for (int i = 1; i < AlbumPictures.Capacity; i++)
             {
-                AlbumPictures.Add(new PictureBox());
+                AlbumPictures.Add(new InteractivePictureBox());
                 r_AlbumPageTab.Controls.Add(AlbumPictures[i]);
                 if (i < AlbumPictures.Capacity / 2)
                 {
@@ -72,32 +71,19 @@ namespace View
             }
         }
 
-        public void DisappearAlbumPage()
-        {
-            foreach (PictureBox picture in AlbumPictures)
-            {
-                picture.Visible = false;
-            }
-        }
-
         private void PictureBox_MouseEnter(object sender, EventArgs e)
         {
-            PictureBox picture = sender as PictureBox;
-            if (picture.Image != null)
-            {
-                Photo photo = m_CurrentPagePhotos.Find(x => x.PictureNormalURL == picture.Name);
-                m_PictureBoxLikesAndCommentsDrawer = Graphics.FromHwnd(picture.Handle);
-                Font font = new Font("Calibri", picture.Size.Height / 10, FontStyle.Bold);
+            InteractivePictureBox pic = sender as InteractivePictureBox;
+            Photo photo = m_CurrentPagePhotos.Find(x => x.PictureNormalURL == pic.Name);
+            pic.PopUp = getLikesAndCommentsTextFromPhoto(photo);
+            pic.PicURL = photo.PictureNormalURL;
+        }
 
-                if (photo != null)
-                {
-                    string popUp = getLikesAndCommentsTextFromPhoto(photo);
-                    Point drawingLocation = new Point(5, picture.ClientSize.Height - (font.Height * 2));
-                    m_PictureBoxLikesAndCommentsDrawer.FillRectangle(
-                        new SolidBrush(Color.FromArgb(r_LikesAndCommentsCoverAlpha, Color.LightBlue)),
-                        new Rectangle(new Point(0, drawingLocation.Y), new Size(picture.Size.Width, font.Height * 2)));
-                    m_PictureBoxLikesAndCommentsDrawer.DrawString(popUp, font, Brushes.Black, drawingLocation);
-                }
+        public void DisappearAlbumPage()
+        {
+            foreach (InteractivePictureBox picture in AlbumPictures)
+            {
+                picture.Visible = false;
             }
         }
 
@@ -118,7 +104,7 @@ namespace View
 
         private void PictureBox_MouseLeave(object sender, EventArgs e)
         {
-            (sender as PictureBox).Invalidate();
+            (sender as InteractivePictureBox).Invalidate();
         }
 
         public void Show(List<Photo> i_PicturesToShow, int i_NumberOfPicturePerPage)
@@ -143,11 +129,6 @@ namespace View
                     AlbumPictures[i].Invoke(new Action(() => { AlbumPictures[i].Image = image; AlbumPictures[i].Visible = true; }));
                 }
             }
-        }
-
-        private void a(Image obj)
-        {
-            throw new NotImplementedException();
         }
     }
 }

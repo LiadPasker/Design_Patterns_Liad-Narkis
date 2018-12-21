@@ -77,6 +77,7 @@
             this.m_ButtonQuit = new System.Windows.Forms.Button();
             this.m_LabelHomeButtonAd = new System.Windows.Forms.Label();
             this.m_CheckBoxRememberUser = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.m_TabPageMyAlbums.SuspendLayout();
             this.m_TabsControl.SuspendLayout();
             this.m_TabPageMainWindow.SuspendLayout();
@@ -94,6 +95,7 @@
             // m_TabPageMyAlbums
             // 
             this.m_TabPageMyAlbums.CausesValidation = false;
+            this.m_TabPageMyAlbums.Controls.Add(this.label7);
             this.m_TabPageMyAlbums.Controls.Add(this.m_ComboBoxZoom);
             this.m_TabPageMyAlbums.Controls.Add(this.m_labelPicturesPerPage);
             this.m_TabPageMyAlbums.Controls.Add(this.m_labelNumOfPictures);
@@ -611,6 +613,15 @@
             this.m_CheckBoxRememberUser.UseVisualStyleBackColor = true;
             this.m_CheckBoxRememberUser.CheckedChanged += new System.EventHandler(this.CheckBoxRememberUser_CheckedChanged);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(43, 62);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(306, 20);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "** Click on picture to watch it on browser **";
+            // 
             // DesktopFacebook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -701,5 +712,6 @@
         private System.Windows.Forms.CheckBox m_CheckBoxRememberUser;
         private System.Windows.Forms.BindingSource m_BindingSourceFriendList;
         private System.Windows.Forms.TabPage m_TabPageComponentViewer;
+        private System.Windows.Forms.Label label7;
     }
 }

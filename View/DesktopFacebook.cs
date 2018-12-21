@@ -24,7 +24,7 @@ namespace View
         private string m_ConnectedUserProfilePictureURL = null;
         private System.Windows.Forms.Timer m_TemporaryViewController;
         private Dictionary<Model.Utils.eAppComponent, IAppComponent> m_AppComponents = new Dictionary<Model.Utils.eAppComponent, IAppComponent>();
-
+        private bool m_IsLoggedIn = true;
 
         public static int PostsAgeInMonths { get; set; } = 6;
 
@@ -91,10 +91,18 @@ namespace View
 
         private void handleFirstFacebookInteraction()
         {
-            r_AppFacade.Login();
-            this.Location = r_AppFacade.GetApplicationSettings().Location;
-            m_CheckBoxRememberUser.Checked = r_AppFacade.GetApplicationSettings().KeepSignedIn ? true : false;
-            initializeUserProfilePicture();
+            try
+            {
+                r_AppFacade.Login();
+                this.Location = r_AppFacade.GetApplicationSettings().Location;
+                m_CheckBoxRememberUser.Checked = r_AppFacade.GetApplicationSettings().KeepSignedIn ? true : false;
+                initializeUserProfilePicture();
+            }
+            catch(Exception)
+            {
+                showFacebookServerErrorMessege("Couldn't login Facebook, Try again later");
+                m_IsLoggedIn = false;
+            }
         }
 
         private void DesktopFacebook_Load(object sender, EventArgs e)
@@ -121,6 +129,11 @@ namespace View
 
         private void ButtonLogOut_Click(object sender, EventArgs e)
         {
+            if (!CheckLoggedIn())
+            {
+                return;
+            }
+
             DialogResult logout = MessageBox.Show("Are you sure you want to log out of your account?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (logout == DialogResult.Yes)
             {
@@ -234,9 +247,24 @@ namespace View
             m_LabelQuitMessage.Visible = false;
         }
 
+        private bool CheckLoggedIn()
+        {
+            if(!m_IsLoggedIn)
+            {
+                showFacebookServerErrorMessege("You're not logged in");
+            }
+
+            return m_IsLoggedIn;
+        }
+
         /////////////////////////////// MyAlbum Tab //////////////////////////////
         private void Button_MyAlbums_Click(object sender, EventArgs e)
         {
+            if (!CheckLoggedIn())
+            {
+                return;
+            }
+
             m_TabsControl.SelectTab(m_TabPageMyAlbums);
             
             if (m_AlbumDisplay == null)
@@ -317,6 +345,11 @@ namespace View
         /////////////////////////////// Feed Tab //////////////////////////////
         private void ButtonFeed_Click(object sender, EventArgs e)
         {
+            if (!CheckLoggedIn())
+            {
+                return;
+            }
+
             m_TabsControl.SelectTab(m_TabPageFeed);
             TextBoxPostMonthOld_TextChanged(m_TextBoxPostMonthOld, null);
         }
@@ -352,6 +385,11 @@ namespace View
         ///////////////////////// Export Tab - feature 1 ////////////////////////
         private void ButtonExportCurrentMonthToExcel_Click(object sender, EventArgs e)
         {
+            if (!CheckLoggedIn())
+            {
+                return;
+            }
+
             m_TabsControl.SelectTab(m_TabPageExport);
             m_TextBoxExportFilePath.Text = m_TextBoxExportFilePath.Tag.ToString();
             m_TextBoxExportFilePath.BackColor = Color.AliceBlue;
@@ -385,6 +423,11 @@ namespace View
          */
         private void ButtonUserControlHandler_Click(object sender, EventArgs e)
         {
+            if (!CheckLoggedIn())
+            {
+                return;
+            }
+
             int tagNum = int.Parse((sender as Button).Tag.ToString());
             m_TabsControl.SelectTab(m_TabPageComponentViewer);
             HandleUserControls(tagNum);
