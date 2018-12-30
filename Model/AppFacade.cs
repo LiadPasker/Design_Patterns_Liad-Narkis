@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 
@@ -153,7 +154,7 @@ namespace Model
                     try
                     {
                         string SheetName = ((Utils.eMonths)DateTime.Now.Month).ToString();
-                        OfficeManager.ExportToExcel(SheetName, m_UserManager, i_FilePath);
+                        new Thread(()=> { OfficeManager.ExportToExcel(SheetName, m_UserManager, i_FilePath); }).Start();
                     }
                     catch (Exception)
                     {

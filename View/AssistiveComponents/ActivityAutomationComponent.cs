@@ -14,7 +14,7 @@ namespace View
     public partial class ActivityAutomationComponent : UserControl, IAppComponent
     {
         private DateTime m_SchduledTo;
-        private Model.AppFacade m_AppControl;
+        private Model.AppFacade m_AppFacade;
         private System.Threading.Timer m_PostTimer;
         private TabPage m_TabController = null;
 
@@ -36,7 +36,7 @@ namespace View
         {
             m_TabController = i_TabPage;
             Initialize(m_TabController);
-            m_AppControl = i_AppControl;
+            m_AppFacade = i_AppControl;
             m_SchduledTo = DateTime.Now;
             new Thread(initializePickTimeCumboBoxes).Start();
             if (m_PostTimer == null)
@@ -234,7 +234,7 @@ namespace View
                 m_PostTimer.Change(System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
                 MessageBox.Show("Automatic Activity Timer Stopped");
                 zeroizeControllers();
-                Populate(m_AppControl, m_TabController);
+                Populate(m_AppFacade, m_TabController);
             }
             catch (Exception)
             {
@@ -254,7 +254,7 @@ namespace View
 
         private void m_ComboBoxPickHour_TextChanged(object sender, EventArgs e)
         {
-            if (m_AppControl.IsValidHour(m_ComboBoxPickHour.Text))
+            if (m_AppFacade.IsValidHour(m_ComboBoxPickHour.Text))
             {
                 m_SchduledTo = m_SchduledTo.AddHours(m_ComboBoxPickHour.SelectedIndex - m_SchduledTo.Hour);
             }
@@ -267,7 +267,7 @@ namespace View
 
         private void m_ComboBoxPickMinute_TextChanged(object sender, EventArgs e)
         {
-            if (m_AppControl.IsValidMinute(m_ComboBoxPickMinute.Text))
+            if (m_AppFacade.IsValidMinute(m_ComboBoxPickMinute.Text))
             {
                 m_SchduledTo = m_SchduledTo.AddMinutes(m_ComboBoxPickMinute.SelectedIndex - m_SchduledTo.Minute);
             }
