@@ -9,9 +9,13 @@ using FacebookWrapper.ObjectModel;
 
 namespace Model
 {
-    public class UserAlbumsManager
+    public class UserAlbumsManager : IAlbumStrategy
     {
         private List<Album> m_UserAlbums = null;
+
+        public Func<Album, object> AlbumPropStrategy { get; set; } = album => album;
+
+        public Func<Album, bool> AlbumStrategy { get; set; } = album => true;
 
         public static Bitmap CreateCustomedImageFromURL(string i_URL, Size i_PictureCustomSize)
         {
@@ -32,6 +36,17 @@ namespace Model
             return new Bitmap(picture, newImageSize);
         }
 
+        public IEnumerator<object> GetEnumerator()
+        {
+            foreach (Album album in m_UserAlbums)
+            {
+                if (AlbumStrategy(album))
+                {
+                    yield return AlbumPropStrategy(album);
+                }
+            }
+        }
+
         public void ImportUserAlbumsList(FacebookObjectCollection<Album> i_Albums)
         {
             m_UserAlbums = new List<Album>();
@@ -41,12 +56,7 @@ namespace Model
             }
         }
 
-        public Album GetAlbum(string i_AlbumName)
-        {
-            return m_UserAlbums.Find(x => x.Name == i_AlbumName);
-        }
-
-        public List<string> GetAlbumURLs(Album i_CurrentAlbum)
+        public List<string> GetAlbumURLs(Album i_CurrentAlbum) // to change
         {
             List<string> userChoice = new List<string>();
             foreach (Photo photo in i_CurrentAlbum.Photos)
@@ -55,17 +65,6 @@ namespace Model
             }
 
             return userChoice;
-        }
-
-        internal List<string> getNames()
-        {
-            List<string> albumNames = new List<string>();
-            foreach (Album album in m_UserAlbums)
-            {
-                albumNames.Add(album.Name);
-            }
-
-            return albumNames;
         }
     }
 }

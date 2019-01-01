@@ -57,7 +57,16 @@ namespace Model
 
         public List<string> GetAlbumsNames()
         {
-            return m_UserAlbumManager.getNames();
+            m_UserAlbumManager.AlbumPropStrategy = album => album.Name;
+            m_UserAlbumManager.AlbumStrategy = album => true;
+
+            List<string> AlbumNames = new List<string>();
+            foreach(string name in m_UserAlbumManager)
+            {
+                AlbumNames.Add(name);
+            }
+
+            return AlbumNames;
         }
 
         public void InitializeMyAlbums()
@@ -67,7 +76,11 @@ namespace Model
 
         public Album GetAlbum(string i_AlbumName)
         {
-            return m_UserAlbumManager.GetAlbum(i_AlbumName);
+            m_UserAlbumManager.AlbumPropStrategy = album => album;
+            m_UserAlbumManager.AlbumStrategy = album => album.Name == i_AlbumName;
+            IEnumerator<object> itr = m_UserAlbumManager.GetEnumerator();
+            itr.MoveNext();
+            return itr?.Current as Album;
         }
 
         public List<string> GetAlbumURLs(Album i_Album)
@@ -154,7 +167,7 @@ namespace Model
                     try
                     {
                         string SheetName = ((Utils.eMonths)DateTime.Now.Month).ToString();
-                        new Thread(()=> { OfficeManager.ExportToExcel(SheetName, m_UserManager, i_FilePath); }).Start();
+                        new Thread(() => { OfficeManager.ExportToExcel(SheetName, m_UserManager, i_FilePath); }).Start();
                     }
                     catch (Exception)
                     {
