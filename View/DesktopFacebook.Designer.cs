@@ -222,7 +222,7 @@
             this.m_TabsControl.SelectedIndex = 0;
             this.m_TabsControl.Size = new System.Drawing.Size(953, 625);
             this.m_TabsControl.TabIndex = 2;
-            this.m_TabsControl.Tag = "";
+            this.m_TabsControl.Tag = string.Empty;
             this.m_TabsControl.SelectedIndexChanged += new System.EventHandler(this.TabsControl_SelectedIndexChanged);
             // 
             // m_TabPageMainWindow
@@ -510,7 +510,7 @@
             this.m_TextBoxExportFilePath.Name = "m_TextBoxExportFilePath";
             this.m_TextBoxExportFilePath.Size = new System.Drawing.Size(430, 26);
             this.m_TextBoxExportFilePath.TabIndex = 2;
-            this.m_TextBoxExportFilePath.Tag = "";
+            this.m_TextBoxExportFilePath.Tag = string.Empty;
             // 
             // m_ButtonExport
             // 

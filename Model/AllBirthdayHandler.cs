@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Model
 {
-    class AllBirthdayHandler: BirthdayManager
+    public class AllBirthdayHandler : BirthdayManager
     {
         protected override bool isBirthdayComing(DateTime i_Birthday)
         {
