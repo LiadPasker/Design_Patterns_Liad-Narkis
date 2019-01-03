@@ -51,12 +51,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppFacade.cs" />
+    <Compile Include="BirthdayManager.cs" />
     <Compile Include="FacebookAuthentication.cs" />
     <Compile Include="DesktopFacebookSettings.cs" />
     <Compile Include="IAlbumStrategy.cs" />
     <Compile Include="OccasionHandler.cs" />
     <Compile Include="OfficeManager.cs" />
+    <Compile Include="AllBirthdayHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UpcomingBithdayHandler.cs" />
     <Compile Include="UserAlbumsManager.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="Utils.cs" />

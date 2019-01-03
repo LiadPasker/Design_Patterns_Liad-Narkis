@@ -196,42 +196,19 @@ currUser?.About);
             return recentUserEvents;
         }
 
-        public List<User> GetConnectedUserFriendsSortedByBirthdays()
+        public List<User> GetConnectedUserFriendsSortedByBirthdays(bool i_ToSort)
         {
-            List<User> sortedFriendsList;
-            try
+            BirthdayManager birthdays;
+            if(i_ToSort)
             {
-                FacebookObjectCollection<User> friends = FacebookAuthentication.FAuthInstance.LoggedInUser.Friends;
-                sortedFriendsList = friends.OrderBy(x => DateTime.ParseExact(x.Birthday.Substring(0, 5), "MM/dd", null)).ToList();
+                birthdays = new UpcomingBithdayHandler();
             }
-            catch (Exception)
+            else
             {
-                throw new Exception("Import sorted Friends Failed");
-            }
-
-            return sortedFriendsList;
-        }
-
-        public List<User> RemoveFriendsThatAlreadyHadBirthdays(List<User> i_SortedByBirthdayFriendsList)
-        {
-            DateTime now = DateTime.Now;
-            List<User> birthdaysList = new List<User>();
-            foreach (User friend in i_SortedByBirthdayFriendsList)
-            {
-                try
-                {
-                    DateTime userBirthday = DateTime.ParseExact(friend?.Birthday, "MM/dd/yyyy", null);
-                    if (userBirthday.AddYears(DateTime.Now.Year - userBirthday.Year) > now)
-                    { // checks only by month & day
-                        birthdaysList.Add(friend);
-                    }
-                }
-                catch (Exception)
-                {
-                }
+                birthdays = new AllBirthdayHandler();
             }
 
-            return birthdaysList;
+            return birthdays.GetConnectedUserFriendsSortedByBirthdays();
         }
 
         public string GetProfilePicForViewer(Utils.eAppComponent eUserType)

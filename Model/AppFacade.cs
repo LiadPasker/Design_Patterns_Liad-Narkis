@@ -124,14 +124,9 @@ namespace Model
             return m_UserManager.GetFriendUpcomingEventsByTime(i_RecentEvents, i_EventsAgeInMonths);
         }
 
-        public List<User> GetConnectedUserFriendsSortedByBirthdays()
+        public List<User> GetConnectedUserFriendsSortedByBirthdays(bool i_ToSort)
         {
-            return m_UserManager.GetConnectedUserFriendsSortedByBirthdays();
-        }
-
-        public List<User> RemoveFriendsThatAlreadyHadBirthdays(List<User> i_SortedByBirthdayFriendsList)
-        {
-            return m_UserManager.RemoveFriendsThatAlreadyHadBirthdays(i_SortedByBirthdayFriendsList);
+            return m_UserManager.GetConnectedUserFriendsSortedByBirthdays(i_ToSort);
         }
 
         public bool IsOccasionSoon(string i_Occasion, int i_HowFarInMonths, bool i_IsBirthday = false)

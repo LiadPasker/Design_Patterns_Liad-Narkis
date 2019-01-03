@@ -209,7 +209,7 @@ namespace Model
 
             try
             {
-                List<User> friends = i_UserManager.GetConnectedUserFriendsSortedByBirthdays();
+                List<User> friends = i_UserManager.GetConnectedUserFriendsSortedByBirthdays(false);
                 foreach (User friend in friends)
                 {
                     DateTime birthdayDate = DateTime.ParseExact(friend.Birthday, "MM/dd/yyyy", null);

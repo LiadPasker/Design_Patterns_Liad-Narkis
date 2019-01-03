@@ -21,7 +21,7 @@ namespace View
 
         public Size PicturesSizeToshow { get; set; }
 
-        public List<PictureDecorator> AlbumPictures { get; set; }
+        public List<InteractivePictureBox> AlbumPictures { get; set; }
 
         public AlbumPage(int i_NumberOfPictures, TabPage i_TabConrol, int i_PictureHeight = 150, int i_PictureWidth = 150)
         {
@@ -37,14 +37,13 @@ namespace View
                 DisappearAlbumPage();
             }
 
-            AlbumPictures = new List<PictureDecorator>(m_NumberOfPicturesToShow);
+            AlbumPictures = new List<InteractivePictureBox>(m_NumberOfPicturesToShow);
             InitializeComponents();
         }
 
         private void InitializeComponents()
         {
-            PictureDecorator pic = new PictureStatus();
-            pic.m_Picture = new PictureText(pic);
+            InteractivePictureBox pic = new InteractivePictureBox();
 
             AlbumPictures.Add(pic);
 
@@ -56,7 +55,7 @@ namespace View
 
             for (int i = 1; i < AlbumPictures.Capacity; i++)
             {
-                AlbumPictures.Add(new PictureStatus(null, new PictureText()));
+                AlbumPictures.Add(new InteractivePictureBox());
                 r_AlbumPageTab.Controls.Add(AlbumPictures[i]);
                 if (i < AlbumPictures.Capacity / 2)
                 {
@@ -77,7 +76,7 @@ namespace View
 
         private void PictureBox_MouseEnter(object sender, EventArgs e)
         {
-            PictureDecorator pic = sender as PictureDecorator;
+            InteractivePictureBox pic = sender as InteractivePictureBox;
             Photo photo = m_CurrentPagePhotos.Find(x => x.PictureNormalURL == pic.Name);
             pic.PopUp = getLikesAndCommentsTextFromPhoto(photo);
             pic.PicURL = photo?.PictureNormalURL;
@@ -85,7 +84,7 @@ namespace View
 
         public void DisappearAlbumPage()
         {
-            foreach (PictureDecorator picture in AlbumPictures)
+            foreach (InteractivePictureBox picture in AlbumPictures)
             {
                 picture.Visible = false;
             }
@@ -108,7 +107,7 @@ namespace View
 
         private void PictureBox_MouseLeave(object sender, EventArgs e)
         {
-            (sender as PictureDecorator).Invalidate();
+            (sender as InteractivePictureBox).Invalidate();
         }
 
         public void Show(List<Photo> i_PicturesToShow, int i_NumberOfPicturePerPage)
@@ -135,7 +134,7 @@ namespace View
             }
         }
 
-        private void initializeSinglePic(Image i_Img, PictureDecorator i_Pic)
+        private void initializeSinglePic(Image i_Img, InteractivePictureBox i_Pic)
         {
             i_Pic.Image = i_Img;
             i_Pic.Visible = true;

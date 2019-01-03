@@ -42,7 +42,7 @@ namespace Model
             {
                 if (AlbumStrategy(album))
                 {
-                    yield return AlbumPropStrategy(album);
+                    yield return AlbumPropStrategy(album); 
                 }
             }
         }

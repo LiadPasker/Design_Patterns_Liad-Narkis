@@ -85,11 +85,7 @@ namespace View
         {
             try
             {
-                FriendsToShow = m_AppControl.GetConnectedUserFriendsSortedByBirthdays();
-                if (m_CheckBoxRemoveFriendsThatHadBirthday.Checked == true)
-                {
-                    FriendsToShow = m_AppControl.RemoveFriendsThatAlreadyHadBirthdays(FriendsToShow);
-                }
+                FriendsToShow = m_AppControl.GetConnectedUserFriendsSortedByBirthdays(m_CheckBoxRemoveFriendsThatHadBirthday.Checked);
             }
             catch (Exception e)
             {
