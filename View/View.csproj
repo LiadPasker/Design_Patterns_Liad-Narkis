@@ -85,6 +85,16 @@
       <DependentUpon>ProfileViewerComponent.cs</DependentUpon>
     </Compile>
     <Compile Include="AssistiveComponents\IAppComponent.cs" />
+    <Compile Include="IInteractivePicture.cs" />
+    <Compile Include="PictureDecorator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PictureStatus.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PictureText.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AssistiveComponents\ActivityAutomationComponent.resx">
