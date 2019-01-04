@@ -15,6 +15,7 @@ namespace View.AssistiveComponents
         private readonly int r_LikesAndCommentsCoverAlpha = 150;
         private readonly string r_LoadMsg = "Loading Data...\nEnter Again";
         private Graphics m_PictureBoxLikesAndCommentsDrawer;
+
         public string PicURL { get; set; } = null;
 
         public string PopUp { get; set; } = null;

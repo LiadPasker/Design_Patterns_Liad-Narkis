@@ -404,7 +404,7 @@ namespace View
             try
             {
                 r_AppFacade.ExportData(Utils.eFileType.XLS, m_TextBoxExportFilePath.Text);
-                r_AppFacade.Notify += R_AppFacade_Notify; ;
+                r_AppFacade.OfficeManager.OnLoad += OfficeManager_OnLoad;
             }
             catch (Exception exception)
             {
@@ -412,7 +412,7 @@ namespace View
             }
         }
 
-        private void R_AppFacade_Notify()
+        private void OfficeManager_OnLoad()
         {
             MessageBox.Show("File Generation Completed Successfuly");
         }

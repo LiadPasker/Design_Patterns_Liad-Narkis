@@ -51,7 +51,7 @@ namespace Model
                 isSuccessfulExportaion = DecideFileVisibilityByFilePathGiven(workSheet, i_ExcelFilePath);
                 insertTotalEventsFormula(workSheet);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception("Error Occured");
             }
