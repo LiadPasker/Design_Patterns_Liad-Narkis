@@ -23,6 +23,8 @@ namespace Model
         private readonly int r_RowsHeight = 60;
         private readonly int r_ColumnWidth = 15;
 
+        public event Observer.NotiFyer OnLoad;
+
         public Application ExcelFile { get; private set; } = null;
 
         public bool ExportToExcel(string i_SheetName, UserManager i_UserManager, string i_ExcelFilePath = null)
@@ -49,7 +51,7 @@ namespace Model
                 isSuccessfulExportaion = DecideFileVisibilityByFilePathGiven(workSheet, i_ExcelFilePath);
                 insertTotalEventsFormula(workSheet);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 throw new Exception("Error Occured");
             }
@@ -124,6 +126,7 @@ namespace Model
                 ExcelFile.Visible = true;
             }
 
+            OnLoad.Invoke();
             return isSaved;
         }
 

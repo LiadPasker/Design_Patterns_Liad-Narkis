@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="AppFacade.cs" />
     <Compile Include="BirthdayManager.cs" />
+    <Compile Include="ObserverUtils.cs" />
     <Compile Include="FacebookAuthentication.cs" />
     <Compile Include="DesktopFacebookSettings.cs" />
     <Compile Include="IAlbumStrategy.cs" />

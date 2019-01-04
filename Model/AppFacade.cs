@@ -11,11 +11,13 @@ using FacebookWrapper.ObjectModel;
 
 namespace Model
 {
+
     public class AppFacade
     {
         private UserAlbumsManager m_UserAlbumManager;
         private UserManager m_UserManager;
         private OccasionHandler m_OccasionHandler = null;
+        public event Observer.NotiFyer Notify;
 
         public OfficeManager OfficeManager { get; private set; } = null;
 
@@ -154,6 +156,7 @@ namespace Model
             if (OfficeManager == null)
             {
                 OfficeManager = new OfficeManager();
+                OfficeManager.OnLoad += OfficeManager_OnLoad;
             }
 
             switch (i_FileType)
@@ -171,6 +174,11 @@ namespace Model
 
                     break;
             }
+        }
+
+        private void OfficeManager_OnLoad()
+        {
+            Notify.Invoke();
         }
     }
 }

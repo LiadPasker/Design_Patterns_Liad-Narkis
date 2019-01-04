@@ -404,6 +404,7 @@ namespace View
             try
             {
                 r_AppFacade.ExportData(Utils.eFileType.XLS, m_TextBoxExportFilePath.Text);
+                r_AppFacade.Notify += R_AppFacade_Notify; ;
             }
             catch (Exception exception)
             {
@@ -411,6 +412,11 @@ namespace View
             }
         }
 
+        private void R_AppFacade_Notify()
+        {
+            MessageBox.Show("File Generation Completed Successfuly");
+        }
+        
         private void ButtonCancelExport_Click(object sender, EventArgs e)
         {
             PictureBoxGoToMainTab_Click(null, null);
