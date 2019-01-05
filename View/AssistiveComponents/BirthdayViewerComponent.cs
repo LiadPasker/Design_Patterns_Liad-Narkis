@@ -85,7 +85,7 @@ namespace View
         {
             try
             {
-                FriendsToShow = m_AppControl.GetConnectedUserFriendsSortedByBirthdays(m_CheckBoxRemoveFriendsThatHadBirthday.Checked);
+                FriendsToShow = m_AppControl.GetFriendsByBirthday(m_CheckBoxRemoveFriendsThatHadBirthday.Checked);
             }
             catch (Exception e)
             {

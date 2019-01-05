@@ -35,7 +35,7 @@ namespace Model
             Bitmap picture = new Bitmap(myStream);
             return new Bitmap(picture, newImageSize);
         }
-
+        
         public IEnumerator<object> GetEnumerator()
         {
             foreach (Album album in m_UserAlbums)

@@ -208,7 +208,7 @@ currUser?.About);
                 birthdays = new AllBirthdayHandler();
             }
 
-            return birthdays.GetConnectedUserFriendsSortedByBirthdays();
+            return birthdays.PickCustomedFriends();
         }
 
         public string GetProfilePicForViewer(Utils.eAppComponent eUserType)

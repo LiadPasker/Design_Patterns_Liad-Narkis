@@ -8,7 +8,7 @@ namespace Model
 {
     public abstract class BirthdayManager
     {
-        public List<User> GetConnectedUserFriendsSortedByBirthdays()
+        public List<User> PickCustomedFriends()
         {
             List<User> sortedFriendsList;
             DateTime now = DateTime.Now;
@@ -23,10 +23,10 @@ namespace Model
                 throw new Exception("Import sorted Friends Failed");
             }
 
-            return RemoveFriendsThatAlreadyHadBirthdays(sortedFriendsList);
+            return removeFriendsThatAlreadyHadBirthdays(sortedFriendsList);
         }
 
-        private List<User> RemoveFriendsThatAlreadyHadBirthdays(List<User> i_SortedByBirthdayFriendsList)
+        private List<User> removeFriendsThatAlreadyHadBirthdays(List<User> i_SortedByBirthdayFriendsList)
         {
             DateTime now = DateTime.Now;
             List<User> birthdaysList = new List<User>();

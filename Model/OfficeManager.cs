@@ -27,10 +27,9 @@ namespace Model
 
         public Application ExcelFile { get; private set; } = null;
 
-        public bool ExportToExcel(string i_SheetName, UserManager i_UserManager, string i_ExcelFilePath = null)
+        public void ExportToExcel(string i_SheetName, UserManager i_UserManager, string i_ExcelFilePath = null)
         {
             System.Data.DataTable dataTable = initializeCalenderTable(i_SheetName, i_UserManager);
-            bool isSuccessfulExportaion = false;
 
             try
             {
@@ -48,15 +47,13 @@ namespace Model
                 setColumnsHeight(workSheet);
                 setSheetBorders(workSheet);
                 fillExcelWorksheetWithData(workSheet, dataTable);
-                isSuccessfulExportaion = DecideFileVisibilityByFilePathGiven(workSheet, i_ExcelFilePath);
+                DecideFileVisibilityByFilePathGiven(workSheet, i_ExcelFilePath);
                 insertTotalEventsFormula(workSheet);
             }
             catch (Exception)
             {
                 throw new Exception("Error Occured");
             }
-
-            return isSuccessfulExportaion;
         }
 
         private void fillExcelWorksheetWithData(_Worksheet i_WorkSheet, System.Data.DataTable i_Data)

@@ -124,7 +124,7 @@ namespace Model
             return m_UserManager.GetFriendUpcomingEventsByTime(i_RecentEvents, i_EventsAgeInMonths);
         }
 
-        public List<User> GetConnectedUserFriendsSortedByBirthdays(bool i_ToSort)
+        public List<User> GetFriendsByBirthday(bool i_ToSort)
         {
             return m_UserManager.GetConnectedUserFriendsSortedByBirthdays(i_ToSort);
         }
